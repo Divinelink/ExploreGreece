@@ -6,6 +6,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -30,6 +31,7 @@ public class TourpacakgeRvAdapter extends RecyclerView.Adapter<TourpacakgeRvAdap
         @BindView(R.id.region_tv) TextView region_tv;
         @BindView(R.id.ratingBar)RatingBar ratingBar;
         @BindView(R.id.view_tourpackage_item)RelativeLayout view_tourpackage_item;
+        @BindView(R.id.ratingbar_root)LinearLayout ratinbar_layout;
 
         public TourpackageViewHolder(@NonNull View v) {
             super(v);
@@ -65,7 +67,7 @@ public class TourpacakgeRvAdapter extends RecyclerView.Adapter<TourpacakgeRvAdap
             }
         });
 
-        viewHolder.ratingBar.setOnClickListener(new View.OnClickListener() {
+        viewHolder.ratinbar_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 listener.onRateChangeCllicked(tourpackages.get(pos));

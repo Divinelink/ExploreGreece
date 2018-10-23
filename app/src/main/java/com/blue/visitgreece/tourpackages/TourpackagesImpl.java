@@ -4,11 +4,34 @@ import java.util.ArrayList;
 
 public class TourpackagesImpl implements TourpackagesInteractor {
 
+    /**
+     * Show Dummy TourPackages
+     * @param listener
+     */
     @Override
     public void getTourpackages(OnTourpackagesFinishListener listener) {
         // HTTP calll perimenw
         listener.onSucces(mockDataTourpacakages());
         listener.onError();
+    }
+
+    /**
+     * Filter tourpackages: Get from filter the specific tourpackages by Region
+     * @param listener
+     * @param filter
+     */
+    @Override
+    public void getFilteredTourpackages(OnTourpackagesFinishListener listener, String filter) {
+        ArrayList<TourpackageDomain> tourpackages         = mockDataTourpacakages();
+        ArrayList<TourpackageDomain> filteredtourpackages = new ArrayList<>();
+
+        // Search tourpackages
+        for(int i = 0; i < tourpackages.size(); i++){
+            if(tourpackages.get(i).getRegion().toString().startsWith(filter)){
+                filteredtourpackages.add(tourpackages.get(i));
+            }
+        }
+        listener.onSucces(filteredtourpackages);
     }
 
     private ArrayList<TourpackageDomain> mockDataTourpacakages() {

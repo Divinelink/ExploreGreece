@@ -2,7 +2,8 @@ package com.blue.visitgreece.tourpackages;
 
 import java.util.ArrayList;
 
-public class TourpackagesPresenterImpl implements TourpackagesPresenter, TourpackagesInteractor.OnTourpackagesFinishListener {
+public class TourpackagesPresenterImpl implements TourpackagesPresenter,
+        TourpackagesInteractor.OnTourpackagesFinishListener {
     TourpackagesView tourpackagesView;
     TourpackagesInteractor interactor;
 
@@ -15,6 +16,12 @@ public class TourpackagesPresenterImpl implements TourpackagesPresenter, Tourpac
     @Override
     public void getTourpackages() {
         interactor.getTourpackages(this);
+    }
+
+    @Override
+    public void getFilteredTourPackages(String filter) {
+        // Ερωτηση : Γιατι περναέι και τον Listener Μέσα;;;
+        interactor.getFilteredTourpackages(this,filter);
     }
 
     @Override

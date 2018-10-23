@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.blue.visitgreece.R;
 
@@ -16,11 +18,16 @@ import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import timber.log.Timber;
 
 public class TourspackagesFragment extends Fragment implements TourpackagesView{
 
     @BindView(R.id.tourspackage_Rv)
     RecyclerView tourspackage_rv;
+    @BindView(R.id.filter_ed)
+    EditText filter_ed;
+
 
     TourpackagesPresenter presenter;
 
@@ -51,11 +58,13 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
             @Override
             public void onTourpackageClikced(TourpackageUI tourpackage) {
                 // Pass id to another screen
+                Timber.d("TourPackage Clicked");
             }
 
             @Override
             public void onRateChangeCllicked(TourpackageUI tourpackage) {
                 // GO to the review submit screen
+                Timber.d("Rate Clicked");
             }
         });
         tourspackage_rv.setAdapter(tourpackagesRvAdapter);
@@ -64,5 +73,11 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
     @Override
     public void showGeneralError() {
 
+    }
+
+    @OnClick(R.id.filter_btn)
+    public void getFilterTourPacakages(View v){
+        String filteredText = filter_ed.getText().toString();
+        presenter.getFilteredTourPackages(filteredText);
     }
 }
