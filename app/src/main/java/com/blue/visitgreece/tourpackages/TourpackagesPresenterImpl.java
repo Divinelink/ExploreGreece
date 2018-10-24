@@ -10,7 +10,7 @@ public class TourpackagesPresenterImpl implements TourpackagesPresenter,
 
     public TourpackagesPresenterImpl(TourpackagesView tourpackagesView) {
         this.tourpackagesView = tourpackagesView;
-        this.interactor = new TourpackagesImpl();
+        this.interactor = new TourpackagesInteracrtorImpl();
     }
 
     @Override

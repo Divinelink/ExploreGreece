@@ -2,7 +2,7 @@ package com.blue.visitgreece.tourpackages;
 
 import java.util.ArrayList;
 
-public class TourpackagesImpl implements TourpackagesInteractor {
+public class TourpackagesInteracrtorImpl implements TourpackagesInteractor {
 
     /**
      * Show Dummy TourPackages
