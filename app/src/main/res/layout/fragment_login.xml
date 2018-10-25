@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".login.LoginFragment"
+    android:orientation="vertical"
+
+    android:background="@drawable/background_login_screen">
+
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:orientation="vertical">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:layout_marginTop="130dp"
+            android:textColor="@color/white"
+            android:text="@string/explore_greece_login_hint"
+            android:textSize="36dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:text="@string/explore_greece_login_hint_2"/>
+
+        <EditText
+            android:id="@+id/email_login_edit_text"
+            android:layout_marginTop="70dp"
+            android:layout_marginBottom="5dp"
+            android:hint="@string/email_address"
+            android:inputType="textEmailAddress"
+            style="@style/LoginEditTexts"/>
+
+        <EditText
+            android:id="@+id/password_login_edit_text"
+            android:hint="@string/password"
+            android:inputType="textPassword"
+            style="@style/LoginEditTexts"/>
+
+        <Button
+            style="@style/ButtonStyle"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="center"
+            android:text="@string/login_button"/>
+
+    </LinearLayout>
+
+
+
+
+</LinearLayout>

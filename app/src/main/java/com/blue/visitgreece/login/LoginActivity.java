@@ -12,6 +12,10 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-        // My First Commentg
+        getSupportFragmentManager()
+                .beginTransaction()
+                .add(R.id.login_root, new LoginFragment())
+                .commit();
+
     }
 }
