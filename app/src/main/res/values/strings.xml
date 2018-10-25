@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Visit Greece</string>
+    <string name="search">filter by region</string>
 </resources>
