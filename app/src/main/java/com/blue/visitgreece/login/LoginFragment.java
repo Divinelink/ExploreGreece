@@ -14,12 +14,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 
-public class LoginFragment extends Fragment {
+public class LoginFragment extends Fragment implements LoginView {
 
     @BindView(R.id.email_login_edit_text)
     EditText mEmailEditText;
     @BindView(R.id.password_login_edit_text)
     EditText mPasswordEditText;
+
+    LoginPresenter presenter;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -36,7 +38,14 @@ public class LoginFragment extends Fragment {
 
 
 
+        presenter = new LoginPresenterImpl(this);
+        presenter.getCredentials();
+
         return v;
     }
 
+    @Override
+    public void showLoginDialog() {
+
+    }
 }
