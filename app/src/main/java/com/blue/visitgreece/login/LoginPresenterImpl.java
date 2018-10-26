@@ -13,7 +13,9 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLog
     }
 
     @Override
-    public void getCredentials() {
+    public void doLogin(String name, String password) {
+
+
 
     }
 

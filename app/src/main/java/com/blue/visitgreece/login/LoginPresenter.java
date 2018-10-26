@@ -2,6 +2,8 @@ package com.blue.visitgreece.login;
 
 public interface LoginPresenter {
 
-    void getCredentials();
+    void doLogin(String name, String password);
+
+
 
 }

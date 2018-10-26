@@ -6,12 +6,15 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.blue.visitgreece.R;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class LoginFragment extends Fragment implements LoginView {
@@ -20,6 +23,16 @@ public class LoginFragment extends Fragment implements LoginView {
     EditText mEmailEditText;
     @BindView(R.id.password_login_edit_text)
     EditText mPasswordEditText;
+
+    @OnClick(R.id.button_login)
+    public void submit(){
+
+        final String username = mEmailEditText.getText().toString();
+        final String password = mPasswordEditText.getText().toString();
+        presenter.doLogin(username, password);
+
+
+    }
 
     LoginPresenter presenter;
 
@@ -39,7 +52,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
 
         presenter = new LoginPresenterImpl(this);
-        presenter.getCredentials();
+
 
         return v;
     }
