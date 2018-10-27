@@ -4,7 +4,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.blue.visitgreece.R;
-import com.blue.visitgreece.tourpackages.TourspackagesFragment;
+
+
 
 public class LoginActivity extends AppCompatActivity {
 

@@ -11,4 +11,9 @@
 
     <string name="search">filter by region</string>
 
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="button_review">Review!</string>
+    <string name="button_allReviews">See all reviews</string>
 </resources>

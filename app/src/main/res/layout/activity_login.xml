@@ -8,5 +8,4 @@
     tools:context=".login.LoginActivity"
     tools:layout_editor_absoluteY="25dp">
 
-
 </android.support.constraint.ConstraintLayout>
