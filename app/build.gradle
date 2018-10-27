@@ -46,6 +46,9 @@ dependencies {
     // Download Images
     implementation 'com.squareup.picasso:picasso:2.71828'
 
+    implementation "android.arch.persistence.room:runtime:1.1.1"
+    annotationProcessor "android.arch.persistence.room:compiler:1.1.1"
+
     //Custom Fonts
     implementation 'uk.co.chrisjenx:calligraphy:2.3.0'
 
