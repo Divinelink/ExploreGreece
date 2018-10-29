@@ -6,7 +6,7 @@ import android.arch.persistence.room.Room;
 import android.arch.persistence.room.RoomDatabase;
 import android.content.Context;
 
-@Database(entities = {/* Add classes here */}, version = 1, exportSchema = false)
+//@Database(entities = {/* Add classes here */}, version = 1, exportSchema = false)
 abstract public class VisitGreeceDatabase extends RoomDatabase {
 
 //    public abstract "Your dao here"  yourDao();

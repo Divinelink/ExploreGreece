@@ -1,5 +1,7 @@
 package com.blue.visitgreece.login;
 
+import android.widget.Toast;
+
 public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLoginFinishListener {
 
     private LoginInteractor interactor;
@@ -13,19 +15,24 @@ public class LoginPresenterImpl implements LoginPresenter, LoginInteractor.OnLog
     }
 
     @Override
-    public void doLogin(String name, String password) {
+    public void doLogin(String username, String password) {
 
-
+        interactor.verifyCredentials(this, username, password);
 
     }
 
     @Override
     public void onSuccess() {
-
+        view.showLoginDialog();
     }
 
     @Override
-    public void onError() {
+    public void onWrongCredentialsError() {
+        view.showWrongCredentialsErrorDialog();
+    }
 
+    @Override
+    public void onNoCredentialsEntered() {
+        view.showBothAreRequired();
     }
 }

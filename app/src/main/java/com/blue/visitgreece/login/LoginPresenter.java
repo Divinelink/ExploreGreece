@@ -4,6 +4,4 @@ public interface LoginPresenter {
 
     void doLogin(String name, String password);
 
-
-
 }

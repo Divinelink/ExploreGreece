@@ -49,16 +49,23 @@ public class LoginFragment extends Fragment implements LoginView {
 
         ButterKnife.bind(this, v);
 
-
-
         presenter = new LoginPresenterImpl(this);
-
 
         return v;
     }
 
     @Override
     public void showLoginDialog() {
+        Toast.makeText(getActivity(), "Successfully logged in!", Toast.LENGTH_SHORT).show();
+    }
 
+    @Override
+    public void showWrongCredentialsErrorDialog() {
+        Toast.makeText(getActivity(), "Incorrect email or password", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showBothAreRequired() {
+        Toast.makeText(getActivity(), "Enter email and password", Toast.LENGTH_SHORT).show();
     }
 }
