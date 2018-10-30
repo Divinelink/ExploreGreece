@@ -72,7 +72,7 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
                 // Pass id to another screen
                 Timber.d("TourPackage Clicked");
                 Timber.e(tourpackage.getRegion());
-                homeView.addToursFragment(tourpackage);
+                //homeView.addToursFragment(tourpackage);
             }
 
             @Override

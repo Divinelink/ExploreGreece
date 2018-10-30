@@ -3,6 +3,27 @@ package com.blue.visitgreece.tourpackages;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+enum Region {
+    Crete("Crete"),
+    Peloponnese("Peloponnese"),
+    Macedonia("Macedonia"),
+    Thessaly("Thessaly"),
+    Thrace("Thrace"),
+    Aeagean("Aeagean"),
+    Ionian("Ionian"),
+    StereaHellas("StereaHellas");
+
+    private String region;
+
+    Region(String region) {
+        this.region = region;
+    }
+
+    public String getRegion() {
+        return region;
+    }
+}
+
 public class TourpackageUI implements Parcelable {
     private String tourpackageId, name, ratingColor, regionColor, imgUrl, region;
     private int rating;
