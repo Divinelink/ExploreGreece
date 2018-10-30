@@ -1,6 +1,24 @@
 <resources>
     <string name="app_name">Visit Greece</string>
 
+<<<<<<< HEAD
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+=======
+
+
+    <string name="email_address">Email address</string>
+    <string name="password">Password</string>
+    <string name="explore_greece_login_hint">EXPLORE\nGREECE</string>
+    <string name="explore_greece_login_hint_2">with your personal travel guide</string>
+    <string name="login_button">Log in</string>
+
+    <string name="search">filter by region</string>
+
+
+    <!-- TODO: Remove or change this placeholder text -->
+
+    <string name="button_review">Review!</string>
+    <string name="button_allReviews">See all reviews</string>
+>>>>>>> development
 </resources>
