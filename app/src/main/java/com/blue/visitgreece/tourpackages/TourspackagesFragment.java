@@ -13,6 +13,8 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.blue.visitgreece.R;
+import com.blue.visitgreece.base.HomeView;
+import com.blue.visitgreece.tours.ToursFragment;
 
 import java.util.ArrayList;
 
@@ -30,11 +32,19 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
 
 
     TourpackagesPresenter presenter;
+    HomeView homeView;
 
     public TourspackagesFragment() {
         // Required empty public constructor
     }
 
+    public static TourspackagesFragment newInstance(HomeView homeView) {
+        Bundle args = new Bundle();
+        TourspackagesFragment fragment = new TourspackagesFragment();
+        args.putSerializable("home_view", homeView);
+        fragment.setArguments(args);
+        return fragment;
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -42,6 +52,8 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tourspackages, container, false);
         ButterKnife.bind(this, v);
+        homeView = (HomeView) getArguments().getSerializable("home_view");
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         tourspackage_rv.setLayoutManager(layoutManager);
 
@@ -52,13 +64,15 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
     }
 
     @Override
-    public void showTourpackages(ArrayList<TourpackageUI> tourpackages) {
+    public void showTourpackages(final ArrayList<TourpackageUI> tourpackages) {
         TourpacakgeRvAdapter tourpackagesRvAdapter = new TourpacakgeRvAdapter(tourpackages, new OnClickTourpackage() {
 
             @Override
             public void onTourpackageClikced(TourpackageUI tourpackage) {
                 // Pass id to another screen
                 Timber.d("TourPackage Clicked");
+                Timber.e(tourpackage.getRegion());
+                homeView.addToursFragment(tourpackage);
             }
 
             @Override
@@ -80,4 +94,6 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
         String filteredText = filter_ed.getText().toString();
         presenter.getFilteredTourPackages(filteredText);
     }
+
+
 }

@@ -1,25 +1,37 @@
 package com.blue.visitgreece.tourpackages;
 
-public class TourpackageUI {
-    private String name, ratingColor, regionColor, imgUrl;
-    private int rating;
-    private Region region;
+import android.os.Parcel;
+import android.os.Parcelable;
 
-    public TourpackageUI(String name, String ratingColor, String regionColor, String imgUrl, int rating, Region region) {
+public class TourpackageUI implements Parcelable {
+    private String tourpackageId, name, ratingColor, regionColor, imgUrl, region;
+    private int rating;
+
+    public TourpackageUI(String tourpackageId, String name, String ratingColor, String regionColor, String imgUrl, int rating, String region) {
         this.name = name;
         this.ratingColor = ratingColor;
         this.regionColor = regionColor;
         this.imgUrl = imgUrl;
         this.rating = rating;
         this.region = region;
+        this.tourpackageId = tourpackageId;
     }
 
-    public TourpackageUI(String name, String ratingColor, String regionColor, int rating, Region region) {
+    public TourpackageUI(String tourpackageId, String name, String ratingColor, String regionColor, int rating, String region) {
         this.name = name;
         this.ratingColor = ratingColor;
         this.regionColor = regionColor;
         this.rating = rating;
         this.region = region;
+        this.tourpackageId = tourpackageId;
+    }
+
+    public String getId() {
+        return tourpackageId;
+    }
+
+    public void setId(String id) {
+        this.tourpackageId = tourpackageId;
     }
 
     public String getName() {
@@ -62,11 +74,37 @@ public class TourpackageUI {
         this.rating = rating;
     }
 
-    public Region getRegion() {
+    public String getRegion() {
         return region;
     }
 
-    public void setRegion(Region region) {
-        this.region = region;
+
+    protected TourpackageUI(Parcel in) {
+        rating = in.readInt();
+        region = (String) in.readValue(Region.class.getClassLoader());
     }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(rating);
+        dest.writeValue(region);
+    }
+
+    @SuppressWarnings("unused")
+    public static final Parcelable.Creator<TourpackageUI> CREATOR = new Parcelable.Creator<TourpackageUI>() {
+        @Override
+        public TourpackageUI createFromParcel(Parcel in) {
+            return new TourpackageUI(in);
+        }
+
+        @Override
+        public TourpackageUI[] newArray(int size) {
+            return new TourpackageUI[size];
+        }
+    };
 }

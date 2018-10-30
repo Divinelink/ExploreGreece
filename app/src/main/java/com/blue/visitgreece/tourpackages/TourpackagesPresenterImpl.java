@@ -21,7 +21,7 @@ public class TourpackagesPresenterImpl implements TourpackagesPresenter,
     @Override
     public void getFilteredTourPackages(String filter) {
         // Ερωτηση : Γιατι περναέι και τον Listener Μέσα;;;
-        interactor.getFilteredTourpackages(this,filter);
+        interactor.getFilteredTourpackages(this, filter);
     }
 
     @Override
@@ -31,31 +31,32 @@ public class TourpackagesPresenterImpl implements TourpackagesPresenter,
 
             for (TourpackageDomain tourpackage : tourpackages) {
 
-                TourpackageUI tourpackageUI = new TourpackageUI(tourpackage.getName(),
+                TourpackageUI tourpackageUI = new TourpackageUI(tourpackage.getId(),
+                        tourpackage.getName(),
                         tourpackage.getRatingColor(),
                         tourpackage.getRegionColor(),
                         tourpackage.getRating(),
                         tourpackage.getRegion());
 
                 // Logiki view
-                Region region = tourpackageUI.getRegion();
+                String region = tourpackageUI.getRegion();
 
                 switch(region){
-                    case Crete:        tourpackageUI.setRegionColor(tourpackage.getRegionColor());
+                    case "Crete":        tourpackageUI.setRegionColor(tourpackage.getRegionColor());
                         break;
-                    case Aegean:       tourpackageUI.setRegionColor(tourpackage.getRegionColor());
+                    case "Aegean":       tourpackageUI.setRegionColor(tourpackage.getRegionColor());
                         break;
-                    case Ionian:       tourpackageUI.setRegionColor(tourpackage.getRegionColor());
+                    case "Ionian":       tourpackageUI.setRegionColor(tourpackage.getRegionColor());
                         break;
-                    case Thrace:       tourpackageUI.setRegionColor(tourpackage.getRegionColor());
+                    case "Thrace":       tourpackageUI.setRegionColor(tourpackage.getRegionColor());
                         break;
-                    case Thessaly:     tourpackageUI.setRegionColor(tourpackage.getRegionColor());
+                    case "Thessaly":     tourpackageUI.setRegionColor(tourpackage.getRegionColor());
                         break;
-                    case StereaHellas: tourpackageUI.setRegionColor(tourpackage.getRegionColor());
+                    case "StereaHellas": tourpackageUI.setRegionColor(tourpackage.getRegionColor());
                         break;
-                    case Pelloponese:  tourpackageUI.setRegionColor(tourpackage.getRegionColor());
+                    case "Pelloponese":  tourpackageUI.setRegionColor(tourpackage.getRegionColor());
                         break;
-                    case Macedonia:    tourpackageUI.setRegionColor(tourpackage.getRegionColor());
+                    case "Macedonia":    tourpackageUI.setRegionColor(tourpackage.getRegionColor());
                         break;
                     default:
                                        tourpackageUI.setRatingColor(tourpackage.getRegionColor());

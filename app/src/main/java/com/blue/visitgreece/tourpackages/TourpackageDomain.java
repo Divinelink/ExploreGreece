@@ -3,17 +3,18 @@ package com.blue.visitgreece.tourpackages;
 
 enum Region{
     Crete, Pelloponese, Macedonia, Thessaly, Thrace, Aegean, Ionian, StereaHellas;
+
+
 }
 
 public class TourpackageDomain {
 
-    private String id, name, ratingColor, regionColor, imgUrl;
+    private String tourpackageId, name, ratingColor, regionColor, imgUrl, region;
     private int rating;
 
-    private Region region = Region.Pelloponese;
 
-    public TourpackageDomain(String id, String name, String ratingColor, String regionColor, int rating, Region region) {
-        this.id = id;
+    public TourpackageDomain(String tourpackageId, String name, String ratingColor, String regionColor, int rating, String region) {
+        this.tourpackageId = tourpackageId;
         this.name = name;
         this.ratingColor = ratingColor;
         this.regionColor = regionColor;
@@ -21,8 +22,8 @@ public class TourpackageDomain {
         this.region = region;
     }
 
-    public TourpackageDomain(String id, String name, String ratingColor, String regionColor, String imgUrl, int rating, Region region) {
-        this.id = id;
+    public TourpackageDomain(String tourpackageId, String name, String ratingColor, String regionColor, String imgUrl, int rating, String region) {
+        this.tourpackageId = tourpackageId;
         this.name = name;
         this.ratingColor = ratingColor;
         this.regionColor = regionColor;
@@ -32,11 +33,11 @@ public class TourpackageDomain {
     }
 
     public String getId() {
-        return id;
+        return tourpackageId;
     }
 
     public void setId(String id) {
-        this.id = id;
+        this.tourpackageId = id;
     }
 
     public String getName() {
@@ -79,11 +80,7 @@ public class TourpackageDomain {
         this.rating = rating;
     }
 
-    public Region getRegion() {
+    public String getRegion() {
         return region;
-    }
-
-    public void setRegion(Region region) {
-        this.region = region;
     }
 }

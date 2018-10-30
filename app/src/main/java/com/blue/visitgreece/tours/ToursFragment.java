@@ -17,6 +17,7 @@ import butterknife.OnClick;
 import timber.log.Timber;
 
 import com.blue.visitgreece.R;
+import com.blue.visitgreece.tourpackages.TourpackageUI;
 
 import java.util.ArrayList;
 
@@ -56,32 +57,34 @@ public class ToursFragment extends Fragment implements ToursView {
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         TourpackageUI tourpackage = getArguments().getParcelable("tourpackage");
-        Timber.e(tourpackage.getTourpackageId()); //logging
+        Timber.e(tourpackage.getId()); //logging
 
         View v = inflater.inflate(R.layout.fragment_tours, container, false);
         ButterKnife.bind(this, v);
-        mTourpackageName.setText(tourpackage.getName()); //από TourpackageUI
-        mTourpackageRegion.setText(tourpackage.getRegion());
-        mTourpackageRating.setText(tourpackage.getRating());
+        Timber.e(tourpackage.getRegion().toString());
+        //mTourpackageName.setText(tourpackage.getName()); //από TourpackageUI
+        //mTourpackageRegion.setText(tourpackage.getRegion());
+        //mTourpackageRating.setText(tourpackage.getRating());
 
         mToursRv = v.findViewById(R.id.tours_rv);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mToursRv.setLayoutManager(layoutManager);
 
         presenter = new ToursPresenterImpl(this);
-        presenter.getTours(tourpackage.getTourpackageId());  // να προστεθεί στην προηγούμενη οθόνη
+        presenter.getTours(tourpackage.getId());  // να προστεθεί στην προηγούμενη οθόνη
         return v;
 
+        /*
         mButtonRev = v.findViewById(R.id.button_rev);
         mButtonRev.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent intent = new Intent(); //να προστεθεί Intent reviews //Butterknife?
-                startActivity(intent);
-                getActivity();
+                // Etkos on createview dilonete to onclick logo butter knife
+
             }
         });
-
+        */
+        /*
         mButtonAllRev = v.findViewById(R.id.button_all_rev);
         mButtonAllRev.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -91,6 +94,15 @@ public class ToursFragment extends Fragment implements ToursView {
                 getActivity();
             }
         });
+        */
+    }
+
+    @OnClick(R.id.button_rev)
+    public void OnclickReview(View v){
+        Intent intent = new Intent(); //να προστεθεί Intent reviews //Butterknife?
+        startActivity(intent);
+        getActivity();
+
     }
 
     @Override
