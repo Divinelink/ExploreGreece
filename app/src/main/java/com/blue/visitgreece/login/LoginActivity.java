@@ -4,14 +4,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.blue.visitgreece.R;
-<<<<<<< HEAD
+
 import com.blue.visitgreece.reviews.ReviewsFragment;
-=======
+
 import com.blue.visitgreece.base.HomeView;
 import com.blue.visitgreece.tourpackages.TourpackageUI;
 import com.blue.visitgreece.tourpackages.TourspackagesFragment;
 import com.blue.visitgreece.tours.ToursFragment;
->>>>>>> development
+
 
 
 public class LoginActivity extends AppCompatActivity implements HomeView{
@@ -21,15 +21,15 @@ public class LoginActivity extends AppCompatActivity implements HomeView{
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
-<<<<<<< HEAD
+
 
         //temporary , must get delete when we merge packages and set proper fragments for app flow
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.activity_login_root, new ReviewsFragment())
+                .add(R.id.login_root, new ReviewsFragment())
                 .commit();
 
-=======
+
 //        getSupportFragmentManager()
 //                .beginTransaction()
 //                .add(R.id.login_root, new LoginFragment())
@@ -50,7 +50,7 @@ public class LoginActivity extends AppCompatActivity implements HomeView{
                 .replace(R.id.login_root, ToursFragment.newInstance(tourpackageUI))
                 .addToBackStack(null)
                 .commit();
->>>>>>> development
+
     }
 
 }
