@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.blue.visitgreece.R;
+import com.blue.visitgreece.base.HomeView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,14 +31,21 @@ public class LoginFragment extends Fragment implements LoginView {
         final String username = mEmailEditText.getText().toString();
         final String password = mPasswordEditText.getText().toString();
         presenter.doLogin(username, password);
-
-
     }
 
     LoginPresenter presenter;
+    HomeView homeView;
 
     public LoginFragment() {
         // Required empty public constructor
+    }
+
+    public static LoginFragment newInstance(HomeView homeView) {
+        Bundle args = new Bundle();
+        LoginFragment fragment = new LoginFragment();
+        args.putSerializable("home_view", homeView);
+        fragment.setArguments(args);
+        return fragment;
     }
 
 
@@ -49,6 +57,8 @@ public class LoginFragment extends Fragment implements LoginView {
 
         ButterKnife.bind(this, v);
 
+        homeView = (HomeView) getArguments().getSerializable("home_view");
+
         presenter = new LoginPresenterImpl(this);
 
         return v;
@@ -57,6 +67,9 @@ public class LoginFragment extends Fragment implements LoginView {
     @Override
     public void showLoginDialog() {
         Toast.makeText(getActivity(), "Successfully logged in!", Toast.LENGTH_SHORT).show();
+
+        // Go to tourpackage Fragment
+        homeView.addToursPackageFragment();
     }
 
     @Override
@@ -68,4 +81,6 @@ public class LoginFragment extends Fragment implements LoginView {
     public void showBothAreRequired() {
         Toast.makeText(getActivity(), "Enter email and password", Toast.LENGTH_SHORT).show();
     }
+
+
 }

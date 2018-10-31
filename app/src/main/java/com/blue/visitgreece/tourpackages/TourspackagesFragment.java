@@ -1,6 +1,7 @@
 package com.blue.visitgreece.tourpackages;
 
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -14,6 +15,7 @@ import android.widget.EditText;
 
 import com.blue.visitgreece.R;
 import com.blue.visitgreece.base.HomeView;
+import com.blue.visitgreece.login.LoginUI;
 import com.blue.visitgreece.tours.ToursFragment;
 
 import java.util.ArrayList;
@@ -30,7 +32,6 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
     @BindView(R.id.filter_ed)
     EditText filter_ed;
 
-
     TourpackagesPresenter presenter;
     HomeView homeView;
 
@@ -38,11 +39,9 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
         // Required empty public constructor
     }
 
-    public static TourspackagesFragment newInstance(HomeView homeView) {
-        Bundle args = new Bundle();
+    public static TourspackagesFragment newInstance() {
+        // Isos xriastei kati na perasoume apo ton loginUI sto diko moy fragment
         TourspackagesFragment fragment = new TourspackagesFragment();
-        args.putSerializable("home_view", homeView);
-        fragment.setArguments(args);
         return fragment;
     }
 
@@ -52,14 +51,16 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
         // Inflate the layout for this fragment
         View v = inflater.inflate(R.layout.fragment_tourspackages, container, false);
         ButterKnife.bind(this, v);
-        homeView = (HomeView) getArguments().getSerializable("home_view");
 
+        // Get arguments from bundle
+        homeView = (HomeView) getActivity().getIntent().getSerializableExtra("home_view"); // Logo API PIE thelei auth thn grammi
+
+        // Set up Layoutmanager in Recycler View
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         tourspackage_rv.setLayoutManager(layoutManager);
 
         presenter = new TourpackagesPresenterImpl(this);
         presenter.getTourpackages();
-
         return v;
     }
 
@@ -72,7 +73,7 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
                 // Pass id to another screen
                 Timber.d("TourPackage Clicked");
                 Timber.e(tourpackage.getRegion());
-                //homeView.addToursFragment(tourpackage);
+                homeView.addToursFragment(tourpackage);
             }
 
             @Override
