@@ -16,4 +16,6 @@
     <string name="button_review">Review!</string>
     <string name="button_allReviews">See all reviews</string>
 
+    <string name="error_message">Error!</string>
+
 </resources>

@@ -1,6 +1,5 @@
 package com.blue.visitgreece.reviews;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 public class ReviewsInteractorImp implements ReviewsInteractor {
@@ -19,20 +18,20 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
     }
 
 
-    private ArrayList<Review> mockData() {
-        ArrayList<Review> reviews = new ArrayList<>();
-        reviews.add(new Review("asd",5,"red","bad rating"));
-        reviews.add(new Review("asd",6,"red","very bad rating"));
-        reviews.add(new Review("asd",1,"red","good rating"));
-        reviews.add(new Review("asd",5,"red","bad rating"));
-        reviews.add(new Review("asd",2,"red","good rating"));
-        reviews.add(new Review("asd",3,"blue","bad rating"));
-        reviews.add(new Review("asd",5,"green","very good rating"));
-        reviews.add(new Review("asd",5,"red","bad rating"));
-        reviews.add(new Review("asd",3,"red","bad rating"));
-        reviews.add(new Review("asd",5,"red","hmm rating"));
-        reviews.add(new Review("asd",5,"red","bad rating"));
-        reviews.add(new Review("asd",5,"red","good rating"));
+    private ArrayList<ReviewDomain> mockData() {
+        ArrayList<ReviewDomain> reviews = new ArrayList<ReviewDomain>();
+        reviews.add(new ReviewDomain("asd",5,"red","bad rating"));
+        reviews.add(new ReviewDomain("asd",6,"red","very bad rating"));
+        reviews.add(new ReviewDomain("asd",1,"red","good rating"));
+        reviews.add(new ReviewDomain("asd",5,"red","bad rating"));
+        reviews.add(new ReviewDomain("asd",2,"red","good rating"));
+        reviews.add(new ReviewDomain("asd",3,"blue","bad rating"));
+        reviews.add(new ReviewDomain("asd",5,"green","very good rating"));
+        reviews.add(new ReviewDomain("asd",5,"red","bad rating"));
+        reviews.add(new ReviewDomain("asd",3,"red","bad rating"));
+        reviews.add(new ReviewDomain("asd",5,"red","hmm rating"));
+        reviews.add(new ReviewDomain("asd",5,"red","bad rating"));
+        reviews.add(new ReviewDomain("asd",5,"red","good rating"));
         return reviews;
     }
 

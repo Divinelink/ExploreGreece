@@ -10,7 +10,7 @@ public interface ReviewsInteractor {
 
     interface OnReviewsFinishListener{
 
-        void onSuccess(ArrayList<Review> reviews);
+        void onSuccess(ArrayList<ReviewDomain> reviews);
 
         void onError();
     }

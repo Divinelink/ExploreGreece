@@ -1,6 +1,5 @@
 package com.blue.visitgreece.reviews;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -15,16 +14,16 @@ import java.util.ArrayList;
 
 public class ReviewsRvAdapter extends RecyclerView.Adapter<ReviewsRvAdapter.ReviewsViewHolder> {
 
-    private ArrayList<Review> reviews;
+    private ArrayList<ReviewDomain> reviews;
 //    private Context context; //needed for UI color bundle data , maybe not needed
 
 
 
-    public ReviewsRvAdapter(ArrayList<Review> reviews){
+    public ReviewsRvAdapter(ArrayList<ReviewDomain> reviews){
         this.reviews = reviews;
     }
 
-//    public ReviewsRvAdapter(ArrayList<Review> reviews,Context context){
+//    public ReviewsRvAdapter(ArrayList<ReviewDomain> reviews,Context context){
 //        this.reviews = reviews;
 //        this.context = context;
 //    }

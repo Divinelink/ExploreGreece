@@ -20,12 +20,24 @@ public class ReviewsPresenterImp implements ReviewsPresenter ,ReviewsInteractor.
 
     @Override
     public void getFilteredReviews(int ratingFilter){
-
+        interactor.getFilteredReviews(this,ratingFilter);
     }
 
 
     @Override
-    public void onSuccess(ArrayList<Review> reviews) {
+    public void onSuccess(ArrayList<ReviewDomain> reviews) {
+        ArrayList<ReviewUI>  reviewsUI = new ArrayList<>();
+        if(reviews != null && !reviews.isEmpty()){
+            for(ReviewDomain review : reviews){
+                ReviewUI reviewUI = new ReviewUI(
+                        review.getId(),
+                        review.getRating(),
+                        review.getRatingColor(),
+                        review.getComment()
+
+                );
+            }
+        }
         reviewsView.showReviews(reviews);
     }
 

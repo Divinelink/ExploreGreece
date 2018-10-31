@@ -4,6 +4,8 @@ import java.util.ArrayList;
 
 public interface ReviewsView {
 
-    void showReviews(ArrayList<Review> reviews);
+    void showReviews(ArrayList<ReviewDomain> reviews);
+
+    void showGeneralError();
 
 }

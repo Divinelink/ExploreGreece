@@ -1,4 +1,4 @@
 package com.blue.visitgreece.reviews;
 
-public class OnReviewClickListener {
+public interface OnReviewClickListener {
 }
