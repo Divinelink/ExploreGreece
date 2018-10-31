@@ -1,12 +1,6 @@
 package com.blue.visitgreece.tourpackages;
 
 
-enum Region{
-    Crete, Pelloponese, Macedonia, Thessaly, Thrace, Aegean, Ionian, StereaHellas;
-
-
-}
-
 public class TourpackageDomain {
 
     private String tourpackageId, name, ratingColor, regionColor, imgUrl, region;

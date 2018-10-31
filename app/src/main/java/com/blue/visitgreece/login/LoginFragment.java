@@ -6,12 +6,16 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.blue.visitgreece.R;
+import com.blue.visitgreece.base.HomeView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 
 public class LoginFragment extends Fragment implements LoginView {
@@ -21,10 +25,27 @@ public class LoginFragment extends Fragment implements LoginView {
     @BindView(R.id.password_login_edit_text)
     EditText mPasswordEditText;
 
+    @OnClick(R.id.button_login)
+    public void submit(){
+
+        final String username = mEmailEditText.getText().toString();
+        final String password = mPasswordEditText.getText().toString();
+        presenter.doLogin(username, password);
+    }
+
     LoginPresenter presenter;
+    HomeView homeView;
 
     public LoginFragment() {
         // Required empty public constructor
+    }
+
+    public static LoginFragment newInstance(HomeView homeView) {
+        Bundle args = new Bundle();
+        LoginFragment fragment = new LoginFragment();
+        args.putSerializable("home_view", homeView);
+        fragment.setArguments(args);
+        return fragment;
     }
 
 
@@ -36,16 +57,31 @@ public class LoginFragment extends Fragment implements LoginView {
 
         ButterKnife.bind(this, v);
 
-
+        homeView = (HomeView)  getArguments().getSerializable("home_view");
 
         presenter = new LoginPresenterImpl(this);
-        presenter.getCredentials();
 
         return v;
     }
 
     @Override
     public void showLoginDialog() {
+        Toast.makeText(getActivity(), "Successfully logged in!", Toast.LENGTH_SHORT).show();
+
+        // Go to tourpackage Fragment
 
     }
+
+    @Override
+    public void showWrongCredentialsErrorDialog() {
+        Toast.makeText(getActivity(), "Incorrect email or password", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void showBothAreRequired() {
+        Toast.makeText(getActivity(), "Enter email and password", Toast.LENGTH_SHORT).show();
+        homeView.addToursPackageFragment(this);
+    }
+
+
 }

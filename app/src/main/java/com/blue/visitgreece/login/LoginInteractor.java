@@ -2,12 +2,14 @@ package com.blue.visitgreece.login;
 
 public interface LoginInteractor {
 
-    void getCredentials (OnLoginFinishListener listener);
+    void verifyCredentials (OnLoginFinishListener listener, String username, String password);
 
     interface OnLoginFinishListener {
 
         void onSuccess();
 
-        void onError();
+        void onWrongCredentialsError();
+
+        void onNoCredentialsEntered();
     }
 }
