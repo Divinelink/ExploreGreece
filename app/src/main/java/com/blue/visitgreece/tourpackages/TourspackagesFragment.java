@@ -15,6 +15,7 @@ import android.widget.EditText;
 
 import com.blue.visitgreece.R;
 import com.blue.visitgreece.base.HomeView;
+import com.blue.visitgreece.login.LoginFragment;
 import com.blue.visitgreece.login.LoginUI;
 import com.blue.visitgreece.tours.ToursFragment;
 
@@ -33,15 +34,17 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
     EditText filter_ed;
 
     TourpackagesPresenter presenter;
-    HomeView homeView;
+    static HomeView homeView;
 
     public TourspackagesFragment() {
         // Required empty public constructor
     }
 
-    public static TourspackagesFragment newInstance() {
+    // Den kserw an einai swstos tropos erwtisi ston petro.
+    public static TourspackagesFragment newInstance(LoginFragment login) {
         // Isos xriastei kati na perasoume apo ton loginUI sto diko moy fragment
         TourspackagesFragment fragment = new TourspackagesFragment();
+        homeView = (HomeView) login.getArguments().getSerializable("home_view");
         return fragment;
     }
 
@@ -53,7 +56,7 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
         ButterKnife.bind(this, v);
 
         // Get arguments from bundle
-        homeView = (HomeView) getActivity().getIntent().getSerializableExtra("home_view"); // Logo API PIE thelei auth thn grammi
+        //homeView = (HomeView) getActivity().getIntent().getSerializableExtra("home_view"); // Logo API PIE thelei auth thn grammi
 
         // Set up Layoutmanager in Recycler View
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -95,6 +98,5 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
         String filteredText = filter_ed.getText().toString();
         presenter.getFilteredTourPackages(filteredText);
     }
-
 
 }
