@@ -12,6 +12,7 @@ import android.widget.EditText;
 import android.widget.Toast;
 
 import com.blue.visitgreece.R;
+import com.blue.visitgreece.tours.TourUI;
 
 import java.util.ArrayList;
 
@@ -35,6 +36,14 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
 
     public ReviewsFragment() {
         // Required empty public constructor
+    }
+
+    public static ReviewsFragment newInstance(TourUI tour) {
+        ReviewsFragment myFragment = new ReviewsFragment();
+        Bundle args = new Bundle();
+//        args.putParcelable("tour", tour); //TourUI needs to implement parceable!
+        myFragment.setArguments(args);
+        return myFragment;
     }
 
 

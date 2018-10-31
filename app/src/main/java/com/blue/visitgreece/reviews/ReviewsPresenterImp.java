@@ -43,6 +43,7 @@ public class ReviewsPresenterImp implements ReviewsPresenter ,ReviewsInteractor.
 
     @Override
     public void onError() {
+        reviewsView.showGeneralError();
 
     }
 }
