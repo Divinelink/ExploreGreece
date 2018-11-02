@@ -1,5 +1,7 @@
 package com.blue.visitgreece.tourpackages;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 import timber.log.Timber;
@@ -16,7 +18,7 @@ public class TourpackagesPresenterImpl implements TourpackagesPresenter,
     }
 
     @Override
-    public void getTourpackages() {
+    public void getTourpackages(Context ctx) {
         interactor.getTourpackages(this);
     }
 
@@ -28,16 +30,13 @@ public class TourpackagesPresenterImpl implements TourpackagesPresenter,
 
     @Override
     public void onSucces(ArrayList<TourpackageDomain> tourpackages) {
+
         ArrayList<TourpackageUI> tourpackagesUI = new ArrayList<>();
         if (tourpackages != null && !tourpackages.isEmpty()) {
-
             for (TourpackageDomain tourpackage : tourpackages) {
 
                 TourpackageUI tourpackageUI = new TourpackageUI(tourpackage.getId(),
                         tourpackage.getName(),
-                        tourpackage.getRatingColor(),
-                        tourpackage.getRegionColor(),
-                        tourpackage.getRating(),
                         tourpackage.getRegion());
 
                 // Find By Label in Enum
@@ -67,7 +66,7 @@ public class TourpackagesPresenterImpl implements TourpackagesPresenter,
                 tourpackagesUI.add(tourpackageUI);
             }
         }
-        tourpackagesView.showTourpackages(tourpackagesUI);
+        //tourpackagesView.showTourpackages(tourpackagesUI);
     }
 
     @Override

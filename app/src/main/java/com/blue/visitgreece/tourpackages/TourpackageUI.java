@@ -25,34 +25,31 @@ enum Region {
 }
 
 public class TourpackageUI implements Parcelable {
-    private String tourpackageId, name, ratingColor, regionColor, imgUrl, region;
+    private String id, name, ratingColor, regionColor, imgUrl, region;
     private int rating;
 
-    public TourpackageUI(String tourpackageId, String name, String ratingColor, String regionColor, String imgUrl, int rating, String region) {
+
+    public TourpackageUI(String id, String name, String ratingColor, String regionColor, int rating, String region) {
         this.name = name;
         this.ratingColor = ratingColor;
         this.regionColor = regionColor;
-        this.imgUrl = imgUrl;
         this.rating = rating;
         this.region = region;
-        this.tourpackageId = tourpackageId;
+        this.id = id;
     }
 
-    public TourpackageUI(String tourpackageId, String name, String ratingColor, String regionColor, int rating, String region) {
+    public TourpackageUI(String id, String name, String region) {
+        this.id = id;
         this.name = name;
-        this.ratingColor = ratingColor;
-        this.regionColor = regionColor;
-        this.rating = rating;
         this.region = region;
-        this.tourpackageId = tourpackageId;
     }
 
     public String getId() {
-        return tourpackageId;
+        return id;
     }
 
     public void setId(String id) {
-        this.tourpackageId = tourpackageId;
+        this.id = id;
     }
 
     public String getName() {

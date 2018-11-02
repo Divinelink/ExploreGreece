@@ -63,29 +63,38 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
         tourspackage_rv.setLayoutManager(layoutManager);
 
         presenter = new TourpackagesPresenterImpl(this);
-        presenter.getTourpackages();
+        presenter.getTourpackages(getActivity());
         return v;
     }
 
     @Override
     public void showTourpackages(final ArrayList<TourpackageUI> tourpackages) {
-        TourpacakgeRvAdapter tourpackagesRvAdapter = new TourpacakgeRvAdapter(tourpackages, new OnClickTourpackage() {
+        if(getActivity() != null){
+            getActivity().runOnUiThread(new Runnable() {
+                TourpacakgeRvAdapter tourpackagesRvAdapter = new TourpacakgeRvAdapter(tourpackages, new OnClickTourpackage() {
+                    @Override
+                    public void onTourpackageClikced(TourpackageUI tourpackage) {
+                        // Pass id to another screen
+                        Timber.d("TourPackage Clicked");
+                        Timber.e(tourpackage.getRegion());
+                        //homeView.addToursFragment(tourpackage);
+                    }
 
-            @Override
-            public void onTourpackageClikced(TourpackageUI tourpackage) {
-                // Pass id to another screen
-                Timber.d("TourPackage Clicked");
-                Timber.e(tourpackage.getRegion());
-                homeView.addToursFragment(tourpackage);
-            }
+                    @Override
+                    public void onRateChangeCllicked(TourpackageUI tourpackage) {
+                        // GO to the review submit screen
+                        Timber.d("Rate Clicked");
+                    }
+                });
 
-            @Override
-            public void onRateChangeCllicked(TourpackageUI tourpackage) {
-                // GO to the review submit screen
-                Timber.d("Rate Clicked");
-            }
-        });
-        tourspackage_rv.setAdapter(tourpackagesRvAdapter);
+                @Override
+                public void run() {
+                    Timber.e("ADAPTER SETED");
+                    tourspackage_rv.setAdapter(tourpackagesRvAdapter);
+                }
+            });
+        }
+
     }
 
     @Override
