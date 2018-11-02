@@ -37,7 +37,31 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
     }
 
     @Override
-    public void getFilteredReviews(OnReviewsFinishListener listener, int intFilterRating) {
+    public void getFilteredReviews(final OnReviewsFinishListener listener, final int intFilterRating) {
+        Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews("CH"); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
+        call.enqueue(new Callback<ArrayList<ReviewDomain>>() {
+
+            @Override
+            public void onResponse(Call<ArrayList<ReviewDomain>> call, Response<ArrayList<ReviewDomain>> response) {
+
+                ArrayList<ReviewDomain> filteredReviewsList = new ArrayList<>();
+                ArrayList<ReviewDomain> reviews = response.body();
+                for(ReviewDomain filteredReview : reviews){
+                    if(filteredReview.getScore() >= intFilterRating){
+                        filteredReviewsList.add(filteredReview);
+                    }
+
+                }
+                listener.onSuccess(filteredReviewsList);
+            }
+
+            @Override
+            public void onFailure(Call<ArrayList<ReviewDomain>> call, Throwable t) {
+                Timber.e("failed to get reviews" );
+                listener.onError();
+            }
+        });
+//        listener.onSuccess(reviews);
 
     }
 
