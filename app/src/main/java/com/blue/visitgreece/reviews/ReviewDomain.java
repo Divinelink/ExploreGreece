@@ -7,12 +7,13 @@ import android.support.annotation.NonNull;
 @Entity(tableName = "review")
 public class ReviewDomain {
 
+
     private String id; //maybe wrong requirement? integer instead of String??
     private int score;
     private String comment;
     private String username;
 
-    @PrimaryKey
+    @PrimaryKey(autoGenerate = true)
     @NonNull
     private int idPK; //for database
 

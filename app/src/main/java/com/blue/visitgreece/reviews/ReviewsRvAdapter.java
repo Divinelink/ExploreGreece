@@ -5,6 +5,8 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
+import android.widget.RatingBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -30,14 +32,16 @@ public class ReviewsRvAdapter extends RecyclerView.Adapter<ReviewsRvAdapter.Revi
 
     public static class ReviewsViewHolder extends RecyclerView.ViewHolder {
         TextView mReviewDescription; //or maybe name comment???
-        TextView mRating;
+        RatingBar mRating;
+        TextView mRatingNumber;
         TextView mReviewerName;
-        RelativeLayout mReviewItemRoot;
+        RelativeLayout mReviewItemRoot; //linear layout needs change
 
         public ReviewsViewHolder(View v){
             super(v);
             mReviewDescription = v.findViewById(R.id.review_description);
             mRating = (v.findViewById(R.id.review_rating));
+            mRatingNumber = v.findViewById(R.id.review_rating_number);
             mReviewerName = v.findViewById(R.id.review_reviewer_name);
             mReviewItemRoot = v.findViewById(R.id.review_item_root);
         }
@@ -58,9 +62,9 @@ public class ReviewsRvAdapter extends RecyclerView.Adapter<ReviewsRvAdapter.Revi
         final int position = i;
 
         reviewsViewHolder.mReviewDescription.setText(reviews.get(position).getComment());
-        reviewsViewHolder.mRating.setText(String.valueOf(reviews.get(position).getScore())); //parse integer String.valueOf
+        reviewsViewHolder.mRating.setRating(reviews.get(position).getScore());
         reviewsViewHolder.mReviewerName.setText(reviews.get(position).getUsername()); //ReviewerName from User Enitity
-
+        reviewsViewHolder.mRatingNumber.setText(String.valueOf(reviews.get(position).getScore()));//parse integer String.valueOf
     }
 
     @Override

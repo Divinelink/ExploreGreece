@@ -9,7 +9,7 @@ import android.content.Context;
 import com.blue.visitgreece.reviews.ReviewDomain;
 import com.blue.visitgreece.reviews.ReviewsDao;
 
-@Database(entities = {ReviewDomain.class}, version = 1, exportSchema = false)
+@Database(entities = {ReviewDomain.class}, version = 2, exportSchema = false)
 abstract public class VisitGreeceDatabase extends RoomDatabase {
 
     public abstract ReviewsDao reviewsDao();

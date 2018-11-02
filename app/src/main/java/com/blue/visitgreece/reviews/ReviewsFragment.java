@@ -63,10 +63,24 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
     }
 
 
+
+    //why do we need UIThread here
     @Override
-    public void showReviews(ArrayList<ReviewDomain> reviews) {
-        ReviewsRvAdapter adapter = new ReviewsRvAdapter(reviews);
-        reviewsRv.setAdapter(adapter);
+    public void showReviews(final ArrayList<ReviewDomain> reviews) {
+
+        getActivity().runOnUiThread(new Runnable() {
+
+            ReviewsRvAdapter adapter = new ReviewsRvAdapter(reviews);
+
+            @Override
+            public void run() {
+                reviewsRv.setAdapter(adapter);
+            }
+        });
+
+
+
+
     }
 
     @Override
@@ -74,9 +88,21 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
         Toast.makeText(getContext(), getString(R.string.error_message), Toast.LENGTH_LONG).show();
     }
 
+
     @OnClick(R.id.filter_button)
     public void filterReviews(View view) {
         String filterText = mFilterEditText.getText().toString();
-        presenter.getFilteredReviews(Integer.parseInt(filterText)); //parse int to string or string?
+
+        try
+        {
+            presenter.getFilteredReviews(Integer.parseInt(filterText)); //parse int to string or string?
+
+        }
+        catch(NumberFormatException nfe)
+        {
+            presenter.getReviews(getContext());
+        }
+
+
     }
 }

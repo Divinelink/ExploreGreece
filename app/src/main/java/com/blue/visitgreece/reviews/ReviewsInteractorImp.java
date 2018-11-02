@@ -1,11 +1,14 @@
 package com.blue.visitgreece.reviews;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.blue.visitgreece.base.VisitGreeceDatabase;
 import com.blue.visitgreece.rest.RestClient;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -16,33 +19,58 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
 
 
     @Override
-    public void getReviews(final OnReviewsFinishListener listener,Context ctx) {
+    public void getReviews(final OnReviewsFinishListener listener,final Context ctx) {
 //        ArrayList reviews = mockData();
 
         //from bundle Homeview
         //TourackageUI tourackageUI = getArguments().getParcable("key");
 
-        final ReviewsDao reviewsDao = VisitGreeceDatabase.getDatabase(ctx).reviewsDao();
-        Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews("CH"); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
-        call.enqueue(new Callback<ArrayList<ReviewDomain>>() {
+        AsyncTask.execute(new Runnable() {
             @Override
-            public void onResponse(Call<ArrayList<ReviewDomain>> call, Response<ArrayList<ReviewDomain>> response) {
-                try {
-                    listener.onSuccess(response.body());
-                    reviewsDao.insertReviews(response.body());
-                }catch (Exception e){
-                    onFailure(call,e);
-                }
-            }
+            public void run() {
+                final ReviewsDao reviewsDao = VisitGreeceDatabase.getDatabase(ctx).reviewsDao();
 
-            @Override
-            public void onFailure(Call<ArrayList<ReviewDomain>> call, Throwable t) {
-                Timber.e("failed to get reviews" );
-                listener.onError();
+                List<ReviewDomain> reviewsFromDb = reviewsDao.getAllReviews();
+                ArrayList<ReviewDomain> arrayListFromDb = new ArrayList<>();
+                arrayListFromDb.addAll(reviewsFromDb);
+
+//               listener.onSuccess(arrayListFromDb); //testing for db
+
+                Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews("CH"); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
+                call.enqueue(new Callback<ArrayList<ReviewDomain>>() {
+                    @Override
+                    public void onResponse(final Call<ArrayList<ReviewDomain>> call,final  Response<ArrayList<ReviewDomain>> response) {
+
+                        try {
+                            AsyncTask.execute(new Runnable() {
+                                @Override
+                                public void run() {
+
+                                    ArrayList<ReviewDomain> reviewDomainArrayList = response.body();
+                                    for(ReviewDomain r:reviewDomainArrayList){
+                                        r.setId("CH");
+                                    }
+                                    reviewsDao.insertReviews(reviewDomainArrayList);
+                                    listener.onSuccess(response.body());
+                                 }
+                            });
+                        }catch (Exception e){
+                            onFailure(call,e);
+                        }
+                    }
+
+                    @Override
+                    public void onFailure(Call<ArrayList<ReviewDomain>> call, Throwable t) {
+                        Timber.e("failed to get reviews" );
+                        listener.onError();
+                    }
+                });
+// testing for db
             }
         });
-//        listener.onSuccess(reviews); //mockdata
 
+
+//        listener.onSuccess(reviews); //mockdata
     }
 
     @Override
@@ -70,8 +98,6 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
                 listener.onError();
             }
         });
-//        listener.onSuccess(reviews);
-
     }
 
 
