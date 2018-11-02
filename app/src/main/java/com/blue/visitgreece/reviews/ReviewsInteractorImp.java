@@ -15,6 +15,10 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
     @Override
     public void getReviews(final OnReviewsFinishListener listener) {
 //        ArrayList reviews = mockData();
+
+        //from bundle Homeview
+        //TourackageUI tourackageUI = getArguments().getParcable("key");
+
         Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews("CH"); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
         call.enqueue(new Callback<ArrayList<ReviewDomain>>() {
             @Override
@@ -32,7 +36,7 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
                 listener.onError();
             }
         });
-//        listener.onSuccess(reviews);
+//        listener.onSuccess(reviews); //mockdata
 
     }
 

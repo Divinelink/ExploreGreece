@@ -8,11 +8,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Dao
-public class ReviewsDao {
+public interface ReviewsDao {
 
-//    @Insert
-//    void insertReviews(ArrayList<ReviewDomain> reviews);
-//
-////    @Query("SELECT * FROM review")
-////    List<ReviewDomain> getAllReviews();
+    @Insert
+    void insertReviews(ArrayList<ReviewDomain> reviews);
+
+    @Query("SELECT * FROM review")
+    List<ReviewDomain> getAllReviews();
 }

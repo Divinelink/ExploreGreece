@@ -1,11 +1,20 @@
 package com.blue.visitgreece.reviews;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+@Entity(tableName = "review")
 public class ReviewDomain {
 
     private String id; //maybe wrong requirement? integer instead of String??
     private int score;
     private String comment;
     private String username;
+
+    @PrimaryKey
+    @NonNull
+    private int idPK; //for database
 
 
     public ReviewDomain() {
@@ -48,5 +57,13 @@ public class ReviewDomain {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public int getIdPK() {
+        return idPK;
+    }
+
+    public void setIdPK(int idPK) {
+        this.idPK = idPK;
     }
 }

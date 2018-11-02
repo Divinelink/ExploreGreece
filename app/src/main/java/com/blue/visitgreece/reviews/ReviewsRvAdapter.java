@@ -59,7 +59,7 @@ public class ReviewsRvAdapter extends RecyclerView.Adapter<ReviewsRvAdapter.Revi
 
         reviewsViewHolder.mReviewDescription.setText(reviews.get(position).getComment());
         reviewsViewHolder.mRating.setText(String.valueOf(reviews.get(position).getScore())); //parse integer String.valueOf
-//        reviewsViewHolder.mReviewerName.setText(reviews.get(position).ge); ReviewerName from User Enitity
+        reviewsViewHolder.mReviewerName.setText(reviews.get(position).getUsername()); //ReviewerName from User Enitity
 
     }
 

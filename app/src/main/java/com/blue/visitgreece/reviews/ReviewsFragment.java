@@ -41,7 +41,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
     public static ReviewsFragment newInstance(TourUI tour) {
         ReviewsFragment myFragment = new ReviewsFragment();
         Bundle args = new Bundle();
-//        args.putParcelable("tour", tour); //TourUI needs to implement parceable!
+//        args.putParcelable("tour", tour); //TourUI or TourPackagesUI needs to implement parceable! to get TourPackagesID for reviews in endpoint
         myFragment.setArguments(args);
         return myFragment;
     }
