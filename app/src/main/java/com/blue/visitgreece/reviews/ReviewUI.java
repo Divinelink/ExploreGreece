@@ -6,19 +6,20 @@ import android.os.Parcelable;
 public class ReviewUI implements Parcelable {
 
     private String id; //maybe wrong requirement? integer instead of String??
-    private int rating;
-    private String ratingColor;
+    private int score;
     private String comment;
+    private String username;
+    private int ratingColorID;
 
 
     public ReviewUI() {
     }
 
-    public ReviewUI(String id, int rating, String ratingColor, String comment) {
+    public ReviewUI(String id, int score, String comment, String username) {
         this.id = id;
-        this.rating = rating;
-        this.ratingColor = ratingColor;
+        this.score = score;
         this.comment = comment;
+        this.username = username;
     }
 
     public String getId() {
@@ -29,20 +30,28 @@ public class ReviewUI implements Parcelable {
         this.id = id;
     }
 
-    public int getRating() {
-        return rating;
+    public int getScore() {
+        return score;
     }
 
-    public void setRating(int rating) {
-        this.rating = rating;
+    public void setScore(int score) {
+        this.score = score;
     }
 
-    public String getRatingColor() {
-        return ratingColor;
+    public String getUsername() {
+        return username;
     }
 
-    public void setRatingColor(String ratingColor) {
-        this.ratingColor = ratingColor;
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public int getRatingColorID() {
+        return ratingColorID;
+    }
+
+    public void setRatingColorID(int ratingColorID) {
+        this.ratingColorID = ratingColorID;
     }
 
     public String getComment() {
@@ -60,8 +69,8 @@ public class ReviewUI implements Parcelable {
     public void writeToParcel(Parcel dest, int flags) {
         dest.writeString(id);
         dest.writeString(comment);
-        dest.writeString(ratingColor);
-        dest.writeInt(rating);
+        dest.writeInt(ratingColorID);
+        dest.writeInt(score);
 
 
     }

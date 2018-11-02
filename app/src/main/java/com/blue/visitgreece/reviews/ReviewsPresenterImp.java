@@ -31,11 +31,16 @@ public class ReviewsPresenterImp implements ReviewsPresenter ,ReviewsInteractor.
             for(ReviewDomain review : reviews){
                 ReviewUI reviewUI = new ReviewUI(
                         review.getId(),
-                        review.getRating(),
-                        review.getRatingColor(),
-                        review.getComment()
-
+                        review.getScore(),
+                        review.getComment(),
+                        review.getUsername()
                 );
+                if (reviewUI.getScore()==3){
+                    reviewUI.setRatingColorID(1);
+                }else if(reviewUI.getScore()==5){
+                    reviewUI.setRatingColorID(2);
+                }
+                reviewsUI.add(reviewUI);
             }
         }
         reviewsView.showReviews(reviews);
