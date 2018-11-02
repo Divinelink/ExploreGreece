@@ -1,5 +1,7 @@
 package com.blue.visitgreece.reviews;
 
+import android.content.Context;
+
 import java.util.ArrayList;
 
 public class ReviewsPresenterImp implements ReviewsPresenter ,ReviewsInteractor.OnReviewsFinishListener{
@@ -14,8 +16,8 @@ public class ReviewsPresenterImp implements ReviewsPresenter ,ReviewsInteractor.
     }
 
     @Override
-    public void getReviews() {
-        interactor.getReviews(this);
+    public void getReviews(Context ctx) {
+        interactor.getReviews(this,ctx);
     }
 
     @Override

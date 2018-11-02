@@ -56,7 +56,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         reviewsRv.setLayoutManager(layoutManager);
         presenter = new ReviewsPresenterImp(this);
-        presenter.getReviews();
+        presenter.getReviews(getActivity());
 
         return v;
 
