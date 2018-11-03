@@ -24,7 +24,7 @@ public class LoginActivity extends AppCompatActivity implements HomeView{
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.login_root, new SubmitReviewFragment())
+                .add(R.id.login_root, new LoginFragment())
                 .commit();
     }
 

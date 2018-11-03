@@ -57,7 +57,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
         ButterKnife.bind(this, v);
 
-        homeView = (HomeView)  getArguments().getSerializable("home_view");
+//        homeView = (HomeView)  getArguments().getSerializable("home_view");
 
         presenter = new LoginPresenterImpl(this);
 
@@ -80,7 +80,7 @@ public class LoginFragment extends Fragment implements LoginView {
     @Override
     public void showBothAreRequired() {
         Toast.makeText(getActivity(), "Enter email and password", Toast.LENGTH_SHORT).show();
-        homeView.addToursPackageFragment();
+//        homeView.addToursPackageFragment();
     }
 
 
