@@ -2,7 +2,6 @@
     <string name="app_name">Visit Greece</string>
 
 
-
     <string name="email_address">Email address</string>
     <string name="password">Password</string>
     <string name="explore_greece_login_hint">EXPLORE\nGREECE</string>
@@ -16,4 +15,7 @@
 
     <string name="button_review">Review!</string>
     <string name="button_allReviews">See all reviews</string>
+
+    <string name="error_message">Error!</string>
+
 </resources>
