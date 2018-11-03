@@ -28,30 +28,31 @@
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/tours_rv"
+        android:layout_height="0dp"
+        android:layout_weight="0.8"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:paddingStart="5dp"
+        android:paddingEnd="5dp">
     </android.support.v7.widget.RecyclerView>
 
-    <Button
-        android:id="@+id/button_rev"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/button_review"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp" />
 
-    <Button
-        android:id="@+id/button_all_rev"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp"
-        android:layout_marginTop="5dp"
-        android:text="@string/button_allReviews"
-        android:textColor="@color/colorAccent"
-        android:textSize="20sp" />
+        android:gravity="center|bottom"
+        android:layout_marginBottom="5dp">
+
+        <Button
+            android:id="@+id/button_rev"
+            style="@style/ReviewButtonStyle"
+            android:text="@string/button_review" />
+
+        <Button
+            android:id="@+id/button_all_rev"
+            style="@style/ReviewButtonStyle"
+            android:layout_alignParentEnd="true"
+            android:text="@string/button_allReviews"/>
+
+    </RelativeLayout>
 
 </LinearLayout>

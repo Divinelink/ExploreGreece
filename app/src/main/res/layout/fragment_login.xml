@@ -36,12 +36,14 @@
             android:layout_marginBottom="5dp"
             android:hint="@string/email_address"
             android:inputType="textEmailAddress"
+            android:text="teamBlue"
             style="@style/LoginEditTexts"/>
 
         <EditText
             android:id="@+id/password_login_edit_text"
             android:hint="@string/password"
             android:inputType="textPassword"
+            android:text="Blu3s3cret"
             style="@style/LoginEditTexts"/>
 
         <Button

@@ -1,7 +1,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/tour_item_root"
     android:layout_width="match_parent"
-    android:layout_height="@dimen/tour_item_height">
+    android:layout_height="wrap_content">
 
     <TextView
         android:id="@+id/tour_name"
@@ -16,5 +16,11 @@
         android:layout_height="wrap_content"
         android:layout_below="@id/tour_name"
         android:layout_centerVertical="true"/>
+
+    <View style="@style/Divider"
+        android:background="@color/lightGrey"/>
+
+
+
 
 </RelativeLayout>

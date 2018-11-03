@@ -77,7 +77,7 @@ public class ToursFragment extends Fragment implements ToursView {
         Timber.e(tourpackage.getRegion().toString());
         mTourpackageName.setText(tourpackage.getName());
         mTourpackageRegion.setText(tourpackage.getRegion());
-        mTourpackageRating.setText(tourpackage.getRating());
+        mTourpackageRating.setText(String.valueOf(tourpackage.getRating()));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mToursRv.setLayoutManager(layoutManager);
