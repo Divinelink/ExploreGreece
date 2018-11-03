@@ -27,7 +27,6 @@ public interface RestAPI {
     @GET("tourPackages/{id}/tours")
     Call<ToursResponse> fetchTours(@Path("id") String tourpackageId);
 
-
     @POST("login")
     Call<LoginDomain> login(@Body LoginDomain loginDomain);
 
