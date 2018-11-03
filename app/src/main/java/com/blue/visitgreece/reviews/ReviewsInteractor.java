@@ -8,7 +8,7 @@ import java.util.ArrayList;
 
 public interface ReviewsInteractor {
 
-    void getReviews(OnReviewsFinishListener listener, Context ctx, TourpackageUI tourpackageUI);
+    void getReviews(OnReviewsFinishListener listener, Context ctx, TourpackageUI tourpackageUI, Boolean refresh);
 
     void getFilteredReviews(OnReviewsFinishListener listener,int intFilterRating);
 

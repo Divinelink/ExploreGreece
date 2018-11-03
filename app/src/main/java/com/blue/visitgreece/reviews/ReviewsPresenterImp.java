@@ -18,8 +18,8 @@ public class ReviewsPresenterImp implements ReviewsPresenter ,ReviewsInteractor.
     }
 
     @Override
-    public void getReviews(Context ctx, TourpackageUI tourpackageUI) {
-        interactor.getReviews(this,ctx,tourpackageUI);
+    public void getReviews(Context ctx, TourpackageUI tourpackageUI, Boolean refresh) {
+        interactor.getReviews(this, ctx, tourpackageUI, refresh);
     }
 
     @Override

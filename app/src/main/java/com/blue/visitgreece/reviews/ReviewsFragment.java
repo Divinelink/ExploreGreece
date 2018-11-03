@@ -3,6 +3,7 @@ package com.blue.visitgreece.reviews;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -34,6 +35,9 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
     @BindView(R.id.filter_review)
     RatingBar mRatingBar;
 
+    @BindView(R.id.root_review)
+    SwipeRefreshLayout mReviewsRoot;
+
     ReviewsPresenter presenter;
 
 
@@ -57,9 +61,18 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
         View v = inflater.inflate(R.layout.fragment_reviews, container, false);
         ButterKnife.bind(this, v);
 
-//        tourpackageUI = getArguments().getParcelable("tourpackageUI");
-        tourpackageUI = new TourpackageUI("CH","ASD","ASD");
+//        tourpackageUI = getArguments().getParcelable("tourpackage"); //otan to BUNDLE LEITOURGISEI PREPEI NA ENERGOPOIITHEI AUTO
+        tourpackageUI = new TourpackageUI("CH","ASD","ASD"); //KAI NA APENERGOPOIITHEI AUTO OTAN ENERGOPOIITHEI TO BUNDLE
 
+
+        mReviewsRoot.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.getReviews(getActivity(), tourpackageUI, true);
+                mRatingBar.setRating(0);
+
+            }
+        });
 
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -75,7 +88,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
                 }
                 catch(NumberFormatException nfe)
                 {
-                    presenter.getReviews(getContext(),tourpackageUI);
+                    presenter.getReviews(getContext(),tourpackageUI, true);
                 }
 
             }
@@ -83,7 +96,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
 
 
         presenter = new ReviewsPresenterImp(this);
-        presenter.getReviews(getContext(),tourpackageUI);
+        presenter.getReviews(getContext(), tourpackageUI, false); //false , do not refresh with swipe
 
         return v;
 
@@ -94,7 +107,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
     //why do we need UIThread here
     @Override
     public void showReviews(final ArrayList<ReviewDomain> reviews) {
-
+        mReviewsRoot.setRefreshing(false); //for swipe refresh or else the circle loader run infinitly
         getActivity().runOnUiThread(new Runnable() {
 
             ReviewsRvAdapter adapter = new ReviewsRvAdapter(reviews);
@@ -112,6 +125,8 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
 
     @Override
     public void showGeneralError() {
+        mReviewsRoot.setRefreshing(false); //for swipe refresh or else the circle loader run infinitly
+
         Toast.makeText(getContext(), getString(R.string.error_message), Toast.LENGTH_LONG).show();
     }
 
