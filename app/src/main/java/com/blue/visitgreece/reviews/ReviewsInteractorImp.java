@@ -30,7 +30,7 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
             public void run() {
                 final ReviewsDao reviewsDao = VisitGreeceDatabase.getDatabase(ctx).reviewsDao();
 
-                List<ReviewDomain> reviewsFromDb = reviewsDao.getAllReviews();
+                List<ReviewDomain> reviewsFromDb = reviewsDao.getAllReviewsByID(tourpackageUI.getId());
                 ArrayList<ReviewDomain> arrayListFromDb = new ArrayList<>();
                 arrayListFromDb.addAll(reviewsFromDb);
 

@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:numStars="5"
-            android:rating="2.0"
+            android:rating="0"
             android:stepSize="1.0" />
 
 

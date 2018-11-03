@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RatingBar;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blue.visitgreece.R;
@@ -38,6 +39,9 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
     @BindView(R.id.root_review)
     SwipeRefreshLayout mReviewsRoot;
 
+    @BindView(R.id.review_title)
+    TextView textViewReviewTitle;
+
     ReviewsPresenter presenter;
 
 
@@ -61,9 +65,10 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
         View v = inflater.inflate(R.layout.fragment_reviews, container, false);
         ButterKnife.bind(this, v);
 
-//        tourpackageUI = getArguments().getParcelable("tourpackage"); //otan to BUNDLE LEITOURGISEI PREPEI NA ENERGOPOIITHEI AUTO
-        tourpackageUI = new TourpackageUI("CH","ASD","ASD"); //KAI NA APENERGOPOIITHEI AUTO OTAN ENERGOPOIITHEI TO BUNDLE
+        tourpackageUI = getArguments().getParcelable("tourpackage"); //otan to BUNDLE LEITOURGISEI PREPEI NA ENERGOPOIITHEI AUTO
+//        tourpackageUI = new TourpackageUI("CH","ASD","ASD"); //KAI NA APENERGOPOIITHEI AUTO OTAN ENERGOPOIITHEI TO BUNDLE
 
+        textViewReviewTitle.setText("Reviews for "+tourpackageUI.getName());
 
         mReviewsRoot.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -107,7 +112,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
     //why do we need UIThread here
     @Override
     public void showReviews(final ArrayList<ReviewDomain> reviews) {
-        mReviewsRoot.setRefreshing(false); //for swipe refresh or else the circle loader run infinitly
+        mReviewsRoot.setRefreshing(false); //for swipe refresh or else the circle loader run infinitely
         getActivity().runOnUiThread(new Runnable() {
 
             ReviewsRvAdapter adapter = new ReviewsRvAdapter(reviews);
@@ -125,7 +130,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
 
     @Override
     public void showGeneralError() {
-        mReviewsRoot.setRefreshing(false); //for swipe refresh or else the circle loader run infinitly
+        mReviewsRoot.setRefreshing(false); //for swipe refresh or else the circle loader will run infinitely
 
         Toast.makeText(getContext(), getString(R.string.error_message), Toast.LENGTH_LONG).show();
     }
