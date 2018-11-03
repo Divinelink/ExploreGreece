@@ -3,12 +3,12 @@ package com.blue.visitgreece.tourpackages;
 
 public class TourpackageDomain {
 
-    private String tourpackageId, name, ratingColor, regionColor, imgUrl, region;
+    private String id, name, ratingColor, regionColor, imgUrl, region;
     private int rating;
 
 
-    public TourpackageDomain(String tourpackageId, String name, String ratingColor, String regionColor, int rating, String region) {
-        this.tourpackageId = tourpackageId;
+    public TourpackageDomain(String id, String name, String ratingColor, String regionColor, int rating, String region) {
+        this.id = id;
         this.name = name;
         this.ratingColor = ratingColor;
         this.regionColor = regionColor;
@@ -16,22 +16,18 @@ public class TourpackageDomain {
         this.region = region;
     }
 
-    public TourpackageDomain(String tourpackageId, String name, String ratingColor, String regionColor, String imgUrl, int rating, String region) {
-        this.tourpackageId = tourpackageId;
+    public TourpackageDomain(String id, String name, String region) {
+        this.id = id;
         this.name = name;
-        this.ratingColor = ratingColor;
-        this.regionColor = regionColor;
-        this.imgUrl = imgUrl;
-        this.rating = rating;
         this.region = region;
     }
 
     public String getId() {
-        return tourpackageId;
+        return id;
     }
 
     public void setId(String id) {
-        this.tourpackageId = id;
+        this.id = id;
     }
 
     public String getName() {

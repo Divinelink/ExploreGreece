@@ -6,18 +6,22 @@
     android:orientation="vertical"
     tools:context=".reviews.ReviewsFragment">
 
-    <EditText
-        android:id="@+id/filter_edit_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="10dp" />
-
-    <Button
-        android:id="@+id/filter_button"
+    <TextView
+        android:id="@+id/review_title"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_margin="10dp"
-        android:text="filter" />
+        android:text="Reviews for"
+        android:layout_gravity="center"
+        android:textSize="25dp"/>
+
+    <RatingBar
+        android:id="@+id/filter_review"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:numStars="5"
+        android:stepSize="1.0"
+        android:rating="2.0"
+        android:layout_gravity="center"/>
 
 
     <android.support.v7.widget.RecyclerView
