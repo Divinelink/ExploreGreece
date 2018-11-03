@@ -18,10 +18,12 @@ import timber.log.Timber;
 
 public class ReviewsInteractorImp implements ReviewsInteractor {
 
+    static TourpackageUI tourpackageUI;
 
     @Override
     public void getReviews(final OnReviewsFinishListener listener, final Context ctx, final TourpackageUI tourpackageUI) {
 //        ArrayList reviews = mockData();
+        this.tourpackageUI = tourpackageUI;
 
         AsyncTask.execute(new Runnable() {
             @Override
@@ -73,7 +75,7 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
 
     @Override
     public void getFilteredReviews(final OnReviewsFinishListener listener, final int intFilterRating) {
-        Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews("CH"); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
+        Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews(tourpackageUI.getId()); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
         call.enqueue(new Callback<ArrayList<ReviewDomain>>() {
 
             @Override

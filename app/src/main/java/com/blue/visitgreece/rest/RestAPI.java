@@ -19,7 +19,7 @@ public interface RestAPI {
 
     @GET("tourPackages/{id}/reviews")
     Call<ArrayList<ReviewDomain>> fetchReviews(@Path("id") String tourPackageID);
-    
+
 
 
 }
