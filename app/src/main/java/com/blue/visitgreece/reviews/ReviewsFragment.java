@@ -13,6 +13,7 @@ import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.blue.visitgreece.R;
+import com.blue.visitgreece.tourpackages.TourpackageUI;
 import com.blue.visitgreece.tours.TourUI;
 
 import java.util.ArrayList;
@@ -40,10 +41,10 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
         // Required empty public constructor
     }
 
-    public static ReviewsFragment newInstance(TourUI tour) {
+    public static ReviewsFragment newInstance(TourpackageUI tourpackageUI) {
         ReviewsFragment myFragment = new ReviewsFragment();
         Bundle args = new Bundle();
-//        args.putParcelable("tour", tour); //TourUI or TourPackagesUI needs to implement parceable! to get TourPackagesID for reviews in endpoint
+        args.putParcelable("tourpackageUI", tourpackageUI); //TourUI or TourPackagesUI needs to implement parceable! to get TourPackagesID for reviews in endpoint
         myFragment.setArguments(args);
         return myFragment;
     }

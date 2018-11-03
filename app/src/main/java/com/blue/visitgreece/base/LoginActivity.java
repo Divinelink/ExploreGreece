@@ -7,6 +7,7 @@ import com.blue.visitgreece.R;
 import com.blue.visitgreece.base.HomeView;
 import com.blue.visitgreece.login.LoginFragment;
 import com.blue.visitgreece.login.LoginUI;
+import com.blue.visitgreece.reviews.ReviewDomain;
 import com.blue.visitgreece.reviews.ReviewsFragment;
 import com.blue.visitgreece.tourpackages.TourpackageUI;
 import com.blue.visitgreece.tourpackages.TourspackagesFragment;
@@ -35,12 +36,23 @@ public class LoginActivity extends AppCompatActivity implements HomeView{
                 .commit();
     }
 
+
     @Override
     public void addToursFragment(TourpackageUI tourpackageUI) {
 
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.login_root, ToursFragment.newInstance(tourpackageUI))
+                .addToBackStack(null)
+                .commit();
+
+    }
+
+    @Override
+    public void addReviewsFragment(TourpackageUI tourpackageUI) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.login_root, ReviewsFragment.newInstance(tourpackageUI))
                 .addToBackStack(null)
                 .commit();
 
