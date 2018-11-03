@@ -35,7 +35,7 @@ public class ReviewsRvAdapter extends RecyclerView.Adapter<ReviewsRvAdapter.Revi
         RatingBar mRating;
         TextView mRatingNumber;
         TextView mReviewerName;
-        RelativeLayout mReviewItemRoot; //linear layout needs change
+        LinearLayout mReviewItemRoot; //linear layout needs change
 
         public ReviewsViewHolder(View v){
             super(v);

@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.RatingBar;
 import android.widget.Toast;
 
 import com.blue.visitgreece.R;
@@ -28,8 +29,9 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
     @BindView(R.id.reviews_rv)
     RecyclerView reviewsRv;
 
-    @BindView(R.id.filter_edit_text)
-    EditText mFilterEditText;
+
+    @BindView(R.id.filter_review)
+    RatingBar mRatingBar;
 
     ReviewsPresenter presenter;
 
@@ -55,6 +57,24 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         reviewsRv.setLayoutManager(layoutManager);
+
+        mRatingBar.setOnRatingBarChangeListener(new RatingBar.OnRatingBarChangeListener() {
+            public void onRatingChanged(RatingBar ratingBar, float rating,
+                                        boolean fromUser) {
+                try
+                {
+                    presenter.getFilteredReviews((int)mRatingBar.getRating());//parse int to string or string?  Integer.parseInt(filterText)
+
+                }
+                catch(NumberFormatException nfe)
+                {
+                    presenter.getReviews(getContext());
+                }
+
+            }
+        });
+
+
         presenter = new ReviewsPresenterImp(this);
         presenter.getReviews(getActivity());
 
@@ -89,13 +109,13 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
     }
 
 
+
     @OnClick(R.id.filter_button)
     public void filterReviews(View view) {
-        String filterText = mFilterEditText.getText().toString();
 
         try
         {
-            presenter.getFilteredReviews(Integer.parseInt(filterText)); //parse int to string or string?
+            presenter.getFilteredReviews((int)mRatingBar.getRating());//parse int to string or string?  Integer.parseInt(filterText)
 
         }
         catch(NumberFormatException nfe)
