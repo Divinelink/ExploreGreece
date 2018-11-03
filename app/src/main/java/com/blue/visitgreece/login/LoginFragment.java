@@ -80,7 +80,7 @@ public class LoginFragment extends Fragment implements LoginView {
     @Override
     public void showBothAreRequired() {
         Toast.makeText(getActivity(), "Enter email and password", Toast.LENGTH_SHORT).show();
-        homeView.addToursPackageFragment(this);
+        homeView.addToursPackageFragment();
     }
 
 
