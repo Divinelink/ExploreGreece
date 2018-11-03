@@ -6,8 +6,6 @@ import com.blue.visitgreece.R;
 
 import java.util.ArrayList;
 
-import timber.log.Timber;
-
 public class TourpackagesPresenterImpl implements TourpackagesPresenter,
         TourpackagesInteractor.OnTourpackagesFinishListener {
     TourpackagesView tourpackagesView;
@@ -37,31 +35,31 @@ public class TourpackagesPresenterImpl implements TourpackagesPresenter,
         if (tourpackages != null && !tourpackages.isEmpty()) {
             for (TourpackageDomain tourpackage : tourpackages) {
                 TourpackageUI tourpackageUI = new TourpackageUI(tourpackage.getId(),
-                        tourpackage.getName(),
-                        tourpackage.getRegion());
+                                                                tourpackage.getName(),
+                                                                tourpackage.getRegion());
 
                 // Find By Label in Enum
                 Region enumRegion = Region.valueOf(tourpackageUI.getRegion());
 
                 switch(enumRegion){
-                    case Crete:        tourpackageUI.setColorId(R.color.blue);
+                    case Crete:        tourpackageUI.setRegionColor(R.color.blue);
                         break;
-                    case Aeagean:      tourpackageUI.setColorId(R.color.blue);
+                    case Aeagean:      tourpackageUI.setRegionColor(R.color.green);
                         break;
-                    case Ionian:       tourpackageUI.setColorId(R.color.blue);
+                    case Ionian:       tourpackageUI.setRegionColor(R.color.pink);
                         break;
-                    case Thrace:       tourpackageUI.setColorId(R.color.blue);
+                    case Thrace:       tourpackageUI.setRegionColor(R.color.colorAccent2);
                         break;
-                    case Thessaly:     tourpackageUI.setColorId(R.color.blue);
+                    case Thessaly:     tourpackageUI.setRegionColor(R.color.red);
                         break;
-                    case StereaHellas: tourpackageUI.setColorId(R.color.blue);
+                    case StereaHellas: tourpackageUI.setRegionColor(R.color.blue);
                         break;
-                    case Peloponnese:  tourpackageUI.setColorId(R.color.blue);
+                    case Peloponnese:  tourpackageUI.setRegionColor(R.color.blue);
                         break;
-                    case Macedonia:    tourpackageUI.setColorId(R.color.blue);
+                    case Macedonia:    tourpackageUI.setRegionColor(R.color.blue);
                         break;
                     default:
-                                       tourpackageUI.setColorId(R.color.blue);
+                                       tourpackageUI.setRegionColor(R.color.blue);
                         break;
                 }
                 tourpackagesUI.add(tourpackageUI);

@@ -23,7 +23,7 @@ public class TourpackagesInteractorImpl implements TourpackagesInteractor {
     @Override
     public void getTourpackages(final OnTourpackagesFinishListener listener) {
 
-        listener.onSucces(mockDataTourpacakages2());
+
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
@@ -36,7 +36,8 @@ public class TourpackagesInteractorImpl implements TourpackagesInteractor {
                             @Override
                             public void run() {
 
-                                //listener.onSucces(mockDataTourpacakages2());
+                                
+                                //listener.onSucces(response.body().get_embedded());
 
                             }
                         });

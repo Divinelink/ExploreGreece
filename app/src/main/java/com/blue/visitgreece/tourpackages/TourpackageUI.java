@@ -26,14 +26,14 @@ enum Region {
 
 public class TourpackageUI implements Parcelable {
     private String id, name, region;
-    private int rating, colorId,ratingColor;
+    private int rating, regionColor,ratingColor;
 
     public TourpackageUI(String id, String name, String region, int rating, int colorId, int ratingColor) {
         this.id = id;
         this.name = name;
         this.region = region;
         this.rating = rating;
-        this.colorId = colorId;
+        this.regionColor = colorId;
         this.ratingColor = ratingColor;
     }
 
@@ -75,12 +75,12 @@ public class TourpackageUI implements Parcelable {
         this.rating = rating;
     }
 
-    public int getColorId() {
-        return colorId;
+    public int getRegionColor() {
+        return regionColor;
     }
 
-    public void setColorId(int colorId) {
-        this.colorId = colorId;
+    public void setRegionColor(int regionColor) {
+        this.regionColor = regionColor;
     }
 
     public int getRatingColor() {

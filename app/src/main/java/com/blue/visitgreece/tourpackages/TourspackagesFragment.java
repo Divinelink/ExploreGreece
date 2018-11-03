@@ -41,11 +41,10 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
     }
 
     // Den kserw an einai swstos tropos erwtisi ston petro.
-    public static TourspackagesFragment newInstance(HomeView homeView) {
-        // Isos xriastei kati na perasoume apo ton loginUI sto diko moy fragment
+    public static TourspackagesFragment newInstance(TourpackageUI tourpackage) {
         Bundle args = new Bundle();
         TourspackagesFragment fragment = new TourspackagesFragment();
-        args.putSerializable("home_view", homeView);
+        args.putParcelable("toupackage",tourpackage);
         fragment.setArguments(args);
         return fragment;
     }
