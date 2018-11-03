@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import com.blue.visitgreece.base.VisitGreeceDatabase;
 import com.blue.visitgreece.rest.RestClient;
+import com.blue.visitgreece.tourpackages.TourpackageUI;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -19,11 +20,8 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
 
 
     @Override
-    public void getReviews(final OnReviewsFinishListener listener,final Context ctx) {
+    public void getReviews(final OnReviewsFinishListener listener, final Context ctx, final TourpackageUI tourpackageUI) {
 //        ArrayList reviews = mockData();
-
-        //from bundle Homeview
-        //TourackageUI tourackageUI = getArguments().getParcable("key");
 
         AsyncTask.execute(new Runnable() {
             @Override
@@ -36,7 +34,7 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
 
 //               listener.onSuccess(arrayListFromDb); //testing for db
 
-                Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews("CH"); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
+                Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews(tourpackageUI.getId()); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
                 call.enqueue(new Callback<ArrayList<ReviewDomain>>() {
                     @Override
                     public void onResponse(final Call<ArrayList<ReviewDomain>> call,final  Response<ArrayList<ReviewDomain>> response) {
@@ -48,7 +46,7 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
 
                                     ArrayList<ReviewDomain> reviewDomainArrayList = response.body();
                                     for(ReviewDomain r:reviewDomainArrayList){
-                                        r.setId("CH");
+                                        r.setId(tourpackageUI.getId());
                                     }
                                     reviewsDao.insertReviews(reviewDomainArrayList);
                                     listener.onSuccess(response.body());

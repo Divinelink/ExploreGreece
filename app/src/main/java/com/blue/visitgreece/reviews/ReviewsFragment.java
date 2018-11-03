@@ -49,12 +49,18 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
         return myFragment;
     }
 
+    TourpackageUI tourpackageUI;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_reviews, container, false);
         ButterKnife.bind(this, v);
+
+//        tourpackageUI = getArguments().getParcelable("tourpackageUI");
+        tourpackageUI = new TourpackageUI("CH","ASD","ASD");
+
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         reviewsRv.setLayoutManager(layoutManager);
@@ -69,7 +75,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
                 }
                 catch(NumberFormatException nfe)
                 {
-                    presenter.getReviews(getContext());
+                    presenter.getReviews(getContext(),tourpackageUI);
                 }
 
             }
@@ -77,7 +83,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
 
 
         presenter = new ReviewsPresenterImp(this);
-        presenter.getReviews(getActivity());
+        presenter.getReviews(getContext(),tourpackageUI);
 
         return v;
 
@@ -110,20 +116,4 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
     }
 
 
-
-    @OnClick(R.id.filter_button)
-    public void filterReviews(View view) {
-
-        try
-        {
-            presenter.getFilteredReviews((int)mRatingBar.getRating());//parse int to string or string?  Integer.parseInt(filterText)
-
-        }
-        catch(NumberFormatException nfe)
-        {
-            presenter.getReviews(getContext());
-        }
-
-
-    }
 }

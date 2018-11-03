@@ -44,7 +44,7 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
     public static TourspackagesFragment newInstance(TourpackageUI tourpackage) {
         Bundle args = new Bundle();
         TourspackagesFragment fragment = new TourspackagesFragment();
-        args.putParcelable("toupackage",tourpackage);
+        args.putParcelable("tourpackage",tourpackage);
         fragment.setArguments(args);
         return fragment;
     }
@@ -58,6 +58,8 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
 
         // Get arguments from bundle
         homeView = (HomeView) getActivity().getIntent().getSerializableExtra("home_view"); // Logo API PIE thelei auth thn grammi
+
+
 
         // Set up Layoutmanager in Recycler View
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
