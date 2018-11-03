@@ -4,10 +4,12 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.blue.visitgreece.R;
-import com.blue.visitgreece.base.HomeView;
 import com.blue.visitgreece.login.LoginFragment;
+<<<<<<< HEAD
 import com.blue.visitgreece.login.LoginUI;
 import com.blue.visitgreece.reviews.ReviewDomain;
+=======
+>>>>>>> dev-dimitris
 import com.blue.visitgreece.reviews.ReviewsFragment;
 import com.blue.visitgreece.submitreviews.SubmitReviewFragment;
 import com.blue.visitgreece.tourpackages.TourpackageUI;
@@ -24,7 +26,11 @@ public class LoginActivity extends AppCompatActivity implements HomeView{
 
         getSupportFragmentManager()
                 .beginTransaction()
+<<<<<<< HEAD
                 .add(R.id.login_root, new LoginFragment())
+=======
+                .add(R.id.login_root,  LoginFragment.newInstance(this))
+>>>>>>> dev-dimitris
                 .commit();
     }
 
@@ -33,7 +39,7 @@ public class LoginActivity extends AppCompatActivity implements HomeView{
     public void addToursPackageFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.login_root, new TourspackagesFragment())
+                .replace(R.id.login_root, TourspackagesFragment.newInstance(this))
                 .commit();
     }
 

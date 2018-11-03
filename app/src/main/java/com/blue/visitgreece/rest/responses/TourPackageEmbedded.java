@@ -1,6 +1,6 @@
 package com.blue.visitgreece.rest.responses;
 
-class TourPackageEmbedded {
+public class TourPackageEmbedded {
     private TourpackagesList tourPackages;
 
     public TourPackageEmbedded(TourpackagesList tourPackages) {

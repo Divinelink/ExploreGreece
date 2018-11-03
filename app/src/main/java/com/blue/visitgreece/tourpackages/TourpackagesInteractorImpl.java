@@ -23,33 +23,28 @@ public class TourpackagesInteractorImpl implements TourpackagesInteractor {
     @Override
     public void getTourpackages(final OnTourpackagesFinishListener listener) {
 
-
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                Call<TourpackageResponse> call = RestClient.call().fetchTourpacakges();
+                Call<ArrayList<TourpackageDomain>> call = RestClient.call().fetchTourpacakges();
 
-                call.enqueue(new Callback<TourpackageResponse>() {
+                call.enqueue(new Callback<ArrayList<TourpackageDomain>>() {
                     @Override
-                    public void onResponse(Call<TourpackageResponse> call, final Response<TourpackageResponse> response) {
+                    public void onResponse(Call<ArrayList<TourpackageDomain>> call, final Response<ArrayList<TourpackageDomain>> response) {
                         AsyncTask.execute(new Runnable() {
                             @Override
                             public void run() {
-
-                                
-                                //listener.onSucces(response.body().get_embedded());
-
+                                listener.onSucces(response.body());
                             }
                         });
 
                     }
 
                     @Override
-                    public void onFailure(Call<TourpackageResponse> call, Throwable t) {
-                        Timber.e(t.toString());
-                        listener.onError();
-
+                    public void onFailure(Call<ArrayList<TourpackageDomain>> call, Throwable t) {
+                        Timber.e(t.getMessage());
                     }
+
                 });
             }
         });
@@ -86,13 +81,5 @@ public class TourpackagesInteractorImpl implements TourpackagesInteractor {
         return tourpackages;
     }
     */
-    private ArrayList<TourpackageDomain> mockDataTourpacakages2() {
-        ArrayList<TourpackageDomain> tourpackages = new ArrayList<>();
-        tourpackages.add(new TourpackageDomain("1","Hikking","Aeagean"));
-        tourpackages.add(new TourpackageDomain("2","Mountain climbing",  "Ionian"));
-        tourpackages.add(new TourpackageDomain("3","Uknown",           "Peloponnese"));
-        tourpackages.add(new TourpackageDomain("4","Trekking",         "Macedonia"));
-        return tourpackages;
-    }
 
 }

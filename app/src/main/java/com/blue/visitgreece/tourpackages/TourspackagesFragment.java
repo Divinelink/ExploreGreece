@@ -26,7 +26,7 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
-public class TourspackagesFragment extends Fragment implements TourpackagesView{
+public class TourspackagesFragment extends Fragment implements TourpackagesView {
 
     @BindView(R.id.tourspackage_Rv)
     RecyclerView tourspackage_rv;
@@ -41,12 +41,21 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
     }
 
     // Den kserw an einai swstos tropos erwtisi ston petro.
-    public static TourspackagesFragment newInstance(TourpackageUI tourpackage) {
+    public static TourspackagesFragment newInstance(HomeView homeView) {
         Bundle args = new Bundle();
         TourspackagesFragment fragment = new TourspackagesFragment();
-        args.putParcelable("tourpackage",tourpackage);
+
+        args.putSerializable("homeView", homeView);
+
         fragment.setArguments(args);
         return fragment;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        presenter = new TourpackagesPresenterImpl(this);
+        presenter.getTourpackages(getActivity());
     }
 
     @Override
@@ -57,7 +66,7 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
         ButterKnife.bind(this, v);
 
         // Get arguments from bundle
-        homeView = (HomeView) getActivity().getIntent().getSerializableExtra("home_view"); // Logo API PIE thelei auth thn grammi
+        homeView = (HomeView) getArguments().getSerializable("homeView");
 
 
 
@@ -65,38 +74,37 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         tourspackage_rv.setLayoutManager(layoutManager);
 
-        presenter = new TourpackagesPresenterImpl(this);
-        presenter.getTourpackages(getActivity());
+
         return v;
     }
 
     @Override
     public void showTourpackages(final ArrayList<TourpackageUI> tourpackages) {
+        if (getActivity() != null) {
+            getActivity().runOnUiThread(new Runnable() {
+                TourpacakgeRvAdapter tourpackagesRvAdapter = new TourpacakgeRvAdapter(tourpackages, new OnClickTourpackage() {
+                    @Override
+                    public void onTourpackageClikced(TourpackageUI tourpackage) {
+                        // Pass id to another screen
+                        Timber.d("TourPackage Clicked");
+                        Timber.e(tourpackage.getRegion());
+                        //homeView.addToursFragment(tourpackage);
+                    }
 
-        getActivity().runOnUiThread(new Runnable() {
-            TourpacakgeRvAdapter tourpackagesRvAdapter = new TourpacakgeRvAdapter(tourpackages, new OnClickTourpackage() {
+                    @Override
+                    public void onRateChangeCllicked(TourpackageUI tourpackage) {
+                        // GO to the review submit screen
+                        Timber.d("Rate Clicked");
+                    }
+                }, getActivity());
+
                 @Override
-                public void onTourpackageClikced(TourpackageUI tourpackage) {
-                    // Pass id to another screen
-                    Timber.d("TourPackage Clicked");
-                    Timber.e(tourpackage.getRegion());
-                    //homeView.addToursFragment(tourpackage);
+                public void run() {
+                    Timber.e("ADAPTER SETED");
+                    tourspackage_rv.setAdapter(tourpackagesRvAdapter);
                 }
-
-                @Override
-                public void onRateChangeCllicked(TourpackageUI tourpackage) {
-                    // GO to the review submit screen
-                    Timber.d("Rate Clicked");
-                }
-            },getActivity());
-
-            @Override
-            public void run() {
-                Timber.e("ADAPTER SETED");
-                tourspackage_rv.setAdapter(tourpackagesRvAdapter);
-            }
-        });
-
+            });
+        }
 
     }
 
@@ -106,7 +114,7 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
     }
 
     @OnClick(R.id.filter_btn)
-    public void getFilterTourPacakages(View v){
+    public void getFilterTourPacakages(View v) {
         String filteredText = filter_ed.getText().toString();
         presenter.getFilteredTourPackages(filteredText);
     }
