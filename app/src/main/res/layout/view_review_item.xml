@@ -41,7 +41,7 @@
             />
     </LinearLayout>
 
-    <TextViewz
+    <TextView
         android:layout_toEndOf="@id/review_rating"
         android:id="@+id/review_description"
         android:layout_width="match_parent"
