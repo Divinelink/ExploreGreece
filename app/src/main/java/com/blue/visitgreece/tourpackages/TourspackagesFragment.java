@@ -34,17 +34,19 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
     EditText filter_ed;
 
     TourpackagesPresenter presenter;
-    static HomeView homeView;
+    HomeView homeView;
 
     public TourspackagesFragment() {
         // Required empty public constructor
     }
 
     // Den kserw an einai swstos tropos erwtisi ston petro.
-    public static TourspackagesFragment newInstance(LoginFragment login) {
+    public static TourspackagesFragment newInstance(HomeView homeView) {
         // Isos xriastei kati na perasoume apo ton loginUI sto diko moy fragment
+        Bundle args = new Bundle();
         TourspackagesFragment fragment = new TourspackagesFragment();
-        homeView = (HomeView) login.getArguments().getSerializable("home_view");
+        args.putSerializable("home_view", homeView);
+        fragment.setArguments(args);
         return fragment;
     }
 
@@ -56,7 +58,7 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
         ButterKnife.bind(this, v);
 
         // Get arguments from bundle
-        //homeView = (HomeView) getActivity().getIntent().getSerializableExtra("home_view"); // Logo API PIE thelei auth thn grammi
+        homeView = (HomeView) getActivity().getIntent().getSerializableExtra("home_view"); // Logo API PIE thelei auth thn grammi
 
         // Set up Layoutmanager in Recycler View
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -69,31 +71,31 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView{
 
     @Override
     public void showTourpackages(final ArrayList<TourpackageUI> tourpackages) {
-        if(getActivity() != null){
-            getActivity().runOnUiThread(new Runnable() {
-                TourpacakgeRvAdapter tourpackagesRvAdapter = new TourpacakgeRvAdapter(tourpackages, new OnClickTourpackage() {
-                    @Override
-                    public void onTourpackageClikced(TourpackageUI tourpackage) {
-                        // Pass id to another screen
-                        Timber.d("TourPackage Clicked");
-                        Timber.e(tourpackage.getRegion());
-                        //homeView.addToursFragment(tourpackage);
-                    }
 
-                    @Override
-                    public void onRateChangeCllicked(TourpackageUI tourpackage) {
-                        // GO to the review submit screen
-                        Timber.d("Rate Clicked");
-                    }
-                });
+        getActivity().runOnUiThread(new Runnable() {
+            TourpacakgeRvAdapter tourpackagesRvAdapter = new TourpacakgeRvAdapter(tourpackages, new OnClickTourpackage() {
+                @Override
+                public void onTourpackageClikced(TourpackageUI tourpackage) {
+                    // Pass id to another screen
+                    Timber.d("TourPackage Clicked");
+                    Timber.e(tourpackage.getRegion());
+                    //homeView.addToursFragment(tourpackage);
+                }
 
                 @Override
-                public void run() {
-                    Timber.e("ADAPTER SETED");
-                    tourspackage_rv.setAdapter(tourpackagesRvAdapter);
+                public void onRateChangeCllicked(TourpackageUI tourpackage) {
+                    // GO to the review submit screen
+                    Timber.d("Rate Clicked");
                 }
-            });
-        }
+            },getActivity());
+
+            @Override
+            public void run() {
+                Timber.e("ADAPTER SETED");
+                tourspackage_rv.setAdapter(tourpackagesRvAdapter);
+            }
+        });
+
 
     }
 

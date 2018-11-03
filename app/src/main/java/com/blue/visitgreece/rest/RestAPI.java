@@ -1,7 +1,7 @@
 package com.blue.visitgreece.rest;
 
 
-import com.blue.visitgreece.rest.responses.TourpackagesResponse;
+import com.blue.visitgreece.rest.responses.TourpackageResponse;
 
 import retrofit2.Call;
 import retrofit2.http.GET;
@@ -9,7 +9,7 @@ import retrofit2.http.GET;
 public interface RestAPI {
 
     @GET("tourPackages")
-    Call<TourpackagesResponse> fetchTourpacakges();
+    Call<TourpackageResponse> fetchTourpacakges();
 
 
 

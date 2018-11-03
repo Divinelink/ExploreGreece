@@ -1,5 +1,6 @@
 package com.blue.visitgreece.tourpackages;
 
+import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
@@ -19,11 +20,13 @@ public class TourpacakgeRvAdapter extends RecyclerView.Adapter<TourpacakgeRvAdap
 
     private ArrayList<TourpackageUI> tourpackages;
     private OnClickTourpackage listener;
+    private Context context;
 
 
-    public TourpacakgeRvAdapter(ArrayList<TourpackageUI> tourpackages, OnClickTourpackage listener) {
+    public TourpacakgeRvAdapter(ArrayList<TourpackageUI> tourpackages, OnClickTourpackage listener,Context ctx) {
         this.tourpackages = tourpackages;
         this.listener     = listener;
+        this.context      = ctx;
     }
 
     public static class TourpackageViewHolder extends RecyclerView.ViewHolder{
@@ -53,7 +56,7 @@ public class TourpacakgeRvAdapter extends RecyclerView.Adapter<TourpacakgeRvAdap
     @Override
     public void onBindViewHolder(@NonNull TourpackageViewHolder viewHolder, int i) {
         final int pos = i;
-        viewHolder.view_tourpackage_item.setBackgroundColor(Color.parseColor(tourpackages.get(pos).getRegionColor()));
+        viewHolder.view_tourpackage_item.setBackgroundColor(context.getResources().getColor(tourpackages.get(pos).getColorId()));
         viewHolder.name_tv.setText(tourpackages.get(pos).getName());
         viewHolder.region_tv.setText(tourpackages.get(pos).getRegion().toString());
         viewHolder.ratingBar.setRating(tourpackages.get(pos).getRating());

@@ -25,17 +25,16 @@ enum Region {
 }
 
 public class TourpackageUI implements Parcelable {
-    private String id, name, ratingColor, regionColor, imgUrl, region;
-    private int rating;
+    private String id, name, region;
+    private int rating, colorId,ratingColor;
 
-
-    public TourpackageUI(String id, String name, String ratingColor, String regionColor, int rating, String region) {
-        this.name = name;
-        this.ratingColor = ratingColor;
-        this.regionColor = regionColor;
-        this.rating = rating;
-        this.region = region;
+    public TourpackageUI(String id, String name, String region, int rating, int colorId, int ratingColor) {
         this.id = id;
+        this.name = name;
+        this.region = region;
+        this.rating = rating;
+        this.colorId = colorId;
+        this.ratingColor = ratingColor;
     }
 
     public TourpackageUI(String id, String name, String region) {
@@ -60,28 +59,12 @@ public class TourpackageUI implements Parcelable {
         this.name = name;
     }
 
-    public String getRatingColor() {
-        return ratingColor;
+    public String getRegion() {
+        return region;
     }
 
-    public void setRatingColor(String ratingColor) {
-        this.ratingColor = ratingColor;
-    }
-
-    public String getRegionColor() {
-        return regionColor;
-    }
-
-    public void setRegionColor(String regionColor) {
-        this.regionColor = regionColor;
-    }
-
-    public String getImgUrl() {
-        return imgUrl;
-    }
-
-    public void setImgUrl(String imgUrl) {
-        this.imgUrl = imgUrl;
+    public void setRegion(String region) {
+        this.region = region;
     }
 
     public int getRating() {
@@ -92,14 +75,24 @@ public class TourpackageUI implements Parcelable {
         this.rating = rating;
     }
 
-    public String getRegion() {
-        return region;
+    public int getColorId() {
+        return colorId;
     }
 
+    public void setColorId(int colorId) {
+        this.colorId = colorId;
+    }
+
+    public int getRatingColor() {
+        return ratingColor;
+    }
+
+    public void setRatingColor(int ratingColor) {
+        this.ratingColor = ratingColor;
+    }
 
     protected TourpackageUI(Parcel in) {
-        rating = in.readInt();
-        region = (String) in.readValue(Region.class.getClassLoader());
+
     }
 
     @Override
@@ -109,8 +102,7 @@ public class TourpackageUI implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-        dest.writeInt(rating);
-        dest.writeValue(region);
+
     }
 
     @SuppressWarnings("unused")

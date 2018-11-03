@@ -27,10 +27,10 @@ public class LoginActivity extends AppCompatActivity implements HomeView{
 
 
     @Override
-    public void addToursPackageFragment(LoginFragment login) {
+    public void addToursPackageFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.login_root, new TourspackagesFragment().newInstance(login))
+                .replace(R.id.login_root, new TourspackagesFragment())
                 .commit();
     }
 

@@ -2,16 +2,17 @@ package com.blue.visitgreece.tourpackages;
 
 import android.os.AsyncTask;
 
+
 import com.blue.visitgreece.rest.RestClient;
-import com.blue.visitgreece.rest.responses.TourpackagesResponse;
+import com.blue.visitgreece.rest.responses.TourpackageResponse;
 
 import java.util.ArrayList;
-import java.util.List;
 
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 import timber.log.Timber;
+
 
 public class TourpackagesInteractorImpl implements TourpackagesInteractor {
 
@@ -21,26 +22,29 @@ public class TourpackagesInteractorImpl implements TourpackagesInteractor {
      */
     @Override
     public void getTourpackages(final OnTourpackagesFinishListener listener) {
-        // HTTP calll perimenw
+
+        listener.onSucces(mockDataTourpacakages2());
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                Call<TourpackagesResponse> call = RestClient.call().fetchTourpacakges();
+                Call<TourpackageResponse> call = RestClient.call().fetchTourpacakges();
 
-                call.enqueue(new Callback<TourpackagesResponse>() {
+                call.enqueue(new Callback<TourpackageResponse>() {
                     @Override
-                    public void onResponse(Call<TourpackagesResponse> call, final Response<TourpackagesResponse> response) {
+                    public void onResponse(Call<TourpackageResponse> call, final Response<TourpackageResponse> response) {
                         AsyncTask.execute(new Runnable() {
                             @Override
                             public void run() {
-                               listener.onSucces(response.body().getTourPackages());
+
+                                //listener.onSucces(mockDataTourpacakages2());
+
                             }
                         });
 
                     }
 
                     @Override
-                    public void onFailure(Call<TourpackagesResponse> call, Throwable t) {
+                    public void onFailure(Call<TourpackageResponse> call, Throwable t) {
                         Timber.e(t.toString());
                         listener.onError();
 
@@ -81,5 +85,13 @@ public class TourpackagesInteractorImpl implements TourpackagesInteractor {
         return tourpackages;
     }
     */
+    private ArrayList<TourpackageDomain> mockDataTourpacakages2() {
+        ArrayList<TourpackageDomain> tourpackages = new ArrayList<>();
+        tourpackages.add(new TourpackageDomain("1","Hikking","Aeagean"));
+        tourpackages.add(new TourpackageDomain("2","Mountain climbing",  "Ionian"));
+        tourpackages.add(new TourpackageDomain("3","Uknown",           "Peloponnese"));
+        tourpackages.add(new TourpackageDomain("4","Trekking",         "Macedonia"));
+        return tourpackages;
+    }
 
 }
