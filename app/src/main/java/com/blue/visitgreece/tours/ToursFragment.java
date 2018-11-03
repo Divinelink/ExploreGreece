@@ -17,6 +17,7 @@ import butterknife.OnClick;
 import timber.log.Timber;
 
 import com.blue.visitgreece.R;
+import com.blue.visitgreece.base.HomeView;
 import com.blue.visitgreece.tourpackages.TourpackageUI;
 
 import java.util.ArrayList;
@@ -26,12 +27,15 @@ import java.util.ArrayList;
  */
 public class ToursFragment extends Fragment implements ToursView {
 
-    RecyclerView mToursRv;
     ToursPresenter presenter;
 
     @BindView(R.id.tourpackage_name) //bind με προηγούμενη οθόνη
             TextView mTourpackageName;
+
+    @BindView(R.id.tourpackage_region)
             TextView mTourpackageRegion;
+
+    @BindView(R.id.tourpackage_rating)
             TextView mTourpackageRating;
 
     @BindView(R.id.button_rev)
@@ -40,68 +44,59 @@ public class ToursFragment extends Fragment implements ToursView {
     @BindView(R.id.button_all_rev)
             Button mButtonAllRev;
 
+    @BindView(R.id.tours_rv)
+            RecyclerView mToursRv;
+
+
+    HomeView homeView;
 
     public ToursFragment() {
 
     }
 
-    public static ToursFragment newInstance(TourpackageUI tourpackage) { //UI προηγούμενης οθόνης
+    public static ToursFragment newInstance(TourpackageUI tourpackage, HomeView homeView) {
         ToursFragment myFragment = new ToursFragment();
         Bundle args = new Bundle();
+        args.putSerializable("home_view",homeView);
         args.putParcelable("tourpackage", tourpackage);
         myFragment.setArguments(args);
         return myFragment;
     }
 
+    TourpackageUI tourpackage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        TourpackageUI tourpackage = getArguments().getParcelable("tourpackage");
+        tourpackage = getArguments().getParcelable("tourpackage");
         Timber.e(tourpackage.getId()); //logging
 
         View v = inflater.inflate(R.layout.fragment_tours, container, false);
         ButterKnife.bind(this, v);
-        Timber.e(tourpackage.getRegion().toString());
-        //mTourpackageName.setText(tourpackage.getName()); //από TourpackageUI
-        //mTourpackageRegion.setText(tourpackage.getRegion());
-        //mTourpackageRating.setText(tourpackage.getRating());
 
-        mToursRv = v.findViewById(R.id.tours_rv);
+        homeView = (HomeView) getArguments().getSerializable("home_view");
+        Timber.e(tourpackage.getRegion().toString());
+        mTourpackageName.setText(tourpackage.getName());
+        mTourpackageRegion.setText(tourpackage.getRegion());
+        mTourpackageRating.setText(tourpackage.getRating());
+
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mToursRv.setLayoutManager(layoutManager);
 
         presenter = new ToursPresenterImpl(this);
-        presenter.getTours(tourpackage.getId());  // να προστεθεί στην προηγούμενη οθόνη
+        presenter.getTours(tourpackage.getId());
         return v;
 
-        /*
-        mButtonRev = v.findViewById(R.id.button_rev);
-        mButtonRev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                // Etkos on createview dilonete to onclick logo butter knife
-
-            }
-        });
-        */
-        /*
-        mButtonAllRev = v.findViewById(R.id.button_all_rev);
-        mButtonAllRev.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent();  //να προστεθεί Intent all reviews //Butterknife?
-                startActivity(intent);
-                getActivity();
-            }
-        });
-        */
     }
 
     @OnClick(R.id.button_rev)
     public void OnclickReview(View v){
-        Intent intent = new Intent(); //να προστεθεί Intent reviews //Butterknife?
-        startActivity(intent);
-        getActivity();
+        homeView.addSubmitReviewFragment(tourpackage);
+
+    }
+
+    @OnClick(R.id.button_all_rev)
+    public void OnclickAllReview(View v){
+        homeView.addReviewsFragment(tourpackage);
 
     }
 
