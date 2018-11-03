@@ -4,7 +4,7 @@ import com.blue.visitgreece.tourpackages.TourpackageDomain;
 
 import java.util.ArrayList;
 
-class TourpackagesList {
+public class TourpackagesList {
 
     private ArrayList<TourpackageDomain> toupackages;
 
