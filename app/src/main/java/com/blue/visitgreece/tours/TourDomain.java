@@ -1,46 +1,38 @@
 package com.blue.visitgreece.tours;
 
 public class TourDomain {
-    private String TourId;
-    private String TourName;
-    private String TourDesc;
-    private int TourDescTextSize;
-    private String ImageUrl;
+    private int id;
+    private String title;
+    private String description;
 
-    public String getTourId() { return TourId; }
 
-    public void setTourId(String tourId) {
-        TourId = tourId;
+    public TourDomain(int Id, String Title, String Description) {
+        id = Id;
+        title = Title;
+        description = Description;
     }
 
-    public String getTourName() {
-        return TourName;
+    public int getId() {
+        return id;
     }
 
-    public void setTourName(String tourName) {
-        TourName = tourName;
+    public void setId(int id) {
+        this.id = id;
     }
 
-    public String getTourDesc() {
-        return TourDesc;
+    public String getTitle() {
+        return title;
     }
 
-    public void setTourDesc(String tourDesc) {
-        TourDesc = tourDesc;
+    public void setTitle(String title) {
+        this.title = title;
     }
 
-    public int getTourDescTextSize() {
-        return TourDescTextSize;
+    public String getDescription() {
+        return description;
     }
 
-    public void setTourDescTextSize(Integer tourDescTextSize) { TourDescTextSize = tourDescTextSize; }
-
-    public String getImageUrl() {
-        return ImageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        ImageUrl = imageUrl;
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
-

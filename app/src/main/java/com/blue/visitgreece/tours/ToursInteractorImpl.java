@@ -1,7 +1,8 @@
 package com.blue.visitgreece.tours;
 
-import com.blue.visitgreece.tours.rest.RestClient;
-import com.blue.visitgreece.tours.rest.responses.ToursResponse;
+import com.blue.visitgreece.rest.responses.ToursResponse;
+import com.blue.visitgreece.rest.RestClient;
+import com.blue.visitgreece.rest.responses.ToursResponse;
 
 import java.util.ArrayList;
 
@@ -19,7 +20,7 @@ public class ToursInteractorImpl implements ToursInteractor{
         call.enqueue(new Callback<ToursResponse>() {
             @Override
             public void onResponse(Call<ToursResponse> call, Response<ToursResponse> response) {
-                ArrayList<TourDomain> tours = response.body().getResult().getItems();
+                ArrayList<TourDomain> tours = response.body().getResult().getTours().getData();
                 listener.onSuccess(tours);
             }
             @Override

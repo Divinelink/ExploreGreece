@@ -25,7 +25,7 @@ public class ToursPresenterImpl implements ToursPresenter, ToursInteractor.OnTou
     public void onSuccess(ArrayList<TourDomain> tours) {
         ArrayList<TourUI> toursUI = new ArrayList<>();
         for (TourDomain tourd : tours) {
-            TourUI tourUi = new TourUI(tourd.getTourName(),tourd.getTourDesc(), tourd.getImageUrl(), R.color.colorPrimaryDark);
+            TourUI tourUi = new TourUI(tourd.getId(),tourd.getTitle(), tourd.getDescription(), R.color.colorPrimaryDark);
             toursUI.add(tourUi);
         }
         view.showTours(toursUI);

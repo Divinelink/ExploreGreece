@@ -2,48 +2,51 @@ package com.blue.visitgreece.tours;
 
 public class TourUI {
 
-        private String tourId;
-        private String tourName;
-        private String tourDesc;
+        private int id;
+        private String title;
+        private String description;
         private int descTextSize;
 
 
-        public TourUI(String tourId, String tourName, String tourDesc, int descTextSize) {
-            this.tourId   = tourId;
-            this.tourName = tourName;
-            this.tourDesc = tourDesc;
-            this.descTextSize = descTextSize;
-        }
+    public TourUI(int tourId, String tourName, String tourDesc, int descTextSize) {
+        this.id   = tourId;
+        this.title = tourName;
+        this.description = tourDesc;
+        this.descTextSize = descTextSize;
+    }
 
-        public String getTourName() {
-            return tourName;
-        }
 
-        public void setTourId(String tourId) {
-            this.tourId = tourId;
-        }
+    public int getId() {
+        return id;
+    }
 
-        public void setDescTextSize(int descTextSize) {
-            this.descTextSize = descTextSize;
-        }
+    public void setId(int id) {
+        this.id = id;
+    }
 
-        public String getTourId() { return tourId; }
+    public String getTitle() {
+        return title;
+    }
 
-        public int getDescTextSize() {
-            return descTextSize;
-        }
+    public void setTitle(String title) {
+        this.title = title;
+    }
 
-        public void setTourName(String tourName) {
-                this.tourName = tourName;
-            }
+    public String getDescription() {
+        return description;
+    }
 
-        public String getTourDesc() {
-            return tourDesc;
-        }
+    public void setDescription(String description) {
+        this.description = description;
+    }
 
-        public void setTourDesc(String tourDesc) {
-            this.tourDesc = tourDesc;
-        }
+    public int getDescTextSize() {
+        return descTextSize;
+    }
+
+    public void setDescTextSize(int descTextSize) {
+        this.descTextSize = descTextSize;
+    }
 
 }
 

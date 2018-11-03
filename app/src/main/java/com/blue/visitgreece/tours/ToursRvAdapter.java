@@ -57,9 +57,9 @@ public class ToursRvAdapter extends RecyclerView.Adapter<ToursRvAdapter.ToursVie
 
         final int pos = i;
 
-        viewHolder.mTourName.setText(tours.get(i).getTourName());
+        viewHolder.mTourName.setText(tours.get(i).getTitle());
         //viewHolder.mTourName.setTextColor(context.getResources().getColor(tours.get(pos).getTourNameColorid()));
-        viewHolder.mTourDesc.setText(tours.get(i).getTourDesc());
+        viewHolder.mTourDesc.setText(tours.get(i).getDescription());
         //Picasso.get().load(tours.get(i).getTourLogoUrl()).into(viewHolder.mTourLogo);
     }
 
