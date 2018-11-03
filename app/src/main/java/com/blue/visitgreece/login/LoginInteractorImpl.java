@@ -1,31 +1,40 @@
 package com.blue.visitgreece.login;
 
-import java.lang.reflect.Array;
+import com.blue.visitgreece.rest.RestClient;
+
 import java.util.ArrayList;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class LoginInteractorImpl implements LoginInteractor {
 
 
     @Override
-    public void verifyCredentials(OnLoginFinishListener listener, String username, String password) {
+    public void verifyCredentials(final OnLoginFinishListener listener, String username, String password) {
 
         // Check if user exists on ArrayList
-        LoginDomain user = new LoginDomain(username, password);
+        final LoginDomain user = new LoginDomain(username, password);
 
-        for (int i = 0; i < getMockedUsers().size(); i++)
-        {
-            if (getMockedUsers().get(i).getUsername().matches(user.getUsername())
-                    && getMockedUsers().get(i).getPassword().matches(user.getPassword()))
-            {
-                listener.onSuccess();
-                break;
+        Call<LoginDomain> call = RestClient.call().login(user);
+        call.enqueue(new Callback<LoginDomain>() {
+            @Override
+            public void onResponse(Call<LoginDomain> call, final Response<LoginDomain> response) {
+                if (response.code() == 200){
+                    listener.onSuccess();
+                }
+                else{
+                    listener.onWrongCredentialsError();
+                }
             }
-            else if (user.getPassword().equals("") || user.getUsername().equals(""))
-                listener.onNoCredentialsEntered();
-            else
-                listener.onWrongCredentialsError();
 
-        }
+            @Override
+            public void onFailure(Call<LoginDomain> call, Throwable t) {
+
+            }
+        });
+
     }
 
     private ArrayList<LoginDomain> getMockedUsers()

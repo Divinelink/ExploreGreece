@@ -5,6 +5,7 @@ import android.os.AsyncTask;
 
 import com.blue.visitgreece.base.VisitGreeceDatabase;
 import com.blue.visitgreece.rest.RestClient;
+import com.blue.visitgreece.tourpackages.TourpackageUI;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
@@ -17,13 +18,12 @@ import timber.log.Timber;
 
 public class ReviewsInteractorImp implements ReviewsInteractor {
 
+    static TourpackageUI tourpackageUI;
 
     @Override
-    public void getReviews(final OnReviewsFinishListener listener,final Context ctx) {
+    public void getReviews(final OnReviewsFinishListener listener, final Context ctx, final TourpackageUI tourpackageUI, final Boolean refresh) {
 //        ArrayList reviews = mockData();
-
-        //from bundle Homeview
-        //TourackageUI tourackageUI = getArguments().getParcable("key");
+        this.tourpackageUI = tourpackageUI;
 
         AsyncTask.execute(new Runnable() {
             @Override
@@ -35,36 +35,39 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
                 arrayListFromDb.addAll(reviewsFromDb);
 
 //               listener.onSuccess(arrayListFromDb); //testing for db
+                if (reviewsFromDb.isEmpty() || refresh) {
+                    Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews(tourpackageUI.getId()); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
+                    call.enqueue(new Callback<ArrayList<ReviewDomain>>() {
+                        @Override
+                        public void onResponse(final Call<ArrayList<ReviewDomain>> call, final Response<ArrayList<ReviewDomain>> response) {
 
-                Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews("CH"); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
-                call.enqueue(new Callback<ArrayList<ReviewDomain>>() {
-                    @Override
-                    public void onResponse(final Call<ArrayList<ReviewDomain>> call,final  Response<ArrayList<ReviewDomain>> response) {
+                            try {
+                                AsyncTask.execute(new Runnable() {
+                                    @Override
+                                    public void run() {
 
-                        try {
-                            AsyncTask.execute(new Runnable() {
-                                @Override
-                                public void run() {
-
-                                    ArrayList<ReviewDomain> reviewDomainArrayList = response.body();
-                                    for(ReviewDomain r:reviewDomainArrayList){
-                                        r.setId("CH");
+                                        ArrayList<ReviewDomain> reviewDomainArrayList = response.body();
+                                        for (ReviewDomain r : reviewDomainArrayList) {
+                                            r.setId(tourpackageUI.getId());
+                                        }
+                                        reviewsDao.updateReviews(reviewDomainArrayList);
+                                        listener.onSuccess(response.body());
                                     }
-                                    reviewsDao.insertReviews(reviewDomainArrayList);
-                                    listener.onSuccess(response.body());
-                                 }
-                            });
-                        }catch (Exception e){
-                            onFailure(call,e);
+                                });
+                            } catch (Exception e) {
+                                onFailure(call, e);
+                            }
                         }
-                    }
 
-                    @Override
-                    public void onFailure(Call<ArrayList<ReviewDomain>> call, Throwable t) {
-                        Timber.e("failed to get reviews" );
-                        listener.onError();
-                    }
-                });
+                        @Override
+                        public void onFailure(Call<ArrayList<ReviewDomain>> call, Throwable t) {
+                            Timber.e("failed to get reviews");
+                            listener.onError();
+                        }
+                    });
+                } else {
+                    listener.onSuccess(arrayListFromDb);
+                }//end if
 // testing for db
             }
         });
@@ -73,9 +76,14 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
 //        listener.onSuccess(reviews); //mockdata
     }
 
+
+    /*
+     * filtered reviews does not communicate with database , it only filters results from the endpoint
+      *
+      * */
     @Override
     public void getFilteredReviews(final OnReviewsFinishListener listener, final int intFilterRating) {
-        Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews("CH"); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
+        Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews(tourpackageUI.getId()); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
         call.enqueue(new Callback<ArrayList<ReviewDomain>>() {
 
             @Override
@@ -83,8 +91,8 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
 
                 ArrayList<ReviewDomain> filteredReviewsList = new ArrayList<>();
                 ArrayList<ReviewDomain> reviews = response.body();
-                for(ReviewDomain filteredReview : reviews){
-                    if(filteredReview.getScore() >= intFilterRating){
+                for (ReviewDomain filteredReview : reviews) {
+                    if (filteredReview.getScore() >= intFilterRating) {
                         filteredReviewsList.add(filteredReview);
                     }
 
@@ -94,7 +102,7 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
 
             @Override
             public void onFailure(Call<ArrayList<ReviewDomain>> call, Throwable t) {
-                Timber.e("failed to get reviews" );
+                Timber.e("failed to get reviews");
                 listener.onError();
             }
         });
@@ -103,18 +111,18 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
 
     private ArrayList<ReviewDomain> mockData() {
         ArrayList<ReviewDomain> reviews = new ArrayList<ReviewDomain>();
-        reviews.add(new ReviewDomain("asd",5,"red","bad rating"));
-        reviews.add(new ReviewDomain("asd",6,"red","very bad rating"));
-        reviews.add(new ReviewDomain("asd",1,"red","good rating"));
-        reviews.add(new ReviewDomain("asd",5,"red","bad rating"));
-        reviews.add(new ReviewDomain("asd",2,"red","good rating"));
-        reviews.add(new ReviewDomain("asd",3,"blue","bad rating"));
-        reviews.add(new ReviewDomain("asd",5,"green","very good rating"));
-        reviews.add(new ReviewDomain("asd",5,"red","bad rating"));
-        reviews.add(new ReviewDomain("asd",3,"red","bad rating"));
-        reviews.add(new ReviewDomain("asd",5,"red","hmm rating"));
-        reviews.add(new ReviewDomain("asd",5,"red","bad rating"));
-        reviews.add(new ReviewDomain("asd",5,"red","good rating"));
+        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
+        reviews.add(new ReviewDomain("asd", 6, "red", "very bad rating"));
+        reviews.add(new ReviewDomain("asd", 1, "red", "good rating"));
+        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
+        reviews.add(new ReviewDomain("asd", 2, "red", "good rating"));
+        reviews.add(new ReviewDomain("asd", 3, "blue", "bad rating"));
+        reviews.add(new ReviewDomain("asd", 5, "green", "very good rating"));
+        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
+        reviews.add(new ReviewDomain("asd", 3, "red", "bad rating"));
+        reviews.add(new ReviewDomain("asd", 5, "red", "hmm rating"));
+        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
+        reviews.add(new ReviewDomain("asd", 5, "red", "good rating"));
         return reviews;
     }
 

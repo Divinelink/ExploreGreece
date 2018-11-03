@@ -34,6 +34,7 @@
             />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/review_rating_number"
             android:layout_width="match_parent"
             android:layout_height="match_parent"

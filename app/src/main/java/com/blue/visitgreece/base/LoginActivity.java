@@ -4,10 +4,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.blue.visitgreece.R;
-import com.blue.visitgreece.base.HomeView;
 import com.blue.visitgreece.login.LoginFragment;
+<<<<<<< HEAD
 import com.blue.visitgreece.login.LoginUI;
+import com.blue.visitgreece.reviews.ReviewDomain;
+=======
+>>>>>>> dev-dimitris
 import com.blue.visitgreece.reviews.ReviewsFragment;
+import com.blue.visitgreece.submitreviews.SubmitReviewFragment;
 import com.blue.visitgreece.tourpackages.TourpackageUI;
 import com.blue.visitgreece.tourpackages.TourspackagesFragment;
 import com.blue.visitgreece.tours.ToursFragment;
@@ -22,18 +26,23 @@ public class LoginActivity extends AppCompatActivity implements HomeView{
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .add(R.id.login_root, new ReviewsFragment())
+<<<<<<< HEAD
+                .add(R.id.login_root, new LoginFragment())
+=======
+                .add(R.id.login_root,  LoginFragment.newInstance(this))
+>>>>>>> dev-dimitris
                 .commit();
     }
 
 
     @Override
-    public void addToursPackageFragment(LoginFragment login) {
+    public void addToursPackageFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.login_root, new TourspackagesFragment().newInstance(login))
+                .replace(R.id.login_root, TourspackagesFragment.newInstance(this))
                 .commit();
     }
+
 
     @Override
     public void addSubmitReviewFragment(TourpackageUI tourpackageUI) {
@@ -57,6 +66,16 @@ public class LoginActivity extends AppCompatActivity implements HomeView{
         getSupportFragmentManager()
                 .beginTransaction()
                 .replace(R.id.login_root, ToursFragment.newInstance(tourpackageUI,this))
+                .addToBackStack(null)
+                .commit();
+
+    }
+
+    @Override
+    public void addReviewsFragment(TourpackageUI tourpackageUI) {
+        getSupportFragmentManager()
+                .beginTransaction()
+                .replace(R.id.login_root, ReviewsFragment.newInstance(tourpackageUI))
                 .addToBackStack(null)
                 .commit();
 
