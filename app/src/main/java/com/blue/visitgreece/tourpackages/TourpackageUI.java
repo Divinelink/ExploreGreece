@@ -25,29 +25,25 @@ enum Region {
 }
 
 public class TourpackageUI implements Parcelable {
-    private String id, name, region;
+    private String name,region;
+    private double averageReviewScore;
     private int rating, regionColor,ratingColor;
+    private String id;
 
-    public TourpackageUI(String id, String name, String region, int rating, int colorId, int ratingColor) {
-        this.id = id;
+    public TourpackageUI(String name, String region, double averageReviewScore, String id) {
         this.name = name;
         this.region = region;
+        this.averageReviewScore = averageReviewScore;
+        this.id = id;
+    }
+
+    public TourpackageUI(String name, String region, double averageReviewScore, int rating, int regionColor, int ratingColor, String id) {
+        this.name = name;
+        this.region = region;
+        this.averageReviewScore = averageReviewScore;
         this.rating = rating;
-        this.regionColor = colorId;
+        this.regionColor = regionColor;
         this.ratingColor = ratingColor;
-    }
-
-    public TourpackageUI(String id, String name, String region) {
-        this.id = id;
-        this.name = name;
-        this.region = region;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
         this.id = id;
     }
 
@@ -65,6 +61,14 @@ public class TourpackageUI implements Parcelable {
 
     public void setRegion(String region) {
         this.region = region;
+    }
+
+    public double getAverageReviewScore() {
+        return averageReviewScore;
+    }
+
+    public void setAverageReviewScore(double averageReviewScore) {
+        this.averageReviewScore = averageReviewScore;
     }
 
     public int getRating() {
@@ -91,8 +95,18 @@ public class TourpackageUI implements Parcelable {
         this.ratingColor = ratingColor;
     }
 
-    protected TourpackageUI(Parcel in) {
+    public String getId() {
+        return id;
+    }
 
+    public void setId(String id) {
+        this.id = id;
+    }
+
+    protected TourpackageUI(Parcel in) {
+        region = in.readString();
+        averageReviewScore = in.readDouble();
+        id = in.readString();
     }
 
     @Override
@@ -102,7 +116,9 @@ public class TourpackageUI implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel dest, int flags) {
-
+        dest.writeString(region);
+        dest.writeDouble(averageReviewScore);
+        dest.writeString(id);
     }
 
     @SuppressWarnings("unused")

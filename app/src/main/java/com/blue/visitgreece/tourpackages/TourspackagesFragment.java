@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -32,6 +33,8 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView 
     RecyclerView tourspackage_rv;
     @BindView(R.id.filter_ed)
     EditText filter_ed;
+    @BindView(R.id.tourpackages_root)
+    SwipeRefreshLayout mTourpackages_root;
 
     TourpackagesPresenter presenter;
     HomeView homeView;
@@ -51,12 +54,6 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView 
         return fragment;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        presenter = new TourpackagesPresenterImpl(this);
-        presenter.getTourpackages(getActivity());
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -68,26 +65,30 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView 
         // Get arguments from bundle
         homeView = (HomeView) getArguments().getSerializable("homeView");
 
-
-
+        mTourpackages_root.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.getTourpackages(getActivity(), true);
+            }
+        });
         // Set up Layoutmanager in Recycler View
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         tourspackage_rv.setLayoutManager(layoutManager);
-
+        presenter = new TourpackagesPresenterImpl(this);
+        presenter.getTourpackages(getActivity(), false);
 
         return v;
     }
 
     @Override
     public void showTourpackages(final ArrayList<TourpackageUI> tourpackages) {
+        mTourpackages_root.setRefreshing(false);
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
                 TourpacakgeRvAdapter tourpackagesRvAdapter = new TourpacakgeRvAdapter(tourpackages, new OnClickTourpackage() {
                     @Override
                     public void onTourpackageClikced(TourpackageUI tourpackage) {
                         // Pass id to another screen
-                        Timber.d("TourPackage Clicked");
-                        Timber.e(tourpackage.getRegion());
                         homeView.addToursFragment(tourpackage);
                     }
 
@@ -100,7 +101,6 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView 
 
                 @Override
                 public void run() {
-                    Timber.e("ADAPTER SETED");
                     tourspackage_rv.setAdapter(tourpackagesRvAdapter);
                 }
             });
@@ -110,13 +110,13 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView 
 
     @Override
     public void showGeneralError() {
-
+        mTourpackages_root.setRefreshing(false);
     }
 
     @OnClick(R.id.filter_btn)
     public void getFilterTourPacakages(View v) {
         String filteredText = filter_ed.getText().toString();
-        presenter.getFilteredTourPackages(filteredText);
+        presenter.getFilteredTourPackages(filteredText, getContext());
     }
 
 }

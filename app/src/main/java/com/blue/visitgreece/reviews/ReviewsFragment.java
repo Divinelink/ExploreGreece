@@ -62,7 +62,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
         ButterKnife.bind(this, v);
 
 //        tourpackageUI = getArguments().getParcelable("tourpackage"); //otan to BUNDLE LEITOURGISEI PREPEI NA ENERGOPOIITHEI AUTO
-        tourpackageUI = new TourpackageUI("CH","ASD","ASD"); //KAI NA APENERGOPOIITHEI AUTO OTAN ENERGOPOIITHEI TO BUNDLE
+        //tourpackageUI = new TourpackageUI("CH","ASD","ASD"); //KAI NA APENERGOPOIITHEI AUTO OTAN ENERGOPOIITHEI TO BUNDLE
 
 
         mReviewsRoot.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
