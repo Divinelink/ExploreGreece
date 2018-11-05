@@ -42,7 +42,7 @@ public class TourpackagesInteractorImpl implements TourpackagesInteractor {
                             AsyncTask.execute(new Runnable() {
                                 @Override
                                 public void run() {
-                                    tourpackagesDao.insertTourpackages(response.body());
+                                    tourpackagesDao.updateTourpackages(response.body());
                                     listener.onSuccess(response.body());
                                 }
                             });
