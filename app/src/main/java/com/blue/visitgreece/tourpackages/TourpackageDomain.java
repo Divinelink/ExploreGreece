@@ -1,11 +1,18 @@
 package com.blue.visitgreece.tourpackages;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
+@Entity(tableName = "tourpackage")
 public class TourpackageDomain {
+
+    @PrimaryKey
+    @NonNull
+    private String id;
 
     private String name,region;
     private double averageReviewScore;
-    private String id;
 
     public TourpackageDomain(String name, String region, double averageReviewScore, String id) {
         this.name = name;

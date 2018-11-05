@@ -18,25 +18,27 @@ public class TourpackagesPresenterImpl implements TourpackagesPresenter,
     }
 
     @Override
-    public void getTourpackages(Context ctx) {
-        interactor.getTourpackages(this);
+    public void getTourpackages(Context ctx,boolean refresh) {
+        interactor.getTourpackages(this, ctx, refresh);
     }
 
     @Override
-    public void getFilteredTourPackages(String filter) {
+    public void getFilteredTourPackages(String filter, Context ctx) {
         // Ερωτηση : Γιατι περναέι και τον Listener Μέσα;;;
-        interactor.getFilteredTourpackages(this, filter);
+        interactor.getFilteredTourpackages(this, filter, ctx);
     }
 
     @Override
-    public void onSucces(ArrayList<TourpackageDomain> tourpackages) {
+    public void onSuccess(ArrayList<TourpackageDomain> tourpackages) {
 
         ArrayList<TourpackageUI> tourpackagesUI = new ArrayList<>();
         if (tourpackages != null && !tourpackages.isEmpty()) {
             for (TourpackageDomain tourpackage : tourpackages) {
-                TourpackageUI tourpackageUI = new TourpackageUI(tourpackage.getId(),
-                                                                tourpackage.getName(),
-                                                                tourpackage.getRegion());
+                TourpackageUI tourpackageUI = new TourpackageUI(tourpackage.getName(),
+                                                                tourpackage.getRegion(),
+                                                                tourpackage.getAverageReviewScore(),
+                                                                tourpackage.getId());
+
 
                 // Find By Label in Enum
                 Region enumRegion = Region.valueOf(tourpackageUI.getRegion());
@@ -62,6 +64,7 @@ public class TourpackagesPresenterImpl implements TourpackagesPresenter,
                                        tourpackageUI.setRegionColor(R.color.blue);
                         break;
                 }
+
                 tourpackagesUI.add(tourpackageUI);
             }
         }
