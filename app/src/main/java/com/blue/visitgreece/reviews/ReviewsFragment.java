@@ -61,7 +61,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
         View v = inflater.inflate(R.layout.fragment_reviews, container, false);
         ButterKnife.bind(this, v);
 
-//        tourpackageUI = getArguments().getParcelable("tourpackage"); //otan to BUNDLE LEITOURGISEI PREPEI NA ENERGOPOIITHEI AUTO
+        tourpackageUI = getArguments().getParcelable("tourpackage"); //otan to BUNDLE LEITOURGISEI PREPEI NA ENERGOPOIITHEI AUTO
         //tourpackageUI = new TourpackageUI("CH","ASD","ASD"); //KAI NA APENERGOPOIITHEI AUTO OTAN ENERGOPOIITHEI TO BUNDLE
 
 
@@ -126,7 +126,6 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
     @Override
     public void showGeneralError() {
         mReviewsRoot.setRefreshing(false); //for swipe refresh or else the circle loader run infinitly
-
         Toast.makeText(getContext(), getString(R.string.error_message), Toast.LENGTH_LONG).show();
     }
 
