@@ -1,44 +1,117 @@
 package com.blue.visitgreece.submitreviews;
 
 
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.RatingBar;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.blue.visitgreece.R;
-import com.blue.visitgreece.base.HomeView;
+import com.blue.visitgreece.login.LoginDomain;
+import com.blue.visitgreece.login.LoginUI;
+import com.blue.visitgreece.login.SharedPrefManager;
 import com.blue.visitgreece.tourpackages.TourpackageUI;
-import com.blue.visitgreece.tourpackages.TourspackagesFragment;
+
+import org.w3c.dom.Text;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SubmitReviewFragment extends Fragment {
+public class SubmitReviewFragment extends Fragment implements SubmitView, SharedPrefManager{
 
+    TourpackageUI tourpackageUI;
+    SubmitReviewPresenter presenter;
+
+
+    @BindView(R.id.selected_package_textView)    TextView mSelectedPackageTextView;
+    @BindView(R.id.review_edit_text)    EditText mReviewEditText;
+    @BindView(R.id.cancel_review_button)    Button mButtonCancelReview;
+    @BindView(R.id.submit_review_button) Button mButtonSubmitReview;
+    @BindView(R.id.review_rating) RatingBar mRatingBar;
+
+    @OnClick(R.id.submit_review_button)
+    public void submit(){
+
+        presenter.submitReview(
+                tourpackageUI,
+                getActivity(),
+                mReviewEditText.getText().toString(),
+                Math.round(mRatingBar.getRating()),
+                getLastLoggedInUsername()
+                );
+
+    }
 
     public SubmitReviewFragment() {
         // Required empty public constructor
     }
 
-
     public static SubmitReviewFragment newInstance(TourpackageUI tourpackageUI) {
+        SubmitReviewFragment myFragment = new SubmitReviewFragment();
         Bundle args = new Bundle();
-        SubmitReviewFragment fragment = new SubmitReviewFragment();
-
-//        args.putSerializable("tourpackage", tourpackageUI);
-
-        fragment.setArguments(args);
-        return fragment;
+        args.putParcelable("tourpackage", tourpackageUI);
+        myFragment.setArguments(args);
+        return myFragment;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_submit_review, container, false);
+        View v = inflater.inflate(R.layout.fragment_submit_review, container, false);
+        ButterKnife.bind(this, v);
+
+        tourpackageUI = getArguments().getParcelable("tourpackage");
+
+        presenter = new SubmitReviewPresenterImpl(this);
+        presenter.stylize(tourpackageUI, mSelectedPackageTextView);
+
+        return v;
     }
 
+    @Override
+    public void showSuccessMessage() {
+
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(getActivity(), "Successfully added review", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    @Override
+    public void showNoRatingError() {
+
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(getActivity(), "Please enter a rating", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+
+    //FIXME is this correct?
+    //FIXME You can fix this probably if you pass getLastLoggedInUsername in Fragment on newInstance
+    @Override
+    public String getLastLoggedInUsername() {
+
+        String username = "";
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getContext());
+        username = preferences.getString("username", username);
+
+        return username;
+    }
 }

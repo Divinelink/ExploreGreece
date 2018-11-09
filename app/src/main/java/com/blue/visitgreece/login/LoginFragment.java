@@ -1,6 +1,8 @@
 package com.blue.visitgreece.login;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -30,7 +32,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
         final String username = mEmailEditText.getText().toString();
         final String password = mPasswordEditText.getText().toString();
-        presenter.doLogin(username, password);
+        presenter.doLogin(getActivity() , username, password);
     }
 
     LoginPresenter presenter;
@@ -57,7 +59,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
         ButterKnife.bind(this, v);
 
-        homeView = (HomeView)  getArguments().getSerializable("home_view");
+        homeView = (HomeView) getArguments().getSerializable("home_view");
 
         presenter = new LoginPresenterImpl(this);
 
@@ -66,9 +68,8 @@ public class LoginFragment extends Fragment implements LoginView {
 
     @Override
     public void showLoginDialog() {
-//        Toast.makeText(getActivity(), "Successfully logged in!", Toast.LENGTH_SHORT).show();
+
         homeView.addToursPackageFragment();
-        // Go to tourpackage Fragment
 
     }
 
@@ -80,7 +81,6 @@ public class LoginFragment extends Fragment implements LoginView {
     @Override
     public void showBothAreRequired() {
         Toast.makeText(getActivity(), "Enter email and password", Toast.LENGTH_SHORT).show();
-//        homeView.addToursPackageFragment();
     }
 
 

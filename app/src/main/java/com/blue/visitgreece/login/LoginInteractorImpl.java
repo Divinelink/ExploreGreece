@@ -1,8 +1,8 @@
 package com.blue.visitgreece.login;
 
-import com.blue.visitgreece.rest.RestClient;
+import android.content.Context;
 
-import java.util.ArrayList;
+import com.blue.visitgreece.rest.RestClient;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -12,7 +12,7 @@ public class LoginInteractorImpl implements LoginInteractor {
 
 
     @Override
-    public void verifyCredentials(final OnLoginFinishListener listener, String username, String password) {
+    public void verifyCredentials(final OnLoginFinishListener listener, final Context ctx, final String username, String password) {
 
         // Check if user exists on ArrayList
         final LoginDomain user = new LoginDomain(username, password);
@@ -21,10 +21,10 @@ public class LoginInteractorImpl implements LoginInteractor {
         call.enqueue(new Callback<LoginDomain>() {
             @Override
             public void onResponse(Call<LoginDomain> call, final Response<LoginDomain> response) {
-                if (response.code() == 200){
+                if (response.code() == 200) {
                     listener.onSuccess();
-                }
-                else{
+                    listener.setLastLoggedInUsername(ctx, username);
+                } else {
                     listener.onWrongCredentialsError();
                 }
             }
@@ -36,17 +36,5 @@ public class LoginInteractorImpl implements LoginInteractor {
         });
 
     }
-
-    private ArrayList<LoginDomain> getMockedUsers()
-    {
-        ArrayList<LoginDomain> mockedAccounts = new ArrayList<>();
-        mockedAccounts.add(new LoginDomain("Haris", "123456789"));
-        mockedAccounts.add(new LoginDomain("Thanasis" , "123456789"));
-        mockedAccounts.add(new LoginDomain("Dimitris" , "123456789"));
-        mockedAccounts.add(new LoginDomain("Xristina" , "123456789"));
-
-        return mockedAccounts;
-    }
-
 
 }

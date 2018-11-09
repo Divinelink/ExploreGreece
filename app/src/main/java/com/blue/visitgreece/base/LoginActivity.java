@@ -40,7 +40,7 @@ public class LoginActivity extends AppCompatActivity implements HomeView{
     public void addSubmitReviewFragment(TourpackageUI tourpackageUI) {
         getSupportFragmentManager()
                 .beginTransaction()
-//                .replace(R.id.login_root, SubmitReviewFragment().newInstance())  //add submit review
+                .replace(R.id.login_root, SubmitReviewFragment.newInstance(tourpackageUI))  //add submit review
                 .addToBackStack(null)
                 .commit();
     }

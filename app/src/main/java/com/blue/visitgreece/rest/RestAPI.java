@@ -1,9 +1,10 @@
 package com.blue.visitgreece.rest;
 
 
-
 import com.blue.visitgreece.login.LoginDomain;
+import com.blue.visitgreece.rest.responses.SubmitReviewResponse;
 import com.blue.visitgreece.reviews.ReviewDomain;
+import com.blue.visitgreece.submitreviews.SubmitReviewDomain;
 import com.blue.visitgreece.tourpackages.TourpackageDomain;
 import com.blue.visitgreece.tours.TourDomain;
 
@@ -29,5 +30,7 @@ public interface RestAPI {
     @POST("login")
     Call<LoginDomain> login(@Body LoginDomain loginDomain);
 
+    @POST("tourPackages/{id}/reviews")
+    Call<SubmitReviewDomain> postReview(@Body ReviewDomain reviewDomain, @Path("id") String tourPackageId);
 
 }
