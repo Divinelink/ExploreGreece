@@ -68,7 +68,8 @@ public class ToursPackagesFragment extends Fragment implements TourPackagesView 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         toursPackage_rv.setLayoutManager(layoutManager);
         presenter = new TourPackagesPresenterImpl(this);
-        presenter.getTourpackages(getActivity(), false);
+
+        presenter.getTourpackages(getActivity(), true);
 
         return v;
     }

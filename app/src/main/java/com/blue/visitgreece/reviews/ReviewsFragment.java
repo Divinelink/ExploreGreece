@@ -97,7 +97,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
 
 
         presenter = new ReviewsPresenterImp(this);
-        presenter.getReviews(getContext(), tourPackageUI, false); //false , do not refresh with swipe
+        presenter.getReviews(getContext(), tourPackageUI, true);
 
         return v;
 
