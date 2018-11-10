@@ -7,4 +7,6 @@ public interface SubmitView {
 
     void showNoRatingError();
 
+    void showOnError();
+
 }

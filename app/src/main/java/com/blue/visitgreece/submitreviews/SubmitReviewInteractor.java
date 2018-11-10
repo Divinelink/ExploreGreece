@@ -19,5 +19,8 @@ public interface SubmitReviewInteractor {
         void onSuccess();
 
         void onError();
+
+        void onNoRatingEntered();
+
     }
 }

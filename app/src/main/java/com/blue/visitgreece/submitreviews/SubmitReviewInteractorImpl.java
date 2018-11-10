@@ -1,6 +1,7 @@
 package com.blue.visitgreece.submitreviews;
 
 import android.content.Context;
+import android.os.AsyncTask;
 
 import com.blue.visitgreece.base.VisitGreeceDatabase;
 import com.blue.visitgreece.rest.RestClient;
@@ -29,21 +30,32 @@ public class SubmitReviewInteractorImpl implements SubmitReviewInteractor {
 
         final SubmitReviewsDao submitReviewsDao = VisitGreeceDatabase.getDatabase(ctx).submitReviewsDao();
 
-
-
-////FIXME call always goes to onFailure even though the review is posted
-
-        Call<SubmitReviewDomain> call = RestClient.call().postReview(reviewDomain, tourpackageUI.getId());
-        call.enqueue(new Callback<SubmitReviewDomain>() {
+        Call<Void> call = RestClient.call().postReview(reviewDomain, tourpackageUI.getId());
+        call.enqueue(new Callback<Void>() {
             @Override
-            public void onResponse(Call<SubmitReviewDomain> call, final Response<SubmitReviewDomain> response) {
-                listener.onSuccess();
+            public void onResponse(Call<Void> call, Response<Void> response) {
+
+                AsyncTask.execute(new Runnable() {
+                    @Override
+                    public void run() {
+
+                        if (reviewDomain.getScore() != 0) {
+                            listener.onSuccess();
+                            submitReviewsDao.submitReviewToDB(reviewDomain);
+                            //FIXME should replace current review in DB if it exists with the new one.
+                        }
+                        else
+                            listener.onNoRatingEntered();
+                    }
+                });
             }
 
             @Override
-            public void onFailure(Call<SubmitReviewDomain> call, Throwable t) {
+            public void onFailure(Call<Void> call, Throwable t) {
                 listener.onError();
             }
         });
+
+
     }
 }

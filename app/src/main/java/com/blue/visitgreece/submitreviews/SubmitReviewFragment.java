@@ -101,6 +101,14 @@ public class SubmitReviewFragment extends Fragment implements SubmitView, Shared
         });
     }
 
+    @Override
+    public void showOnError() {
+        getActivity().runOnUiThread(new Runnable() {
+            public void run() {
+                Toast.makeText(getActivity(), "Couldn't submit review", Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     //FIXME is this correct?
     //FIXME You can fix this probably if you pass getLastLoggedInUsername in Fragment on newInstance

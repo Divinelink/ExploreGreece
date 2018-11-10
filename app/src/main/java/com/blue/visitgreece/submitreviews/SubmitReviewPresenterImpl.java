@@ -29,8 +29,13 @@ public class SubmitReviewPresenterImpl implements
     @Override
     public void onError() {
 
-        view.showNoRatingError();
+        view.showOnError();
 
+    }
+
+    @Override
+    public void onNoRatingEntered() {
+        view.showNoRatingError();
     }
 
     @Override
