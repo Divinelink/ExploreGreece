@@ -1,6 +1,7 @@
 package com.blue.visitgreece.submitreviews;
 
 
+import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -12,9 +13,9 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.blue.visitgreece.R;
+import com.blue.visitgreece.base.VisitGreeceFragment;
 import com.blue.visitgreece.login.SharedPrefManager;
 import com.blue.visitgreece.tourpackages.TourPackageUI;
 
@@ -25,28 +26,34 @@ import butterknife.OnClick;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class SubmitReviewFragment extends Fragment implements SubmitView, SharedPrefManager{
+public class SubmitReviewFragment extends VisitGreeceFragment implements SubmitView, SharedPrefManager {
 
     TourPackageUI tourPackageUI;
     SubmitReviewPresenter presenter;
 
 
-    @BindView(R.id.selected_package_textView)    TextView mSelectedPackageTextView;
-    @BindView(R.id.review_edit_text)    EditText mReviewEditText;
-    @BindView(R.id.cancel_review_button)    Button mButtonCancelReview;
-    @BindView(R.id.submit_review_button) Button mButtonSubmitReview;
-    @BindView(R.id.review_rating) RatingBar mRatingBar;
+    @BindView(R.id.selected_package_textView)
+    TextView mSelectedPackageTextView;
+    @BindView(R.id.review_edit_text)
+    EditText mReviewEditText;
+    @BindView(R.id.cancel_review_button)
+    Button mButtonCancelReview;
+    @BindView(R.id.submit_review_button)
+    Button mButtonSubmitReview;
+    @BindView(R.id.review_rating)
+    RatingBar mRatingBar;
 
     @OnClick(R.id.submit_review_button)
-    public void submit(){
+    public void submit() {
 
+//TODO Add a dialog fragment with a progress while waiting to post review
         presenter.submitReview(
                 tourPackageUI,
                 getActivity(),
                 mReviewEditText.getText().toString(),
                 Math.round(mRatingBar.getRating()),
                 getLastLoggedInUsername()
-                );
+        );
 
     }
 
@@ -82,9 +89,19 @@ public class SubmitReviewFragment extends Fragment implements SubmitView, Shared
 
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(getActivity(), "Successfully added review", Toast.LENGTH_SHORT).show();
+                showGeneralDialog(getResources().getString(R.string.generalSuccessDialogTitle),
+                        getResources().getString(R.string.submitReviewSuccessDialogTitle),
+
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        },
+                        getResources().getDrawable(R.drawable.ic_tag_faces_white_24dp)
+                );
             }
         });
+
     }
 
     @Override
@@ -92,7 +109,14 @@ public class SubmitReviewFragment extends Fragment implements SubmitView, Shared
 
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(getActivity(), "Please enter a rating", Toast.LENGTH_SHORT).show();
+                showErrorDialog(getResources().getString(R.string.noRatingDialogErrorTitle),
+                        getResources().getString(R.string.noRatingDialogErrorMessage),
+                        new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog, int which) {
+                                dialog.dismiss();
+                            }
+                        }
+                );
             }
         });
     }
@@ -101,7 +125,7 @@ public class SubmitReviewFragment extends Fragment implements SubmitView, Shared
     public void showOnError() {
         getActivity().runOnUiThread(new Runnable() {
             public void run() {
-                Toast.makeText(getActivity(), "Couldn't submit review", Toast.LENGTH_SHORT).show();
+                showErrorDialog();
             }
         });
     }

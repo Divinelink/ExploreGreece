@@ -23,4 +23,14 @@
     <string name="cancel">Cancel</string>
     <string name="submit">Submit</string>
 
+    <string name="generalErrorDialogTitle">Error</string>
+    <string name="generalErrorDialogMessage">Oops, something went wrong. Please try again.</string>
+
+    <string name="noRatingDialogErrorTitle">Enter rating</string>
+    <string name="noRatingDialogErrorMessage">Please enter a rating to post a review.</string>
+
+    <string name="generalSuccessDialogTitle">Success</string>
+    <string name="submitReviewSuccessDialogTitle">Your review has been successfully posted!</string>
+
+
 </resources>

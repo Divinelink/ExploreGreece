@@ -31,30 +31,34 @@ public class SubmitReviewInteractorImpl implements SubmitReviewInteractor {
         final SubmitReviewsDao submitReviewsDao = VisitGreeceDatabase.getDatabase(ctx).submitReviewsDao();
 
         Call<Void> call = RestClient.call().postReview(reviewDomain, tourPackageUI.getId());
-        call.enqueue(new Callback<Void>() {
-            @Override
-            public void onResponse(Call<Void> call, Response<Void> response) {
 
-                AsyncTask.execute(new Runnable() {
-                    @Override
-                    public void run() {
+        if (reviewDomain.getScore() != 0) {
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(Call<Void> call, Response<Void> response) {
 
-                        if (reviewDomain.getScore() != 0) {
-                            listener.onSuccess();
-                            submitReviewsDao.submitReviewToDB(reviewDomain);
-                            //FIXME should replace current review in DB if it exists with the new one.
+                    AsyncTask.execute(new Runnable() {
+                        @Override
+                        public void run() {
+
+                            if (reviewDomain.getScore() != 0) {
+                                submitReviewsDao.deleteByUsername(reviewDomain.getUsername());
+                                submitReviewsDao.submitReviewToDB(reviewDomain);
+                                listener.onSuccess();
+                            }
                         }
-                        else
-                            listener.onNoRatingEntered();
-                    }
-                });
-            }
+                    });
+                }
 
-            @Override
-            public void onFailure(Call<Void> call, Throwable t) {
-                listener.onError();
-            }
-        });
+                @Override
+                public void onFailure(Call<Void> call, Throwable t) {
+                    listener.onError();
+                }
+            });
+        }
+        else {
+            listener.onNoRatingEntered();
+        }
 
 
     }
