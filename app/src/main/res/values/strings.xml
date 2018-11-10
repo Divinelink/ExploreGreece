@@ -33,5 +33,7 @@
     <string name="submitReviewSuccessDialogTitle">Your review has been successfully posted!</string>
     <string name="filter">Filter</string>
 
+    <string name="reviewsFor">Reviews for %1$s</string>
+
 
 </resources>

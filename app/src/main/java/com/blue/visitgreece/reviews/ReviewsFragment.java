@@ -64,7 +64,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
 
         tourPackageUI = getArguments().getParcelable("tourpackage"); //otan to BUNDLE LEITOURGISEI PREPEI NA ENERGOPOIITHEI AUTO
 
-        textViewReviewTitle.setText("Reviews for "+ tourPackageUI.getName());
+        textViewReviewTitle.setText(getString(R.string.reviewsFor, tourPackageUI.getName().toString()));
 
         mReviewsRoot.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override

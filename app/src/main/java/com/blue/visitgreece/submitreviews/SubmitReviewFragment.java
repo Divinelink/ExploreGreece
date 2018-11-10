@@ -15,6 +15,7 @@ import android.widget.RatingBar;
 import android.widget.TextView;
 
 import com.blue.visitgreece.R;
+import com.blue.visitgreece.base.HomeView;
 import com.blue.visitgreece.base.VisitGreeceFragment;
 import com.blue.visitgreece.login.SharedPrefManager;
 import com.blue.visitgreece.tourpackages.TourPackageUI;
@@ -31,7 +32,6 @@ public class SubmitReviewFragment extends VisitGreeceFragment implements SubmitV
     TourPackageUI tourPackageUI;
     SubmitReviewPresenter presenter;
 
-
     @BindView(R.id.selected_package_textView)
     TextView mSelectedPackageTextView;
     @BindView(R.id.review_edit_text)
@@ -42,6 +42,12 @@ public class SubmitReviewFragment extends VisitGreeceFragment implements SubmitV
     Button mButtonSubmitReview;
     @BindView(R.id.review_rating)
     RatingBar mRatingBar;
+
+    @OnClick(R.id.cancel_review_button)
+    public void cancel()
+    {
+        getActivity().onBackPressed();
+    }
 
     @OnClick(R.id.submit_review_button)
     public void submit() {
@@ -132,6 +138,7 @@ public class SubmitReviewFragment extends VisitGreeceFragment implements SubmitV
 
     //FIXME is this correct?
     //FIXME You can fix this probably if you pass getLastLoggedInUsername in Fragment on newInstance
+    //FIXME A better implementation would be to add user's username on the DB
     @Override
     public String getLastLoggedInUsername() {
 
