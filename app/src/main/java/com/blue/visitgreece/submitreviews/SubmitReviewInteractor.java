@@ -2,14 +2,14 @@ package com.blue.visitgreece.submitreviews;
 
 import android.content.Context;
 
-import com.blue.visitgreece.tourpackages.TourpackageUI;
+import com.blue.visitgreece.tourpackages.TourPackageUI;
 
 
 public interface SubmitReviewInteractor {
 
     void submitReview(OnSubmitReviewFinishListener listener,
                       Context ctx,
-                      TourpackageUI tourpackageUI,
+                      TourPackageUI tourPackageUI,
                       String reviewText,
                       int reviewRating,
                       String username);

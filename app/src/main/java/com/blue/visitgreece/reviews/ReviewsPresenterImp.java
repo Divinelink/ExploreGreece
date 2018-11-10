@@ -2,7 +2,7 @@ package com.blue.visitgreece.reviews;
 
 import android.content.Context;
 
-import com.blue.visitgreece.tourpackages.TourpackageUI;
+import com.blue.visitgreece.tourpackages.TourPackageUI;
 
 import java.util.ArrayList;
 
@@ -18,8 +18,8 @@ public class ReviewsPresenterImp implements ReviewsPresenter ,ReviewsInteractor.
     }
 
     @Override
-    public void getReviews(Context ctx, TourpackageUI tourpackageUI, Boolean refresh) {
-        interactor.getReviews(this, ctx, tourpackageUI, refresh);
+    public void getReviews(Context ctx, TourPackageUI tourPackageUI, Boolean refresh) {
+        interactor.getReviews(this, ctx, tourPackageUI, refresh);
     }
 
     @Override

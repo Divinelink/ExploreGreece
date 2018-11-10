@@ -1,18 +1,16 @@
 package com.blue.visitgreece.base;
 
-import com.blue.visitgreece.login.LoginFragment;
-import com.blue.visitgreece.login.LoginUI;
-import com.blue.visitgreece.tourpackages.TourpackageUI;
+import com.blue.visitgreece.tourpackages.TourPackageUI;
 
 import java.io.Serializable;
 
 public interface HomeView extends Serializable{
 
-    void addToursFragment(TourpackageUI tourpackageUI);
+    void addToursFragment(TourPackageUI tourPackageUI);
 
-    void addSubmitReviewFragment(TourpackageUI tourpackageUI);
+    void addSubmitReviewFragment(TourPackageUI tourPackageUI);
 
-    void addReviewsFragment(TourpackageUI tourpackageUI);
+    void addReviewsFragment(TourPackageUI tourPackageUI);
 
     void addToursPackageFragment();
 

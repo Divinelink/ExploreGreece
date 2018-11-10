@@ -6,7 +6,7 @@ import android.os.AsyncTask;
 import com.blue.visitgreece.base.VisitGreeceDatabase;
 import com.blue.visitgreece.rest.RestClient;
 import com.blue.visitgreece.reviews.ReviewDomain;
-import com.blue.visitgreece.tourpackages.TourpackageUI;
+import com.blue.visitgreece.tourpackages.TourPackageUI;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -17,20 +17,20 @@ public class SubmitReviewInteractorImpl implements SubmitReviewInteractor {
     @Override
     public void submitReview(final OnSubmitReviewFinishListener listener,
                              final Context ctx,
-                             final TourpackageUI tourpackageUI,
+                             final TourPackageUI tourPackageUI,
                              final String reviewText,
                              final int reviewRating,
                              final String username) {
 
 
-        final ReviewDomain reviewDomain = new ReviewDomain(tourpackageUI.getId(),
+        final ReviewDomain reviewDomain = new ReviewDomain(tourPackageUI.getId(),
                 reviewRating,
                 reviewText,
                 username); // get user's username
 
         final SubmitReviewsDao submitReviewsDao = VisitGreeceDatabase.getDatabase(ctx).submitReviewsDao();
 
-        Call<Void> call = RestClient.call().postReview(reviewDomain, tourpackageUI.getId());
+        Call<Void> call = RestClient.call().postReview(reviewDomain, tourPackageUI.getId());
         call.enqueue(new Callback<Void>() {
             @Override
             public void onResponse(Call<Void> call, Response<Void> response) {

@@ -15,12 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blue.visitgreece.R;
-import com.blue.visitgreece.login.LoginDomain;
-import com.blue.visitgreece.login.LoginUI;
 import com.blue.visitgreece.login.SharedPrefManager;
-import com.blue.visitgreece.tourpackages.TourpackageUI;
-
-import org.w3c.dom.Text;
+import com.blue.visitgreece.tourpackages.TourPackageUI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +27,7 @@ import butterknife.OnClick;
  */
 public class SubmitReviewFragment extends Fragment implements SubmitView, SharedPrefManager{
 
-    TourpackageUI tourpackageUI;
+    TourPackageUI tourPackageUI;
     SubmitReviewPresenter presenter;
 
 
@@ -45,7 +41,7 @@ public class SubmitReviewFragment extends Fragment implements SubmitView, Shared
     public void submit(){
 
         presenter.submitReview(
-                tourpackageUI,
+                tourPackageUI,
                 getActivity(),
                 mReviewEditText.getText().toString(),
                 Math.round(mRatingBar.getRating()),
@@ -58,10 +54,10 @@ public class SubmitReviewFragment extends Fragment implements SubmitView, Shared
         // Required empty public constructor
     }
 
-    public static SubmitReviewFragment newInstance(TourpackageUI tourpackageUI) {
+    public static SubmitReviewFragment newInstance(TourPackageUI tourPackageUI) {
         SubmitReviewFragment myFragment = new SubmitReviewFragment();
         Bundle args = new Bundle();
-        args.putParcelable("tourpackage", tourpackageUI);
+        args.putParcelable("tourpackage", tourPackageUI);
         myFragment.setArguments(args);
         return myFragment;
     }
@@ -73,10 +69,10 @@ public class SubmitReviewFragment extends Fragment implements SubmitView, Shared
         View v = inflater.inflate(R.layout.fragment_submit_review, container, false);
         ButterKnife.bind(this, v);
 
-        tourpackageUI = getArguments().getParcelable("tourpackage");
+        tourPackageUI = getArguments().getParcelable("tourpackage");
 
         presenter = new SubmitReviewPresenterImpl(this);
-        presenter.stylize(tourpackageUI, mSelectedPackageTextView);
+        presenter.stylize(tourPackageUI, mSelectedPackageTextView);
 
         return v;
     }

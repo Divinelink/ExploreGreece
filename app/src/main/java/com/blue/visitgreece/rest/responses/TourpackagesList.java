@@ -1,22 +1,22 @@
 package com.blue.visitgreece.rest.responses;
 
-import com.blue.visitgreece.tourpackages.TourpackageDomain;
+import com.blue.visitgreece.tourpackages.TourPackageDomain;
 
 import java.util.ArrayList;
 
 public class TourpackagesList {
 
-    private ArrayList<TourpackageDomain> toupackages;
+    private ArrayList<TourPackageDomain> toupackages;
 
-    public TourpackagesList(ArrayList<TourpackageDomain> toupackages) {
+    public TourpackagesList(ArrayList<TourPackageDomain> toupackages) {
         this.toupackages = toupackages;
     }
 
-    public ArrayList<TourpackageDomain> getToupackages() {
+    public ArrayList<TourPackageDomain> getToupackages() {
         return toupackages;
     }
 
-    public void setToupackages(ArrayList<TourpackageDomain> toupackages) {
+    public void setToupackages(ArrayList<TourPackageDomain> toupackages) {
         this.toupackages = toupackages;
     }
 }

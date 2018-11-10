@@ -10,21 +10,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Dao
-public abstract class TourpackagesDao {
+public abstract class TourPackagesDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    abstract void insertTourpackages(ArrayList<TourpackageDomain> tourpackages);
+    abstract void insertTourpackages(ArrayList<TourPackageDomain> tourpackages);
 
-    @Query("SELECT * FROM tourpackage")
-    abstract List<TourpackageDomain> getAllTourpackages();
+    @Query("SELECT * FROM TourPackage")
+    abstract List<TourPackageDomain> getAllTourpackages();
 
-    @Query("SELECT * FROM tourpackage WHERE region=:region")
-    abstract List<TourpackageDomain>getFilteredTourpackages(String region);
+    @Query("SELECT * FROM TourPackage WHERE region=:region")
+    abstract List<TourPackageDomain>getFilteredTourpackages(String region);
 
-    @Query("DELETE FROM tourpackage")
+    @Query("DELETE FROM TourPackage")
     abstract void deleteAll();
 
     @Transaction
-    void updateTourpackages(ArrayList<TourpackageDomain> tourpackages) {
+    void updateTourpackages(ArrayList<TourPackageDomain> tourpackages) {
         deleteAll();
         insertTourpackages(tourpackages);
     }

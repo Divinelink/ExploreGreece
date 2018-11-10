@@ -5,7 +5,7 @@ import android.content.Context;
 import android.view.View;
 import android.widget.TextView;
 
-import com.blue.visitgreece.tourpackages.TourpackageUI;
+import com.blue.visitgreece.tourpackages.TourPackageUI;
 
 public class SubmitReviewPresenterImpl implements
         SubmitReviewPresenter,
@@ -39,7 +39,7 @@ public class SubmitReviewPresenterImpl implements
     }
 
     @Override
-    public void stylize(TourpackageUI tourPackageUI, View view) {
+    public void stylize(TourPackageUI tourPackageUI, View view) {
 
         TextView mReviewPackageTitle = (TextView) view;
 
@@ -48,7 +48,7 @@ public class SubmitReviewPresenterImpl implements
     }
 
     @Override
-    public void submitReview(TourpackageUI tourPackageUI, Context ctx, String reviewText, int reviewRating, String username) {
+    public void submitReview(TourPackageUI tourPackageUI, Context ctx, String reviewText, int reviewRating, String username) {
 
         interactor.submitReview(this, ctx, tourPackageUI, reviewText, reviewRating, username);
 

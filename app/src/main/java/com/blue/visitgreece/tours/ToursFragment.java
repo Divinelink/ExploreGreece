@@ -1,6 +1,5 @@
 package com.blue.visitgreece.tours;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
@@ -18,7 +17,7 @@ import timber.log.Timber;
 
 import com.blue.visitgreece.R;
 import com.blue.visitgreece.base.HomeView;
-import com.blue.visitgreece.tourpackages.TourpackageUI;
+import com.blue.visitgreece.tourpackages.TourPackageUI;
 
 import java.util.ArrayList;
 
@@ -54,7 +53,7 @@ public class ToursFragment extends Fragment implements ToursView {
 
     }
 
-    public static ToursFragment newInstance(TourpackageUI tourpackage, HomeView homeView) {
+    public static ToursFragment newInstance(TourPackageUI tourpackage, HomeView homeView) {
         ToursFragment myFragment = new ToursFragment();
         Bundle args = new Bundle();
         args.putSerializable("home_view",homeView);
@@ -63,7 +62,7 @@ public class ToursFragment extends Fragment implements ToursView {
         return myFragment;
     }
 
-    TourpackageUI tourpackage;
+    TourPackageUI tourpackage;
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 

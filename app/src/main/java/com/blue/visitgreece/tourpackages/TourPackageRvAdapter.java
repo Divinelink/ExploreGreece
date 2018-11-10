@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TourpacakgeRvAdapter extends RecyclerView.Adapter<TourpacakgeRvAdapter.TourpackageViewHolder> {
+public class TourPackageRvAdapter extends RecyclerView.Adapter<TourPackageRvAdapter.TourpackageViewHolder> {
 
-    private ArrayList<TourpackageUI> tourpackages;
+    private ArrayList<TourPackageUI> tourpackages;
     private OnClickTourpackage listener;
     private Context context;
 
 
-    public TourpacakgeRvAdapter(ArrayList<TourpackageUI> tourpackages, OnClickTourpackage listener,Context ctx) {
+    public TourPackageRvAdapter(ArrayList<TourPackageUI> tourpackages, OnClickTourpackage listener, Context ctx) {
         this.tourpackages = tourpackages;
         this.listener     = listener;
         this.context      = ctx;
@@ -72,7 +72,7 @@ public class TourpacakgeRvAdapter extends RecyclerView.Adapter<TourpacakgeRvAdap
         viewHolder.ratinbar_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onRateChangeCllicked(tourpackages.get(pos));
+                listener.onRateChangeClicked(tourpackages.get(pos));
             }
         });
     }

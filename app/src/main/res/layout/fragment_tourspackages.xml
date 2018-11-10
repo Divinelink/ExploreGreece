@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    tools:context=".tourpackages.TourspackagesFragment"
+    tools:context=".tourpackages.ToursPackagesFragment"
     android:id="@+id/tourpackages_root">
     <LinearLayout
         android:layout_width="match_parent"

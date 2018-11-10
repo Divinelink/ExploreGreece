@@ -8,8 +8,8 @@ import com.blue.visitgreece.login.LoginFragment;
 
 import com.blue.visitgreece.reviews.ReviewsFragment;
 import com.blue.visitgreece.submitreviews.SubmitReviewFragment;
-import com.blue.visitgreece.tourpackages.TourpackageUI;
-import com.blue.visitgreece.tourpackages.TourspackagesFragment;
+import com.blue.visitgreece.tourpackages.TourPackageUI;
+import com.blue.visitgreece.tourpackages.ToursPackagesFragment;
 import com.blue.visitgreece.tours.ToursFragment;
 
 
@@ -31,37 +31,37 @@ public class LoginActivity extends AppCompatActivity implements HomeView{
     public void addToursPackageFragment() {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.login_root, TourspackagesFragment.newInstance(this))
+                .replace(R.id.login_root, ToursPackagesFragment.newInstance(this))
                 .commit();
     }
 
 
     @Override
-    public void addSubmitReviewFragment(TourpackageUI tourpackageUI) {
+    public void addSubmitReviewFragment(TourPackageUI tourPackageUI) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.login_root, SubmitReviewFragment.newInstance(tourpackageUI))  //add submit review
+                .replace(R.id.login_root, SubmitReviewFragment.newInstance(tourPackageUI))  //add submit review
                 .addToBackStack(null)
                 .commit();
     }
 
 
     @Override
-    public void addToursFragment(TourpackageUI tourpackageUI) {
+    public void addToursFragment(TourPackageUI tourPackageUI) {
 
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.login_root, ToursFragment.newInstance(tourpackageUI,this))
+                .replace(R.id.login_root, ToursFragment.newInstance(tourPackageUI,this))
                 .addToBackStack(null)
                 .commit();
 
     }
 
     @Override
-    public void addReviewsFragment(TourpackageUI tourpackageUI) {
+    public void addReviewsFragment(TourPackageUI tourPackageUI) {
         getSupportFragmentManager()
                 .beginTransaction()
-                .replace(R.id.login_root, ReviewsFragment.newInstance(tourpackageUI))
+                .replace(R.id.login_root, ReviewsFragment.newInstance(tourPackageUI))
                 .addToBackStack(null)
                 .commit();
 

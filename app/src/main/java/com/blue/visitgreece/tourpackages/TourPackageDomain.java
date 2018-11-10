@@ -4,8 +4,8 @@ import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-@Entity(tableName = "tourpackage")
-public class TourpackageDomain {
+@Entity(tableName = "TourPackage")
+public class TourPackageDomain {
 
     @PrimaryKey
     @NonNull
@@ -14,7 +14,7 @@ public class TourpackageDomain {
     private String name,region;
     private double averageReviewScore;
 
-    public TourpackageDomain(String name, String region, double averageReviewScore, String id) {
+    public TourPackageDomain(String name, String region, double averageReviewScore, String id) {
         this.name = name;
         this.region = region;
         this.averageReviewScore = averageReviewScore;
