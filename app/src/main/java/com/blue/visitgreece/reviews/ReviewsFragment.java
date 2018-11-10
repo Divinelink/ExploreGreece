@@ -103,9 +103,6 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
 
     }
 
-
-
-    //why do we need UIThread here
     @Override
     public void showReviews(final ArrayList<ReviewDomain> reviews) {
         mReviewsRoot.setRefreshing(false); //for swipe refresh or else the circle loader run infinitely
@@ -118,10 +115,6 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
                 reviewsRv.setAdapter(adapter);
             }
         });
-
-
-
-
     }
 
     @Override

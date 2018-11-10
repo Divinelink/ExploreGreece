@@ -67,7 +67,6 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
                 } else {
                     listener.onSuccess(arrayListFromDb);
                 }//end if
-// testing for db
             }
         });
 
@@ -107,22 +106,21 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
         });
     }
 
-
-    private ArrayList<ReviewDomain> mockData() {
-        ArrayList<ReviewDomain> reviews = new ArrayList<ReviewDomain>();
-        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
-        reviews.add(new ReviewDomain("asd", 6, "red", "very bad rating"));
-        reviews.add(new ReviewDomain("asd", 1, "red", "good rating"));
-        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
-        reviews.add(new ReviewDomain("asd", 2, "red", "good rating"));
-        reviews.add(new ReviewDomain("asd", 3, "blue", "bad rating"));
-        reviews.add(new ReviewDomain("asd", 5, "green", "very good rating"));
-        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
-        reviews.add(new ReviewDomain("asd", 3, "red", "bad rating"));
-        reviews.add(new ReviewDomain("asd", 5, "red", "hmm rating"));
-        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
-        reviews.add(new ReviewDomain("asd", 5, "red", "good rating"));
-        return reviews;
-    }
+//    private ArrayList<ReviewDomain> mockData() {
+//        ArrayList<ReviewDomain> reviews = new ArrayList<ReviewDomain>();
+//        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
+//        reviews.add(new ReviewDomain("asd", 6, "red", "very bad rating"));
+//        reviews.add(new ReviewDomain("asd", 1, "red", "good rating"));
+//        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
+//        reviews.add(new ReviewDomain("asd", 2, "red", "good rating"));
+//        reviews.add(new ReviewDomain("asd", 3, "blue", "bad rating"));
+//        reviews.add(new ReviewDomain("asd", 5, "green", "very good rating"));
+//        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
+//        reviews.add(new ReviewDomain("asd", 3, "red", "bad rating"));
+//        reviews.add(new ReviewDomain("asd", 5, "red", "hmm rating"));
+//        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
+//        reviews.add(new ReviewDomain("asd", 5, "red", "good rating"));
+//        return reviews;
+//    }
 
 }
