@@ -6,30 +6,26 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.blue.visitgreece.R;
-import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 
 public class ToursRvAdapter extends RecyclerView.Adapter<ToursRvAdapter.ToursViewHolder>{
 
     private ArrayList<TourUI> tours;
-
     private Context context;
 
-    public ToursRvAdapter(ArrayList<TourUI> tours, Context context) {
+    public ToursRvAdapter(ArrayList<TourUI> tours, Context ctx) {
         this.tours = tours;
-        this.context = context;
+        this.context = ctx;
     }
 
     public static class ToursViewHolder extends RecyclerView.ViewHolder {
 
         RelativeLayout mTourItemRoot;
-        //ImageView mTourLogo;
         TextView mTourName;
         TextView mTourDesc;
 
@@ -37,7 +33,6 @@ public class ToursRvAdapter extends RecyclerView.Adapter<ToursRvAdapter.ToursVie
         public ToursViewHolder(View v) {
             super(v);
             mTourItemRoot = v.findViewById(R.id.tour_item_root);
-           // mTourLogo = v.findViewById(R.id.tour_logo);
             mTourName = v.findViewById(R.id.tour_name);
             mTourDesc = v.findViewById(R.id.tour_desc);
         }
@@ -58,9 +53,7 @@ public class ToursRvAdapter extends RecyclerView.Adapter<ToursRvAdapter.ToursVie
         final int pos = i;
 
         viewHolder.mTourName.setText(tours.get(i).getTitle());
-        //viewHolder.mTourName.setTextColor(context.getResources().getColor(tours.get(pos).getTourNameColorid()));
         viewHolder.mTourDesc.setText(tours.get(i).getDescription());
-        //Picasso.get().load(tours.get(i).getTourLogoUrl()).into(viewHolder.mTourLogo);
     }
 
     @Override

@@ -18,7 +18,7 @@ public class TourpackagesPresenterImpl implements TourpackagesPresenter,
     }
 
     @Override
-    public void getTourpackages(Context ctx,boolean refresh) {
+    public void getTourpackages(Context ctx, boolean refresh) {
         interactor.getTourpackages(this, ctx, refresh);
     }
 

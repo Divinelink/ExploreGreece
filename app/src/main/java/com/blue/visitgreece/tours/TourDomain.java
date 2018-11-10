@@ -1,22 +1,43 @@
 package com.blue.visitgreece.tours;
 
+import android.arch.persistence.room.Entity;
+import android.arch.persistence.room.ForeignKey;
+import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
+
+import com.blue.visitgreece.tourpackages.TourpackageDomain;
+
+@Entity(tableName = "tour",
+        foreignKeys = @ForeignKey(entity = TourpackageDomain.class,
+                parentColumns = "id",
+                childColumns = "tourpackageId",
+                onDelete = ForeignKey.CASCADE)
+)
+
+
 public class TourDomain {
-    private int id;
+
+    @PrimaryKey
+    @NonNull
+    private String id;
     private String title;
     private String description;
+    private String tourpackageId;
 
 
-    public TourDomain(int Id, String Title, String Description) {
+    public TourDomain() {
+
+    }
+
+    public TourDomain(String Id, String Title, String Description) {
         id = Id;
         title = Title;
         description = Description;
     }
 
-    public int getId() {
-        return id;
-    }
+    public String getId() { return id; }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 
@@ -35,4 +56,12 @@ public class TourDomain {
     public void setDescription(String description) {
         this.description = description;
     }
+    public String getTourpackageId() {
+        return tourpackageId;
+    }
+
+    public void setTourpackageId(String tourpackageId) {
+        this.tourpackageId = tourpackageId;
+    }
+
 }

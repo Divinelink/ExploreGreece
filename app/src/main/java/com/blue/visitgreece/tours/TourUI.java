@@ -2,13 +2,13 @@ package com.blue.visitgreece.tours;
 
 public class TourUI {
 
-        private int id;
+        private String id;
         private String title;
         private String description;
         private int descTextSize;
 
 
-    public TourUI(int tourId, String tourName, String tourDesc, int descTextSize) {
+    public TourUI(String tourId, String tourName, String tourDesc, int descTextSize) {
         this.id   = tourId;
         this.title = tourName;
         this.description = tourDesc;
@@ -16,11 +16,11 @@ public class TourUI {
     }
 
 
-    public int getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(String id) {
         this.id = id;
     }
 

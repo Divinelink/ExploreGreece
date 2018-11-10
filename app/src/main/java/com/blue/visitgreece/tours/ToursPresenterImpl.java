@@ -1,6 +1,9 @@
 package com.blue.visitgreece.tours;
 
+import android.content.Context;
+
 import com.blue.visitgreece.R;
+import com.blue.visitgreece.tourpackages.TourpackageUI;
 
 import java.util.ArrayList;
 
@@ -16,8 +19,8 @@ public class ToursPresenterImpl implements ToursPresenter, ToursInteractor.OnTou
 
 
     @Override
-    public void getTours(String tourpackageId) {
-        interactor.getTours(this, tourpackageId);
+    public void getTours(Context ctx, TourpackageUI tourpackageUI, Boolean refresh) {
+        interactor.getTours(this,  ctx, tourpackageUI, refresh);
     }
 
 

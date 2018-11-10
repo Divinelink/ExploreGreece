@@ -6,7 +6,6 @@ import android.os.AsyncTask;
 
 import com.blue.visitgreece.base.VisitGreeceDatabase;
 import com.blue.visitgreece.rest.RestClient;
-import com.blue.visitgreece.rest.responses.TourpackageResponse;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +13,6 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import timber.log.Timber;
 
 
 public class TourpackagesInteractorImpl implements TourpackagesInteractor {

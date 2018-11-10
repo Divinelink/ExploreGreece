@@ -1,8 +1,8 @@
 package com.blue.visitgreece.tours;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -27,7 +27,6 @@ import java.util.ArrayList;
  */
 public class ToursFragment extends Fragment implements ToursView {
 
-    ToursPresenter presenter;
 
     @BindView(R.id.tourpackage_name) //bind με προηγούμενη οθόνη
             TextView mTourpackageName;
@@ -46,66 +45,80 @@ public class ToursFragment extends Fragment implements ToursView {
 
     @BindView(R.id.tours_rv)
             RecyclerView mToursRv;
+    @BindView(R.id.tours_root)
+    SwipeRefreshLayout toursRoot;
 
-
+    ToursPresenter presenter;
+    TourpackageUI tourpackageUI;
     HomeView homeView;
 
     public ToursFragment() {
 
     }
 
-    public static ToursFragment newInstance(TourpackageUI tourpackage, HomeView homeView) {
+    public static ToursFragment newInstance(TourpackageUI tourpackageUI, HomeView homeView) {
         ToursFragment myFragment = new ToursFragment();
         Bundle args = new Bundle();
         args.putSerializable("home_view",homeView);
-        args.putParcelable("tourpackage", tourpackage);
+        args.putParcelable("tourpackage", tourpackageUI);
         myFragment.setArguments(args);
         return myFragment;
     }
 
-    TourpackageUI tourpackage;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        tourpackage = getArguments().getParcelable("tourpackage");
-        Timber.e(tourpackage.getId()); //logging
+        tourpackageUI = getArguments().getParcelable("tourpackage");
+        Timber.e(tourpackageUI.getId()); //logging
 
         View v = inflater.inflate(R.layout.fragment_tours, container, false);
         ButterKnife.bind(this, v);
 
+        toursRoot.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                presenter.getTours(getActivity(),tourpackageUI, true);
+            }
+        });
+
+
         homeView = (HomeView) getArguments().getSerializable("home_view");
-        Timber.e(tourpackage.getRegion().toString());
-        mTourpackageName.setText(tourpackage.getName());
-        mTourpackageRegion.setText(tourpackage.getRegion());
-        mTourpackageRating.setText(String.valueOf(tourpackage.getRating()));
+        Timber.e(tourpackageUI.getRegion().toString());
+        mTourpackageName.setText(tourpackageUI.getName());
+        mTourpackageRegion.setText(tourpackageUI.getRegion());
+        mTourpackageRating.setText(String.valueOf(tourpackageUI.getRating()));
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mToursRv.setLayoutManager(layoutManager);
 
         presenter = new ToursPresenterImpl(this);
-        presenter.getTours(tourpackage.getId());
+        presenter.getTours(getActivity(),tourpackageUI, false);
         return v;
-
     }
+
 
     @OnClick(R.id.button_rev)
-    public void OnclickReview(View v){
-        homeView.addSubmitReviewFragment(tourpackage);
-
-    }
+    public void OnclickReview(View v){ homeView.addSubmitReviewFragment(tourpackageUI); }
 
     @OnClick(R.id.button_all_rev)
     public void OnclickAllReview(View v){
-        homeView.addReviewsFragment(tourpackage);
-
+        homeView.addReviewsFragment(tourpackageUI);
     }
 
     @Override
-    public void showTours(ArrayList<TourUI> tours) {
-        ToursRvAdapter toursRvAdapter = new ToursRvAdapter(tours, getActivity());
-        mToursRv.setAdapter(toursRvAdapter);
+    public void showTours(final ArrayList<TourUI> tours) {
+        toursRoot.setRefreshing(false);
+
+        getActivity().runOnUiThread(new Runnable() {
+
+            ToursRvAdapter toursRvAdapter = new ToursRvAdapter(tours,getActivity());
+
+            @Override
+            public void run() {
+                mToursRv.setAdapter(toursRvAdapter);
+            }
+        });
     }
 }
-
-
 
