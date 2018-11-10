@@ -65,7 +65,7 @@ public class TourPackageRvAdapter extends RecyclerView.Adapter<TourPackageRvAdap
             @Override
             public void onClick(View v) {
                 // Listener
-                listener.onTourpackageClikced(tourpackages.get(pos));
+                listener.onTourPackageClicked(tourpackages.get(pos));
             }
         });
 

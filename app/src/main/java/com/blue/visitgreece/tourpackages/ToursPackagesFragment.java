@@ -24,11 +24,11 @@ import timber.log.Timber;
 public class ToursPackagesFragment extends Fragment implements TourPackagesView {
 
     @BindView(R.id.tourspackage_Rv)
-    RecyclerView tourspackage_rv;
+    RecyclerView toursPackage_rv;
     @BindView(R.id.filter_ed)
     EditText filter_ed;
     @BindView(R.id.tourpackages_root)
-    SwipeRefreshLayout mTourpackages_root;
+    SwipeRefreshLayout mTourPackages_root;
 
     TourPackagesPresenter presenter;
     HomeView homeView;
@@ -37,7 +37,6 @@ public class ToursPackagesFragment extends Fragment implements TourPackagesView 
         // Required empty public constructor
     }
 
-    // Den kserw an einai swstos tropos erwtisi ston petro.
     public static ToursPackagesFragment newInstance(HomeView homeView) {
         Bundle args = new Bundle();
         ToursPackagesFragment fragment = new ToursPackagesFragment();
@@ -59,7 +58,7 @@ public class ToursPackagesFragment extends Fragment implements TourPackagesView 
         // Get arguments from bundle
         homeView = (HomeView) getArguments().getSerializable("homeView");
 
-        mTourpackages_root.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mTourPackages_root.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 presenter.getTourpackages(getActivity(), true);
@@ -67,7 +66,7 @@ public class ToursPackagesFragment extends Fragment implements TourPackagesView 
         });
         // Set up Layoutmanager in Recycler View
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        tourspackage_rv.setLayoutManager(layoutManager);
+        toursPackage_rv.setLayoutManager(layoutManager);
         presenter = new TourPackagesPresenterImpl(this);
         presenter.getTourpackages(getActivity(), false);
 
@@ -75,19 +74,19 @@ public class ToursPackagesFragment extends Fragment implements TourPackagesView 
     }
 
     @Override
-    public void showTourpackages(final ArrayList<TourPackageUI> tourpackages) {
-        mTourpackages_root.setRefreshing(false);
+    public void showTourpackages(final ArrayList<TourPackageUI> tourPackages) {
+        mTourPackages_root.setRefreshing(false);
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
-                TourPackageRvAdapter tourpackagesRvAdapter = new TourPackageRvAdapter(tourpackages, new OnClickTourpackage() {
+                TourPackageRvAdapter tourPackagesRvAdapter = new TourPackageRvAdapter(tourPackages, new OnClickTourpackage() {
                     @Override
-                    public void onTourpackageClikced(TourPackageUI tourpackage) {
+                    public void onTourPackageClicked(TourPackageUI tourPackage) {
                         // Pass id to another screen
-                        homeView.addToursFragment(tourpackage);
+                        homeView.addToursFragment(tourPackage);
                     }
 
                     @Override
-                    public void onRateChangeClicked(TourPackageUI tourpackage) {
+                    public void onRateChangeClicked(TourPackageUI tourPackage) {
                         // GO to the review submit screen
                         Timber.d("Rate Clicked");
                     }
@@ -95,7 +94,7 @@ public class ToursPackagesFragment extends Fragment implements TourPackagesView 
 
                 @Override
                 public void run() {
-                    tourspackage_rv.setAdapter(tourpackagesRvAdapter);
+                    toursPackage_rv.setAdapter(tourPackagesRvAdapter);
                 }
             });
         }
@@ -104,7 +103,7 @@ public class ToursPackagesFragment extends Fragment implements TourPackagesView 
 
     @Override
     public void showGeneralError() {
-        mTourpackages_root.setRefreshing(false);
+        mTourPackages_root.setRefreshing(false);
     }
 
     @OnClick(R.id.filter_btn)
