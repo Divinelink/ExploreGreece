@@ -45,7 +45,7 @@ public class TourPackagesPresenterImpl implements TourPackagesPresenter,
 
                 switch(enumRegion){
                     case Crete:        tourPackageUI.setRegionColor(R.color.blue);
-                        break;
+                    break;
                     case Aeagean:      tourPackageUI.setRegionColor(R.color.green);
                         break;
                     case Ionian:       tourPackageUI.setRegionColor(R.color.pink);

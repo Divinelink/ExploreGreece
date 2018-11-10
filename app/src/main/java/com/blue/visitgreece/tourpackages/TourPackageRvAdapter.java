@@ -55,11 +55,10 @@ public class TourPackageRvAdapter extends RecyclerView.Adapter<TourPackageRvAdap
     @Override
     public void onBindViewHolder(@NonNull TourpackageViewHolder viewHolder, int i) {
         final int pos = i;
-        viewHolder.view_tourpackage_item.setBackgroundColor(context.getResources().getColor(tourpackages.get(pos).getRegionColor()));
+        viewHolder.name_tv.setTextColor(context.getResources().getColor(tourpackages.get(pos).getRegionColor()));
         viewHolder.name_tv.setText(tourpackages.get(pos).getName());
         viewHolder.region_tv.setText(tourpackages.get(pos).getRegion().toString());
         viewHolder.ratingBar.setRating((float) tourpackages.get(pos).getAverageReviewScore());
-        //tourPacakageViewHolder.ratingBar.setProgressBackgroundTintList(ColorStateList.valueOf(Color.parseColor(tourpackageArrayList.get(pos).getRatingColor())));
 
         viewHolder.view_tourpackage_item.setOnClickListener(new View.OnClickListener() {
             @Override

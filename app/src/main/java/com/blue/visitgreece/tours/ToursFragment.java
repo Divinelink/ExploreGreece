@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -35,7 +36,7 @@ public class ToursFragment extends Fragment implements ToursView {
             TextView mTourpackageRegion;
 
     @BindView(R.id.tourpackage_rating)
-            TextView mTourpackageRating;
+         RatingBar mTourpackageRating;
 
     @BindView(R.id.button_rev)
             Button mButtonRev;
@@ -76,7 +77,7 @@ public class ToursFragment extends Fragment implements ToursView {
         Timber.e(tourpackage.getRegion().toString());
         mTourpackageName.setText(tourpackage.getName());
         mTourpackageRegion.setText(tourpackage.getRegion());
-        mTourpackageRating.setText(String.valueOf(tourpackage.getRating()));
+        mTourpackageRating.setNumStars(tourpackage.getRating());
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mToursRv.setLayoutManager(layoutManager);

@@ -6,6 +6,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -71,6 +74,26 @@ public class ToursPackagesFragment extends Fragment implements TourPackagesView 
 
         presenter.getTourpackages(getActivity(), true);
 
+        filter_ed.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //here is your code
+                String filteredText = filter_ed.getText().toString();
+                presenter.getFilteredTourPackages(filteredText, getContext());
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
+            }
+        });
+
         return v;
     }
 
@@ -107,10 +130,5 @@ public class ToursPackagesFragment extends Fragment implements TourPackagesView 
         mTourPackages_root.setRefreshing(false);
     }
 
-    @OnClick(R.id.filter_btn)
-    public void getFilterTourPackages(View v) {
-        String filteredText = filter_ed.getText().toString();
-        presenter.getFilteredTourPackages(filteredText, getContext());
-    }
 
 }

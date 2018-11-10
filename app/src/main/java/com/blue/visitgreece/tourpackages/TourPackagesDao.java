@@ -17,7 +17,7 @@ public abstract class TourPackagesDao {
     @Query("SELECT * FROM TourPackage")
     abstract List<TourPackageDomain> getAllTourpackages();
 
-    @Query("SELECT * FROM TourPackage WHERE region=:region")
+    @Query("SELECT * FROM TourPackage WHERE  region LIKE '%' || :region || '%'")
     abstract List<TourPackageDomain>getFilteredTourpackages(String region);
 
     @Query("DELETE FROM TourPackage")
