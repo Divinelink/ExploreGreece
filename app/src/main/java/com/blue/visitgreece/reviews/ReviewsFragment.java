@@ -9,20 +9,17 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.RatingBar;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.blue.visitgreece.R;
-import com.blue.visitgreece.tourpackages.TourpackageUI;
-import com.blue.visitgreece.tours.TourUI;
+import com.blue.visitgreece.tourpackages.TourPackageUI;
 
 import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -49,15 +46,15 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
         // Required empty public constructor
     }
 
-    public static ReviewsFragment newInstance(TourpackageUI tourpackageUI) {
+    public static ReviewsFragment newInstance(TourPackageUI tourPackageUI) {
         ReviewsFragment myFragment = new ReviewsFragment();
         Bundle args = new Bundle();
-        args.putParcelable("tourpackage", tourpackageUI); //TourUI or TourPackagesUI needs to implement parceable! to get TourPackagesID for reviews in endpoint
+        args.putParcelable("tourpackage", tourPackageUI); //TourUI or TourPackagesUI needs to implement parceable! to get TourPackagesID for reviews in endpoint
         myFragment.setArguments(args);
         return myFragment;
     }
 
-    TourpackageUI tourpackageUI;
+    TourPackageUI tourPackageUI;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -65,14 +62,14 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
         View v = inflater.inflate(R.layout.fragment_reviews, container, false);
         ButterKnife.bind(this, v);
 
-        tourpackageUI = getArguments().getParcelable("tourpackage"); //otan to BUNDLE LEITOURGISEI PREPEI NA ENERGOPOIITHEI AUTO
+        tourPackageUI = getArguments().getParcelable("tourpackage"); //otan to BUNDLE LEITOURGISEI PREPEI NA ENERGOPOIITHEI AUTO
 
-        textViewReviewTitle.setText("Reviews for "+tourpackageUI.getName());
+        textViewReviewTitle.setText("Reviews for "+ tourPackageUI.getName());
 
         mReviewsRoot.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getReviews(getActivity(), tourpackageUI, true);
+                presenter.getReviews(getActivity(), tourPackageUI, true);
                 mRatingBar.setRating(0);
 
             }
@@ -92,7 +89,7 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
                 }
                 catch(NumberFormatException nfe)
                 {
-                    presenter.getReviews(getContext(),tourpackageUI, true);
+                    presenter.getReviews(getContext(), tourPackageUI, true);
                 }
 
             }
@@ -100,15 +97,12 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
 
 
         presenter = new ReviewsPresenterImp(this);
-        presenter.getReviews(getContext(), tourpackageUI, false); //false , do not refresh with swipe
+        presenter.getReviews(getContext(), tourPackageUI, true);
 
         return v;
 
     }
 
-
-
-    //why do we need UIThread here
     @Override
     public void showReviews(final ArrayList<ReviewDomain> reviews) {
         mReviewsRoot.setRefreshing(false); //for swipe refresh or else the circle loader run infinitely
@@ -121,10 +115,6 @@ public class ReviewsFragment extends Fragment implements ReviewsView {
                 reviewsRv.setAdapter(adapter);
             }
         });
-
-
-
-
     }
 
     @Override

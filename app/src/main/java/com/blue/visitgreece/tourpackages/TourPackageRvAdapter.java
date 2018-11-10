@@ -15,14 +15,14 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class TourpacakgeRvAdapter extends RecyclerView.Adapter<TourpacakgeRvAdapter.TourpackageViewHolder> {
+public class TourPackageRvAdapter extends RecyclerView.Adapter<TourPackageRvAdapter.TourpackageViewHolder> {
 
-    private ArrayList<TourpackageUI> tourpackages;
+    private ArrayList<TourPackageUI> tourpackages;
     private OnClickTourpackage listener;
     private Context context;
 
 
-    public TourpacakgeRvAdapter(ArrayList<TourpackageUI> tourpackages, OnClickTourpackage listener,Context ctx) {
+    public TourPackageRvAdapter(ArrayList<TourPackageUI> tourpackages, OnClickTourpackage listener, Context ctx) {
         this.tourpackages = tourpackages;
         this.listener     = listener;
         this.context      = ctx;
@@ -55,24 +55,23 @@ public class TourpacakgeRvAdapter extends RecyclerView.Adapter<TourpacakgeRvAdap
     @Override
     public void onBindViewHolder(@NonNull TourpackageViewHolder viewHolder, int i) {
         final int pos = i;
-        viewHolder.view_tourpackage_item.setBackgroundColor(context.getResources().getColor(tourpackages.get(pos).getRegionColor()));
+        viewHolder.name_tv.setTextColor(context.getResources().getColor(tourpackages.get(pos).getRegionColor()));
         viewHolder.name_tv.setText(tourpackages.get(pos).getName());
         viewHolder.region_tv.setText(tourpackages.get(pos).getRegion().toString());
         viewHolder.ratingBar.setRating((float) tourpackages.get(pos).getAverageReviewScore());
-        //tourPacakageViewHolder.ratingBar.setProgressBackgroundTintList(ColorStateList.valueOf(Color.parseColor(tourpackageArrayList.get(pos).getRatingColor())));
 
         viewHolder.view_tourpackage_item.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 // Listener
-                listener.onTourpackageClikced(tourpackages.get(pos));
+                listener.onTourPackageClicked(tourpackages.get(pos));
             }
         });
 
         viewHolder.ratinbar_layout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                listener.onRateChangeCllicked(tourpackages.get(pos));
+                listener.onRateChangeClicked(tourpackages.get(pos));
             }
         });
     }

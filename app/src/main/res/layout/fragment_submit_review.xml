@@ -9,7 +9,7 @@
     tools:context=".submitreviews.SubmitReviewFragment">
 
     <TextView
-        android:id="@+id/selected_region_textView"
+        android:id="@+id/selected_package_textView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="5dp"
@@ -36,9 +36,9 @@
 
         android:progressTint="@color/colorAccent"
         android:numStars="5"
-        android:stepSize="0.1"
-        android:layout_gravity="center"
-        android:isIndicator="true"/>
+        android:stepSize="1.0"
+        android:rating="0"
+        android:layout_gravity="center"/>
 
     <View style="@style/Divider"
         android:layout_marginStart="20dp"
@@ -46,6 +46,7 @@
         android:background="@color/lightGrey"/>
 
     <EditText
+        android:id="@+id/review_edit_text"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="0.8"
@@ -68,14 +69,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center|bottom"
-        android:layout_marginBottom="5dp">
+        android:gravity="center|bottom">
 
         <Button
+            android:id="@+id/cancel_review_button"
             style="@style/ReviewButtonStyle"
             android:text="@string/cancel" />
 
         <Button
+            android:id="@+id/submit_review_button"
             style="@style/ReviewButtonStyle"
             android:layout_alignParentEnd="true"
             android:text="@string/submit"/>

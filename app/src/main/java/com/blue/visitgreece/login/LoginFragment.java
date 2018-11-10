@@ -1,8 +1,12 @@
 package com.blue.visitgreece.login;
 
 
+import android.content.Context;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.app.AppCompatActivity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +34,7 @@ public class LoginFragment extends Fragment implements LoginView {
 
         final String username = mEmailEditText.getText().toString();
         final String password = mPasswordEditText.getText().toString();
-        presenter.doLogin(username, password);
+        presenter.doLogin(getActivity() , username, password);
     }
 
     LoginPresenter presenter;
@@ -50,14 +54,18 @@ public class LoginFragment extends Fragment implements LoginView {
 
 
     @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         View v = inflater.inflate(R.layout.fragment_login, container, false);
 
         ButterKnife.bind(this, v);
 
-        homeView = (HomeView)  getArguments().getSerializable("home_view");
+        homeView = (HomeView) getArguments().getSerializable("home_view");
 
         presenter = new LoginPresenterImpl(this);
 
@@ -66,9 +74,8 @@ public class LoginFragment extends Fragment implements LoginView {
 
     @Override
     public void showLoginDialog() {
-//        Toast.makeText(getActivity(), "Successfully logged in!", Toast.LENGTH_SHORT).show();
+
         homeView.addToursPackageFragment();
-        // Go to tourpackage Fragment
 
     }
 
@@ -80,7 +87,6 @@ public class LoginFragment extends Fragment implements LoginView {
     @Override
     public void showBothAreRequired() {
         Toast.makeText(getActivity(), "Enter email and password", Toast.LENGTH_SHORT).show();
-//        homeView.addToursPackageFragment();
     }
 
 

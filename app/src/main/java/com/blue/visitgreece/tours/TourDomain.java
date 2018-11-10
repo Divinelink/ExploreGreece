@@ -5,16 +5,9 @@ import android.arch.persistence.room.ForeignKey;
 import android.arch.persistence.room.PrimaryKey;
 import android.support.annotation.NonNull;
 
-import com.blue.visitgreece.tourpackages.TourpackageDomain;
+import com.blue.visitgreece.tourpackages.TourPackageDomain;
 
-@Entity(tableName = "tour",
-        foreignKeys = @ForeignKey(entity = TourpackageDomain.class,
-                parentColumns = "id",
-                childColumns = "tourpackageId",
-                onDelete = ForeignKey.CASCADE)
-)
-
-
+@Entity(tableName = "tour")
 public class TourDomain {
 
     @PrimaryKey
@@ -35,7 +28,9 @@ public class TourDomain {
         description = Description;
     }
 
-    public String getId() { return id; }
+    public String getId() {
+        return id;
+    }
 
     public void setId(String id) {
         this.id = id;
@@ -56,6 +51,7 @@ public class TourDomain {
     public void setDescription(String description) {
         this.description = description;
     }
+
     public String getTourpackageId() {
         return tourpackageId;
     }

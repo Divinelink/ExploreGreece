@@ -1,24 +1,21 @@
 package com.blue.visitgreece.tourpackages;
 
 
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.blue.visitgreece.R;
 import com.blue.visitgreece.base.HomeView;
-import com.blue.visitgreece.login.LoginFragment;
-import com.blue.visitgreece.login.LoginUI;
-import com.blue.visitgreece.tours.ToursFragment;
 
 import java.util.ArrayList;
 
@@ -27,26 +24,25 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import timber.log.Timber;
 
-public class TourspackagesFragment extends Fragment implements TourpackagesView {
+public class ToursPackagesFragment extends Fragment implements TourPackagesView {
 
     @BindView(R.id.tourspackage_Rv)
-    RecyclerView tourspackage_rv;
+    RecyclerView toursPackage_rv;
     @BindView(R.id.filter_ed)
     EditText filter_ed;
     @BindView(R.id.tourpackages_root)
-    SwipeRefreshLayout mTourpackages_root;
+    SwipeRefreshLayout mTourPackages_root;
 
-    TourpackagesPresenter presenter;
+    TourPackagesPresenter presenter;
     HomeView homeView;
 
-    public TourspackagesFragment() {
+    public ToursPackagesFragment() {
         // Required empty public constructor
     }
 
-    // Den kserw an einai swstos tropos erwtisi ston petro.
-    public static TourspackagesFragment newInstance(HomeView homeView) {
+    public static ToursPackagesFragment newInstance(HomeView homeView) {
         Bundle args = new Bundle();
-        TourspackagesFragment fragment = new TourspackagesFragment();
+        ToursPackagesFragment fragment = new ToursPackagesFragment();
 
         args.putSerializable("homeView", homeView);
 
@@ -65,7 +61,7 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView 
         // Get arguments from bundle
         homeView = (HomeView) getArguments().getSerializable("homeView");
 
-        mTourpackages_root.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+        mTourPackages_root.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
                 presenter.getTourpackages(getActivity(), true);
@@ -73,27 +69,48 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView 
         });
         // Set up Layoutmanager in Recycler View
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
-        tourspackage_rv.setLayoutManager(layoutManager);
-        presenter = new TourpackagesPresenterImpl(this);
-        presenter.getTourpackages(getActivity(), false);
+        toursPackage_rv.setLayoutManager(layoutManager);
+        presenter = new TourPackagesPresenterImpl(this);
+
+        presenter.getTourpackages(getActivity(), true);
+
+        filter_ed.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                //here is your code
+                String filteredText = filter_ed.getText().toString();
+                presenter.getFilteredTourPackages(filteredText, getContext());
+
+            }
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count,
+                                          int after) {
+                // TODO Auto-generated method stub
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+                // TODO Auto-generated method stub
+
+            }
+        });
 
         return v;
     }
 
     @Override
-    public void showTourpackages(final ArrayList<TourpackageUI> tourpackages) {
-        mTourpackages_root.setRefreshing(false);
+    public void showTourPackages(final ArrayList<TourPackageUI> tourPackages) {
+        mTourPackages_root.setRefreshing(false);
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
-                TourpacakgeRvAdapter tourpackagesRvAdapter = new TourpacakgeRvAdapter(tourpackages, new OnClickTourpackage() {
+                TourPackageRvAdapter tourPackagesRvAdapter = new TourPackageRvAdapter(tourPackages, new OnClickTourpackage() {
                     @Override
-                    public void onTourpackageClikced(TourpackageUI tourpackage) {
+                    public void onTourPackageClicked(TourPackageUI tourPackage) {
                         // Pass id to another screen
-                        homeView.addToursFragment(tourpackage);
+                        homeView.addToursFragment(tourPackage);
                     }
 
                     @Override
-                    public void onRateChangeCllicked(TourpackageUI tourpackage) {
+                    public void onRateChangeClicked(TourPackageUI tourPackage) {
                         // GO to the review submit screen
                         Timber.d("Rate Clicked");
                     }
@@ -101,7 +118,7 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView 
 
                 @Override
                 public void run() {
-                    tourspackage_rv.setAdapter(tourpackagesRvAdapter);
+                    toursPackage_rv.setAdapter(tourPackagesRvAdapter);
                 }
             });
         }
@@ -110,13 +127,8 @@ public class TourspackagesFragment extends Fragment implements TourpackagesView 
 
     @Override
     public void showGeneralError() {
-        mTourpackages_root.setRefreshing(false);
+        mTourPackages_root.setRefreshing(false);
     }
 
-    @OnClick(R.id.filter_btn)
-    public void getFilterTourPacakages(View v) {
-        String filteredText = filter_ed.getText().toString();
-        presenter.getFilteredTourPackages(filteredText, getContext());
-    }
 
 }

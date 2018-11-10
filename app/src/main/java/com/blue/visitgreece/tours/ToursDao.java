@@ -15,17 +15,16 @@ public abstract class ToursDao {
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     abstract void insertTours(ArrayList<TourDomain> tours);
 
-    @Query("SELECT * FROM tour WHERE id=:tourpackageID")
-    abstract List<TourDomain> getTourByID(String tourpackageID);
+    @Query("SELECT * FROM tour WHERE id=:tourPackageID")
+    abstract List<TourDomain> getTourByID(String tourPackageID);
 
 
-
-    @Query("DELETE FROM tour WHERE id=:tourpackageID")
-    abstract void deleteToursForTourpackageId(String tourpackageID);
+    @Query("DELETE FROM tour WHERE id=:tourPackageID")
+    abstract void deleteToursForTourpackageId(String tourPackageID);
 
     @Transaction
-    void updateToursForTourpackage(ArrayList<TourDomain> tours, String tourpackageID) {
-        deleteToursForTourpackageId(tourpackageID);
+    void updateToursForTourpackage(ArrayList<TourDomain> tours, String tourPackageID) {
+        deleteToursForTourpackageId(tourPackageID);
         insertTours(tours);
     }
     @Query("DELETE FROM tour")

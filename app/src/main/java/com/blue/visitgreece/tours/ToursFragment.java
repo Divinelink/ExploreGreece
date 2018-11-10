@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.RatingBar;
 import android.widget.TextView;
 
 import butterknife.BindView;
@@ -18,7 +19,7 @@ import timber.log.Timber;
 
 import com.blue.visitgreece.R;
 import com.blue.visitgreece.base.HomeView;
-import com.blue.visitgreece.tourpackages.TourpackageUI;
+import com.blue.visitgreece.tourpackages.TourPackageUI;
 
 import java.util.ArrayList;
 
@@ -35,7 +36,7 @@ public class ToursFragment extends Fragment implements ToursView {
             TextView mTourpackageRegion;
 
     @BindView(R.id.tourpackage_rating)
-            TextView mTourpackageRating;
+         RatingBar mTourpackageRating;
 
     @BindView(R.id.button_rev)
             Button mButtonRev;
@@ -49,14 +50,16 @@ public class ToursFragment extends Fragment implements ToursView {
     SwipeRefreshLayout toursRoot;
 
     ToursPresenter presenter;
-    TourpackageUI tourpackageUI;
+    TourPackageUI tourPackageUI;
     HomeView homeView;
 
     public ToursFragment() {
 
     }
 
-    public static ToursFragment newInstance(TourpackageUI tourpackageUI, HomeView homeView) {
+
+    public static ToursFragment newInstance(TourPackageUI tourpackageUI, HomeView homeView) {
+
         ToursFragment myFragment = new ToursFragment();
         Bundle args = new Bundle();
         args.putSerializable("home_view",homeView);
@@ -64,13 +67,11 @@ public class ToursFragment extends Fragment implements ToursView {
         myFragment.setArguments(args);
         return myFragment;
     }
-
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        tourpackageUI = getArguments().getParcelable("tourpackage");
-        Timber.e(tourpackageUI.getId()); //logging
+        tourPackageUI = getArguments().getParcelable("tourpackage");
+        Timber.e(tourPackageUI.getId()); //logging
 
         View v = inflater.inflate(R.layout.fragment_tours, container, false);
         ButterKnife.bind(this, v);
@@ -78,32 +79,34 @@ public class ToursFragment extends Fragment implements ToursView {
         toursRoot.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                presenter.getTours(getActivity(),tourpackageUI, true);
+                presenter.getTours(getActivity(), tourPackageUI, true);
             }
         });
 
 
         homeView = (HomeView) getArguments().getSerializable("home_view");
-        Timber.e(tourpackageUI.getRegion().toString());
-        mTourpackageName.setText(tourpackageUI.getName());
-        mTourpackageRegion.setText(tourpackageUI.getRegion());
-        mTourpackageRating.setText(String.valueOf(tourpackageUI.getRating()));
+
+        Timber.e(tourPackageUI.getRegion().toString());
+        mTourpackageName.setText(tourPackageUI.getName());
+        mTourpackageRegion.setText(tourPackageUI.getRegion());
+        mTourpackageRating.setRating( (float) tourPackageUI.getAverageReviewScore());
+
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
         mToursRv.setLayoutManager(layoutManager);
 
         presenter = new ToursPresenterImpl(this);
-        presenter.getTours(getActivity(),tourpackageUI, false);
+        presenter.getTours(getActivity(),tourPackageUI, false);
         return v;
     }
 
 
     @OnClick(R.id.button_rev)
-    public void OnclickReview(View v){ homeView.addSubmitReviewFragment(tourpackageUI); }
+    public void OnclickReview(View v){ homeView.addSubmitReviewFragment(tourPackageUI); }
 
     @OnClick(R.id.button_all_rev)
     public void OnclickAllReview(View v){
-        homeView.addReviewsFragment(tourpackageUI);
+        homeView.addReviewsFragment(tourPackageUI);
     }
 
     @Override

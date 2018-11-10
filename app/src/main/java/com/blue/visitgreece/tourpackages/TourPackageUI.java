@@ -24,20 +24,20 @@ enum Region {
     }
 }
 
-public class TourpackageUI implements Parcelable {
+public class TourPackageUI implements Parcelable {
     private String name,region;
     private double averageReviewScore;
     private int rating, regionColor,ratingColor;
     private String id;
 
-    public TourpackageUI(String name, String region, double averageReviewScore, String id) {
+    public TourPackageUI(String name, String region, double averageReviewScore, String id) {
         this.name = name;
         this.region = region;
         this.averageReviewScore = averageReviewScore;
         this.id = id;
     }
 
-    public TourpackageUI(String name, String region, double averageReviewScore, int rating, int regionColor, int ratingColor, String id) {
+    public TourPackageUI(String name, String region, double averageReviewScore, int rating, int regionColor, int ratingColor, String id) {
         this.name = name;
         this.region = region;
         this.averageReviewScore = averageReviewScore;
@@ -103,7 +103,7 @@ public class TourpackageUI implements Parcelable {
         this.id = id;
     }
 
-    protected TourpackageUI(Parcel in) {
+    protected TourPackageUI(Parcel in) {
         region = in.readString();
         averageReviewScore = in.readDouble();
         id = in.readString();
@@ -122,15 +122,15 @@ public class TourpackageUI implements Parcelable {
     }
 
     @SuppressWarnings("unused")
-    public static final Parcelable.Creator<TourpackageUI> CREATOR = new Parcelable.Creator<TourpackageUI>() {
+    public static final Parcelable.Creator<TourPackageUI> CREATOR = new Parcelable.Creator<TourPackageUI>() {
         @Override
-        public TourpackageUI createFromParcel(Parcel in) {
-            return new TourpackageUI(in);
+        public TourPackageUI createFromParcel(Parcel in) {
+            return new TourPackageUI(in);
         }
 
         @Override
-        public TourpackageUI[] newArray(int size) {
-            return new TourpackageUI[size];
+        public TourPackageUI[] newArray(int size) {
+            return new TourPackageUI[size];
         }
     };
 }

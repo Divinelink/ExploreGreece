@@ -8,17 +8,22 @@ import android.content.Context;
 
 import com.blue.visitgreece.reviews.ReviewDomain;
 import com.blue.visitgreece.reviews.ReviewsDao;
-import com.blue.visitgreece.tourpackages.TourpackageDomain;
-import com.blue.visitgreece.tourpackages.TourpackagesDao;
+import com.blue.visitgreece.submitreviews.SubmitReviewDomain;
+import com.blue.visitgreece.submitreviews.SubmitReviewsDao;
+import com.blue.visitgreece.tourpackages.TourPackageDomain;
+import com.blue.visitgreece.tourpackages.TourPackagesDao;
 import com.blue.visitgreece.tours.TourDomain;
 import com.blue.visitgreece.tours.ToursDao;
 
-@Database(entities = {ReviewDomain.class, TourpackageDomain.class,TourDomain.class}, version = 3, exportSchema = false)
+
+@Database(entities = {ReviewDomain.class, TourPackageDomain.class, SubmitReviewDomain.class, TourDomain.class}, version = 5, exportSchema = false)
 abstract public class VisitGreeceDatabase extends RoomDatabase {
 
     public abstract ReviewsDao reviewsDao();
-    public abstract TourpackagesDao tourpackagesDao();
     public abstract ToursDao toursDao();
+    public abstract TourPackagesDao tourpackagesDao();
+    public abstract SubmitReviewsDao submitReviewsDao();
+
 
     static private VisitGreeceDatabase INSTANCE;
 

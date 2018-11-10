@@ -15,7 +15,7 @@ import retrofit2.Callback;
 import retrofit2.Response;
 
 
-public class TourpackagesInteractorImpl implements TourpackagesInteractor {
+public class TourPackagesInteractorImpl implements TourPackagesInteractor {
 
     /**
      * Get Tourpackages from network
@@ -27,27 +27,27 @@ public class TourpackagesInteractorImpl implements TourpackagesInteractor {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                final TourpackagesDao  tourpackagesDao       = VisitGreeceDatabase.getDatabase(ctx).tourpackagesDao();
-                List<TourpackageDomain> tourpackagesFromDb   = tourpackagesDao.getAllTourpackages();
-                ArrayList<TourpackageDomain> arrayListFromDb = new ArrayList<>();
+                final TourPackagesDao tourPackagesDao = VisitGreeceDatabase.getDatabase(ctx).tourpackagesDao();
+                List<TourPackageDomain> tourpackagesFromDb   = tourPackagesDao.getAllTourpackages();
+                ArrayList<TourPackageDomain> arrayListFromDb = new ArrayList<>();
                 arrayListFromDb.addAll(tourpackagesFromDb);
 
                 if(tourpackagesFromDb.isEmpty() || refresh){
-                    Call<ArrayList<TourpackageDomain>> call = RestClient.call().fetchTourpacakges();
-                    call.enqueue(new Callback<ArrayList<TourpackageDomain>>() {
+                    Call<ArrayList<TourPackageDomain>> call = RestClient.call().fetchTourpacakges();
+                    call.enqueue(new Callback<ArrayList<TourPackageDomain>>() {
                         @Override
-                        public void onResponse(Call<ArrayList<TourpackageDomain>> call, final Response<ArrayList<TourpackageDomain>> response) {
+                        public void onResponse(Call<ArrayList<TourPackageDomain>> call, final Response<ArrayList<TourPackageDomain>> response) {
                             AsyncTask.execute(new Runnable() {
                                 @Override
                                 public void run() {
-                                    tourpackagesDao.updateTourpackages(response.body());
+                                    tourPackagesDao.updateTourpackages(response.body());
                                     listener.onSuccess(response.body());
                                 }
                             });
                         }
 
                         @Override
-                        public void onFailure(Call<ArrayList<TourpackageDomain>> call, Throwable t) {
+                        public void onFailure(Call<ArrayList<TourPackageDomain>> call, Throwable t) {
                             listener.onError();
                         }
 
@@ -69,9 +69,9 @@ public class TourpackagesInteractorImpl implements TourpackagesInteractor {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
-                final TourpackagesDao  tourpackagesDao       = VisitGreeceDatabase.getDatabase(ctx).tourpackagesDao();
-                List<TourpackageDomain> tourpackagesFromDb   = tourpackagesDao.getFilteredTourpackages(filterString);
-                ArrayList<TourpackageDomain> arrayListFromDb = new ArrayList<>();
+                final TourPackagesDao tourPackagesDao = VisitGreeceDatabase.getDatabase(ctx).tourpackagesDao();
+                List<TourPackageDomain> tourpackagesFromDb   = tourPackagesDao.getFilteredTourpackages(filterString);
+                ArrayList<TourPackageDomain> arrayListFromDb = new ArrayList<>();
                 arrayListFromDb.addAll(tourpackagesFromDb);
                 listener.onSuccess(arrayListFromDb);
             }

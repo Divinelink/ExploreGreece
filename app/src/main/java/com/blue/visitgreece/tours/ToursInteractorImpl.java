@@ -4,7 +4,7 @@ import android.content.Context;
 import android.os.AsyncTask;
 import com.blue.visitgreece.base.VisitGreeceDatabase;
 import com.blue.visitgreece.rest.RestClient;
-import com.blue.visitgreece.tourpackages.TourpackageUI;
+import com.blue.visitgreece.tourpackages.TourPackageUI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -12,14 +12,13 @@ import java.util.List;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
-import timber.log.Timber;
 
 
 public class ToursInteractorImpl implements ToursInteractor {
 
 
     @Override
-    public void getTours(final OnToursFinishListener listener, final Context ctx, final TourpackageUI tourpackageUI, final Boolean refresh) {
+    public void getTours(final OnToursFinishListener listener, final Context ctx, final TourPackageUI tourpackageUI, final Boolean refresh) {
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {

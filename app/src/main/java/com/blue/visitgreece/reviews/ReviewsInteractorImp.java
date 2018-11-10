@@ -5,9 +5,8 @@ import android.os.AsyncTask;
 
 import com.blue.visitgreece.base.VisitGreeceDatabase;
 import com.blue.visitgreece.rest.RestClient;
-import com.blue.visitgreece.tourpackages.TourpackageUI;
+import com.blue.visitgreece.tourpackages.TourPackageUI;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,25 +17,25 @@ import timber.log.Timber;
 
 public class ReviewsInteractorImp implements ReviewsInteractor {
 
-    static TourpackageUI tourpackageUI;
+    static TourPackageUI tourPackageUI;
 
     @Override
-    public void getReviews(final OnReviewsFinishListener listener, final Context ctx, final TourpackageUI tourpackageUI, final Boolean refresh) {
+    public void getReviews(final OnReviewsFinishListener listener, final Context ctx, final TourPackageUI tourPackageUI, final Boolean refresh) {
 //        ArrayList reviews = mockData();
-        this.tourpackageUI = tourpackageUI;
+        this.tourPackageUI = tourPackageUI;
 
         AsyncTask.execute(new Runnable() {
             @Override
             public void run() {
                 final ReviewsDao reviewsDao = VisitGreeceDatabase.getDatabase(ctx).reviewsDao();
 
-                List<ReviewDomain> reviewsFromDb = reviewsDao.getAllReviewsByID(tourpackageUI.getId());
+                List<ReviewDomain> reviewsFromDb = reviewsDao.getAllReviewsByID(tourPackageUI.getId());
                 ArrayList<ReviewDomain> arrayListFromDb = new ArrayList<>();
                 arrayListFromDb.addAll(reviewsFromDb);
 
 //               listener.onSuccess(arrayListFromDb); //testing for db
                 if (reviewsFromDb.isEmpty() || refresh) {
-                    Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews(tourpackageUI.getId()); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
+                    Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews(tourPackageUI.getId()); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
                     call.enqueue(new Callback<ArrayList<ReviewDomain>>() {
                         @Override
                         public void onResponse(final Call<ArrayList<ReviewDomain>> call, final Response<ArrayList<ReviewDomain>> response) {
@@ -48,7 +47,7 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
 
                                         ArrayList<ReviewDomain> reviewDomainArrayList = response.body();
                                         for (ReviewDomain r : reviewDomainArrayList) {
-                                            r.setId(tourpackageUI.getId());
+                                            r.setId(tourPackageUI.getId());
                                         }
                                         reviewsDao.updateReviews(reviewDomainArrayList);
                                         listener.onSuccess(response.body());
@@ -68,7 +67,6 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
                 } else {
                     listener.onSuccess(arrayListFromDb);
                 }//end if
-// testing for db
             }
         });
 
@@ -83,7 +81,7 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
       * */
     @Override
     public void getFilteredReviews(final OnReviewsFinishListener listener, final int intFilterRating) {
-        Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews(tourpackageUI.getId()); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
+        Call<ArrayList<ReviewDomain>> call = RestClient.call().fetchReviews(tourPackageUI.getId()); //to vazw karfwta prepei na to pernei apo to bundle apo to tours-christina
         call.enqueue(new Callback<ArrayList<ReviewDomain>>() {
 
             @Override
@@ -108,22 +106,21 @@ public class ReviewsInteractorImp implements ReviewsInteractor {
         });
     }
 
-
-    private ArrayList<ReviewDomain> mockData() {
-        ArrayList<ReviewDomain> reviews = new ArrayList<ReviewDomain>();
-        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
-        reviews.add(new ReviewDomain("asd", 6, "red", "very bad rating"));
-        reviews.add(new ReviewDomain("asd", 1, "red", "good rating"));
-        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
-        reviews.add(new ReviewDomain("asd", 2, "red", "good rating"));
-        reviews.add(new ReviewDomain("asd", 3, "blue", "bad rating"));
-        reviews.add(new ReviewDomain("asd", 5, "green", "very good rating"));
-        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
-        reviews.add(new ReviewDomain("asd", 3, "red", "bad rating"));
-        reviews.add(new ReviewDomain("asd", 5, "red", "hmm rating"));
-        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
-        reviews.add(new ReviewDomain("asd", 5, "red", "good rating"));
-        return reviews;
-    }
+//    private ArrayList<ReviewDomain> mockData() {
+//        ArrayList<ReviewDomain> reviews = new ArrayList<ReviewDomain>();
+//        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
+//        reviews.add(new ReviewDomain("asd", 6, "red", "very bad rating"));
+//        reviews.add(new ReviewDomain("asd", 1, "red", "good rating"));
+//        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
+//        reviews.add(new ReviewDomain("asd", 2, "red", "good rating"));
+//        reviews.add(new ReviewDomain("asd", 3, "blue", "bad rating"));
+//        reviews.add(new ReviewDomain("asd", 5, "green", "very good rating"));
+//        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
+//        reviews.add(new ReviewDomain("asd", 3, "red", "bad rating"));
+//        reviews.add(new ReviewDomain("asd", 5, "red", "hmm rating"));
+//        reviews.add(new ReviewDomain("asd", 5, "red", "bad rating"));
+//        reviews.add(new ReviewDomain("asd", 5, "red", "good rating"));
+//        return reviews;
+//    }
 
 }

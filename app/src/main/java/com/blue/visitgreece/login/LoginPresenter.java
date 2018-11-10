@@ -1,7 +1,9 @@
 package com.blue.visitgreece.login;
 
+import android.content.Context;
+
 public interface LoginPresenter {
 
-    void doLogin(String name, String password);
+    void doLogin(Context ctx, String name, String password);
 
 }
