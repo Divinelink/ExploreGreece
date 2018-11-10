@@ -68,7 +68,7 @@ public class TourPackagesPresenterImpl implements TourPackagesPresenter,
                 tourpackagesUI.add(tourPackageUI);
             }
         }
-        tourPackagesView.showTourpackages(tourpackagesUI);
+        tourPackagesView.showTourPackages(tourpackagesUI);
     }
 
     @Override

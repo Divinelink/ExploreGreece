@@ -74,7 +74,7 @@ public class ToursPackagesFragment extends Fragment implements TourPackagesView 
     }
 
     @Override
-    public void showTourpackages(final ArrayList<TourPackageUI> tourPackages) {
+    public void showTourPackages(final ArrayList<TourPackageUI> tourPackages) {
         mTourPackages_root.setRefreshing(false);
         if (getActivity() != null) {
             getActivity().runOnUiThread(new Runnable() {
@@ -107,7 +107,7 @@ public class ToursPackagesFragment extends Fragment implements TourPackagesView 
     }
 
     @OnClick(R.id.filter_btn)
-    public void getFilterTourPacakages(View v) {
+    public void getFilterTourPackages(View v) {
         String filteredText = filter_ed.getText().toString();
         presenter.getFilteredTourPackages(filteredText, getContext());
     }
